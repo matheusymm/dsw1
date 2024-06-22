@@ -12,13 +12,18 @@ import br.com.locacao.persistencia.entidade.Usuario;
 public class UsuarioDAO {
 	private Connection con = ConexaoFactory.getConnection();
 	public void cadastrar(Usuario usu) {
-		String sql = "insert into usuario (nome, login, senha) values (?, ?, ?)";
+		String sql = "insert into usuario (nome, CPF, login, senha, telefone, sexo, datnas) values (?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			PreparedStatement preparador  = con.prepareStatement(sql);
 			preparador.setString(1, usu.getNome());//substitui o ? pelo dado do usuario
-			preparador.setString(2, usu.getLogin());
-			preparador.setString(3, usu.getSenha());
+			preparador.setString(2, usu.getCPF());
+			preparador.setString(3, usu.getLogin());
+			preparador.setString(4, usu.getSenha());
+			preparador.setString(5, usu.getTelefone());
+			preparador.setString(6, usu.getSexo());
+			preparador.setDate(7, usu.getDatNas());
+			
 			//Executando o comando SQL no banco
 			preparador.execute();
 			//fechando o objeto preparador
@@ -29,14 +34,17 @@ public class UsuarioDAO {
 		}
 	}
 	public void alterar(Usuario usu) {
-		String sql = "update usuario set nome=?, login=? , senha=? where id=?";
+		String sql = "update usuario set nome=?, login=? , senha=?, telefone=?, sexo=?, datnas=? where CPF=?";//altera com base no cpf
 		
 		try {
 			PreparedStatement preparador  = con.prepareStatement(sql);
 			preparador.setString(1, usu.getNome());//substitui o ? pelo dado do usuario
 			preparador.setString(2, usu.getLogin());
 			preparador.setString(3, usu.getSenha());
-			preparador.setInt(4, usu.getId());
+			preparador.setString(4, usu.getTelefone());
+			preparador.setString(5, usu.getSexo());
+			preparador.setDate(6, usu.getDatNas());
+			preparador.setString(7, usu.getCPF());
 			//Executando o comando SQL no banco
 			preparador.execute();
 			//fechando o objeto preparador
@@ -47,11 +55,11 @@ public class UsuarioDAO {
 		}
 	}
 	public void excluir(Usuario usu) {
-		String sql = "delete from usuario where id=?";
+		String sql = "delete from usuario where CPF=?";
 		
 		try {
 			PreparedStatement preparador  = con.prepareStatement(sql);
-			preparador.setInt(1, usu.getId());
+			preparador.setString(1, usu.getCPF());
 			//Executando o comando SQL no banco
 			preparador.execute();
 			//fechando o objeto preparador
@@ -62,7 +70,7 @@ public class UsuarioDAO {
 		}
 	}
 	public void salvar(Usuario usuario) {
-		if(usuario.getId()>0) {
+		if(usuario.getCPF()!=null) {
 			alterar(usuario);
 		}
 		else {
@@ -76,20 +84,22 @@ public class UsuarioDAO {
 	 * 
 	 * */
 	
-	public Usuario buscarPorId(Integer id) {
-		String sql = "Select * from usuario where id=?";
+	public Usuario buscarPorCPF(String CPF) {
+		String sql = "Select * from usuario where CPF=?";
 		
 		try (PreparedStatement preparador = con.prepareStatement(sql)){
-			preparador.setInt(1, id);
+			preparador.setString(1, CPF);
 			
 			ResultSet resultado = preparador.executeQuery();//o executeQuery() retorna um resultSet
 			if(resultado.next()==true) {
 				Usuario usuario = new Usuario();
-				usuario.setId(resultado.getInt("id"));
 				usuario.setNome(resultado.getString("nome"));
 				usuario.setLogin(resultado.getString("login"));
 				usuario.setSenha(resultado.getString("senha"));
-			
+				usuario.setCPF(resultado.getString("CPF"));
+				usuario.setSexo(resultado.getString("sexo"));
+				usuario.setTelefone(resultado.getString("telefone"));
+				usuario.setDatNas(resultado.getDate("datnas"));
 				return usuario;
 			}
 		}catch(SQLException e) {
@@ -111,10 +121,13 @@ public class UsuarioDAO {
 			ResultSet resultado = preparador.executeQuery();//o executeQuery() retorna um resultSet
 			while(resultado.next()==true) {
 				Usuario usuario = new Usuario();
-				usuario.setId(resultado.getInt("id"));
 				usuario.setNome(resultado.getString("nome"));
 				usuario.setLogin(resultado.getString("login"));
 				usuario.setSenha(resultado.getString("senha"));
+				usuario.setCPF(resultado.getString("CPF"));
+				usuario.setSexo(resultado.getString("sexo"));
+				usuario.setTelefone(resultado.getString("telefone"));
+				usuario.setDatNas(resultado.getDate("datnas"));
 			
 				lista.add(usuario);
 			}

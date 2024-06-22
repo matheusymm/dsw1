@@ -1,17 +1,23 @@
 package br.com.locacao.persistencia.entidade;
 
+import java.sql.Date;
+
 public class Usuario {
-	private int id;
 	private String nome;
 	private String login;
 	private String senha;
+	private String CPF;
+	private String telefone;
+	private String sexo;
+	private Date datNas;
+
+	public Usuario() {
+		/*this.nome = nome;
+		this.CPF = CPF;
+		this.login = login;
+		this.senha = senha;*/
+	}
 	
-	public void setId(int id) {
-		this.id = id;
-	}
-	public int getId() {
-		return id;
-	}
 	public String getNome() {
 		return nome;
 	}
@@ -31,9 +37,40 @@ public class Usuario {
 		this.senha = senha;
 	}
 	
+	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", nome=" + nome + ", login=" + login
-		+", senha=" + senha	+ "]";	
+	    return "Usuario [nome=" + nome + ", login=" + login + ", senha=" + senha + ", CPF=" + CPF
+	            + ", telefone=" + telefone + ", sexo=" + sexo + ", datNas=" + datNas + "]";
+	}
+	public String getCPF() {
+		return CPF;
+	}
+
+	public void setCPF(String cPF) {
+		CPF = cPF;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+	public Date getDatNas() {
+		return datNas;
+	}
+
+	public void setDatNas(Date datNas) {
+		this.datNas = datNas;
 	}
 	
 }
