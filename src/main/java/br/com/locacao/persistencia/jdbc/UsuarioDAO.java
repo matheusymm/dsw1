@@ -73,9 +73,9 @@ public class UsuarioDAO {
 		if(usuario.getCPF()!=null) {
 			alterar(usuario);
 		}
-		else {
+		
 			cadastrar(usuario);
-		}
+		
 	}
 	/*
 	 * Buscar de um registro de banco de dados pelo id do usuario
