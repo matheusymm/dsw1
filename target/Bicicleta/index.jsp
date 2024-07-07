@@ -7,6 +7,10 @@ isELIgnored="false"%>
     <title>Sistema de Locação de Bicicletas</title>
   </head>
   <body>
-    <a href="clientes">CRUD Clientes</a>
+    <div style="align-items: center; justify-content: center">
+      <a href="clientes">CRUD Clientes</a>
+      <a href="locadoras">CRUD Locadoras</a>
+      <a href="locacoes">CRUD Locacoes</a>
+    </div>
   </body>
 </html>
