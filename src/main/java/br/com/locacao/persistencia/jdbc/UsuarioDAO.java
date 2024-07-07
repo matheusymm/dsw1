@@ -153,7 +153,7 @@ public class UsuarioDAO {
 			usuario.setCPF(resultado.getString("CPF"));
 			usuario.setSexo(resultado.getString("sexo"));
 			usuario.setTelefone(resultado.getString("telefone"));
-			usuario.setDatNas(resultado.getDate("datnas"));
+			//usuario.setDatNas(resultado.getDate("datnas"));
 			return usuario;
 			}
 			
