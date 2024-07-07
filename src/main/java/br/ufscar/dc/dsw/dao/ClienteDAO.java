@@ -1,0 +1,148 @@
+package br.ufscar.dc.dsw.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+import br.ufscar.dc.dsw.domain.Cliente;
+
+public class ClienteDAO extends GenericDAO {
+    public void insert(Cliente cliente) {
+        String sql = "INSERT INTO Cliente (email, senha, cpf, nome, telefone, sexo, data_nascimento, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            
+            statement = conn.prepareStatement(sql);
+            statement.setString(1, cliente.getEmail());
+            statement.setString(2, cliente.getSenha());
+            statement.setString(3, cliente.getNome());
+            statement.setString(4, cliente.getCpf());
+            statement.setString(5, cliente.getTelefone());
+            statement.setString(6, cliente.getSexo());
+            statement.setDate(7, cliente.getDataNascimento());
+            statement.setString(8, cliente.getTipo());
+            statement.executeUpdate();
+           
+            statement.close();
+            conn.close();
+        } catch(SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Cliente> getAll() {
+        List<Cliente> listaClientes = new ArrayList<>();
+        String sql = "SELECT * FROM Cliente";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while(resultSet.next()) {
+                Long id = resultSet.getLong("id");
+                String email = resultSet.getString("email");
+                String senha = resultSet.getString("senha");
+                String cpf = resultSet.getString("cpf");
+                String nome = resultSet.getString("nome");
+                String telefone = resultSet.getString("telefone");
+                String sexo = resultSet.getString("sexo");
+                Date dataNascimento = resultSet.getDate("data_nascimento");
+                String tipo = resultSet.getString("tipo");
+
+                Cliente cliente = new Cliente(id, email, senha, cpf, nome, telefone, sexo, dataNascimento, tipo);
+                listaClientes.add(cliente);
+            }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch(SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return listaClientes;
+    }
+
+    public void delete(Cliente cliente) {
+        String sql = "DELETE FROM Cliente WHERE id = ?";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setLong(1, cliente.getID());
+            statement.executeUpdate();
+            
+            statement.close();
+            conn.close();
+        } catch(SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void update(Cliente cliente) {
+        String sql = "UPDATE Cliente SET email = ?, senha = ?, cpf = ?, nome = ?, telefone = ?, sexo = ?, data_nascimento = ?, tipo = ? WHERE id = ?";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, cliente.getEmail());
+            statement.setString(2, cliente.getSenha());
+            statement.setString(3, cliente.getCpf());
+            statement.setString(4, cliente.getNome());
+            statement.setString(5, cliente.getTelefone());
+            statement.setString(6, cliente.getSexo());
+            statement.setDate(7, cliente.getDataNascimento());
+            statement.setString(8, cliente.getTipo());
+            statement.setLong(9, cliente.getID());
+            statement.executeUpdate();
+            
+            statement.close();
+            conn.close();
+        } catch(SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Cliente get(Long id) {
+        Cliente cliente = null;
+        String sql = "SELECT * FROM Cliente WHERE id = ?";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+
+            if(resultSet.next()) {
+                String email = resultSet.getString("email");
+                String senha = resultSet.getString("senha");
+                String cpf = resultSet.getString("cpf");
+                String nome = resultSet.getString("nome");
+                String telefone = resultSet.getString("telefone");
+                String sexo = resultSet.getString("sexo");
+                Date dataNascimento = resultSet.getDate("data_nascimento");
+                String tipo = resultSet.getString("tipo");
+
+                cliente = new Cliente(id, email, senha, cpf, nome, telefone, sexo, dataNascimento, tipo);
+            }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch(SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return cliente;
+    }
+}
