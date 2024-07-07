@@ -1,4 +1,4 @@
--- Drop the database if it exists
+-- Drop the database if Bicicleta exists
 DROP DATABASE IF EXISTS Bicicleta;
 
 -- Create the database
@@ -20,7 +20,7 @@ CREATE TABLE Cliente (
     nome VARCHAR(255) NOT NULL,
     telefone VARCHAR(20) NOT NULL,
     sexo CHAR(15) NOT NULL,
-    data_nascimento DATE NOT NULL,
+    dataNascimento DATE NOT NULL,
     tipo VARCHAR(10) NOT NULL
 );
 
@@ -36,18 +36,24 @@ CREATE TABLE Locadora (
 
 CREATE TABLE Locacao (
     id INTEGER NOT NULL PRIMARY KEY DEFAULT NEXTVAL('Locacao_id_seq'),
-    cpf_cliente VARCHAR(15) NOT NULL UNIQUE,
-    cnpj_locadora VARCHAR(18) NOT NULL UNIQUE,
-    data_locacao DATE NOT NULL,
-    FOREIGN KEY (cpf_cliente) REFERENCES Cliente(cpf),
-    FOREIGN KEY (cnpj_locadora) REFERENCES Locadora(cnpj)
+    cpfCliente VARCHAR(15) NOT NULL,
+    cnpjLocadora VARCHAR(18) NOT NULL,
+    dataLocacao DATE NOT NULL,
+    FOREIGN KEY (cpfCliente) REFERENCES Cliente(cpf),
+    FOREIGN KEY (cnpjLocadora) REFERENCES Locadora(cnpj)
 );
 
 -- Insert data into Cliente
-INSERT INTO Cliente(email, senha, cpf, nome, telefone, sexo, data_nascimento, tipo) VALUES ('user@ufscar.br', 'user', '123.456.789-01', 'User', '(12)34567-8901', 'M', '2024-01-01', 'user');
+INSERT INTO Cliente(email, senha, cpf, nome, telefone, sexo, dataNascimento, tipo) VALUES 
+('user1@ufscar.br', 'user1', '123.456.789-01', 'User1', '(12)34567-8901', 'Masculino', '2024-01-01', 'user'),
+('user2@ufscar.br', 'user2', '123.456.789-02', 'User2', '(12)34567-8902', 'Feminino', '2024-01-01', 'admin');
 
 -- Insert data into Locadora
-INSERT INTO Locadora(email, senha, cnpj, nome, cidade) VALUES ('Lugar', 'lugar', '12.345.678/9012-34', 'lugar', 'São Carlos');
+INSERT INTO Locadora(email, senha, cnpj, nome, cidade) VALUES 
+('Lugar1', 'lugar1', '12.345.678/9012-34', 'lugar1', 'São Carlos'),
+('Lugar2', 'lugar2', '12.345.678/9012-35', 'lugar2', 'São Carlos');
 
 -- Insert data into Locacao
-INSERT INTO Locacao(cpf_cliente, cnpj_locadora, data_locacao) VALUES ('123.456.789-01', '12.345.678/9012-34', '2024-07-01');
+INSERT INTO Locacao(cpfCliente, cnpjLocadora, dataLocacao) VALUES 
+('123.456.789-01', '12.345.678/9012-34', '2024-07-01'),
+('123.456.789-01', '12.345.678/9012-35', '2024-07-02');

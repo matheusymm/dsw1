@@ -1,19 +1,20 @@
 package br.ufscar.dc.dsw.controller;
 
-import br.ufscar.dc.dsw.dao.ClienteDAO;
-import br.ufscar.dc.dsw.domain.Cliente;
-
 import java.io.IOException;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.sql.Date;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import br.ufscar.dc.dsw.dao.ClienteDAO;
+import br.ufscar.dc.dsw.domain.Cliente;
 
 @WebServlet(urlPatterns = "/clientes/*")
 public class ClienteController extends HttpServlet{
@@ -31,7 +32,9 @@ public class ClienteController extends HttpServlet{
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
+                
         String action = request.getPathInfo();
         if (action == null) {
             action = "";
@@ -63,7 +66,8 @@ public class ClienteController extends HttpServlet{
         }
     }
 
-    private void lista(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void lista(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         List<Cliente> listaClientes = dao.getAll();
         request.setAttribute("listaClientes", listaClientes);
         request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
@@ -71,64 +75,77 @@ public class ClienteController extends HttpServlet{
         dispatcher.forward(request, response);
     }
 
-    private Map<Long, String> getLocacoes() {
-        Map<Long, String> locacoes = new HashMap<>();
-        // for(Locacao locacao: new LocacaoDAO().getAll()) {
-        //     locacoes.put(locacao.getId(), locacao.getCliente().getNome());
+    private Map<Long, String> getLocacao() {
+        Map <Long,String> locacao = new HashMap<>();
+        // for (Locacao locacao: new LocacaoDAO().getAll()) {
+        //     locacao.put(locacao.getId(), locacao.getNome());
         // }
-        return locacoes;
+        return locacao;
     }
-
-    private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("locacoes", getLocacoes());
-        // request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
+    
+    private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/formulario.jsp");
         dispatcher.forward(request, response);
     }
 
-    private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
-        Cliente cliente = dao.get(id);
+        Cliente cliente = dao.getId(id);
         request.setAttribute("cliente", cliente);
-        request.setAttribute("locacoes", getLocacoes());
-        // request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
+        request.setAttribute("Locacao", getLocacao());
         RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/formulario.jsp");
         dispatcher.forward(request, response);
     }
 
-    private void insere(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void insere(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String nome = request.getParameter("nome");
+        
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
+        String nome = request.getParameter("nome");
         String cpf = request.getParameter("cpf");
         String telefone = request.getParameter("telefone");
         String sexo = request.getParameter("sexo");
         Date dataNascimento = Date.valueOf(request.getParameter("dataNascimento"));
-        String papel = request.getParameter("papel");
-        Cliente cliente = new Cliente(nome, email, senha, cpf, telefone, sexo, dataNascimento, papel);
+        String tipo = request.getParameter("tipo");
+        
+        // Long locacaoID = Long.parseLong(request.getParameter("locacao"));
+        // Locacao locacao = new locacaoDAO().get(locacaoID);
+        
+        Cliente cliente = new Cliente(email, senha, nome, cpf, telefone, sexo, dataNascimento, tipo);
         dao.insert(cliente);
         response.sendRedirect("lista");
     }
 
-    private void atualize(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void atualize(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         request.setCharacterEncoding("UTF-8");
         Long id = Long.parseLong(request.getParameter("id"));
-        String nome = request.getParameter("nome");
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
+        String nome = request.getParameter("nome");
         String cpf = request.getParameter("cpf");
         String telefone = request.getParameter("telefone");
         String sexo = request.getParameter("sexo");
         Date dataNascimento = Date.valueOf(request.getParameter("dataNascimento"));
-        String papel = request.getParameter("papel");
-        Cliente cliente = new Cliente(id, nome, email, senha, cpf, telefone, sexo, dataNascimento, papel);
+        String tipo = request.getParameter("tipo");
+        
+        // Long locacaoID = Long.parseLong(request.getParameter("Locacao"));
+        // Locacao locacao = new LocacaoDAO().get(locacaoID);
+        
+        Cliente cliente = new Cliente(id, email, senha, nome, cpf, telefone, sexo, dataNascimento, tipo);
         dao.update(cliente);
         response.sendRedirect("lista");
     }
 
-    private void remove(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void remove(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
         Long id = Long.parseLong(request.getParameter("id"));
+
         Cliente cliente = new Cliente(id);
         dao.delete(cliente);
         response.sendRedirect("lista");

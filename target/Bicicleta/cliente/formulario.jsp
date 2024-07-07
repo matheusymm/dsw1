@@ -3,7 +3,7 @@ pageEncoding="UTF-8"%> <%@ page isELIgnored="false"%> <%@ taglib
 uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
   <head>
-    <title>Sistema de Locacao de Bicicletas</title>
+    <title>Cliente Virtual</title>
   </head>
 
   <body>

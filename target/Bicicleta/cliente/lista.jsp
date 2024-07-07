@@ -3,7 +3,7 @@ pageEncoding="UTF-8"%> <%@ page isELIgnored="false"%> <%@ taglib
 uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
   <head>
-    Sistema de Locacao de Bicicletas
+    <title>Cliente Virtual</title>
   </head>
   <body>
     <div align="center">
@@ -12,10 +12,11 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         <a href="/${requestScope.contextPath}">Menu Principal</a>
         &nbsp;&nbsp;&nbsp;
         <a href="/${requestScope.contextPath}/clientes/cadastro"
-          >Cadastrar Cliente</a
+          >Adicione Novo Cliente</a
         >
       </h2>
     </div>
+
     <div align="center">
       <table border="1">
         <caption>
@@ -23,33 +24,39 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         </caption>
         <tr>
           <th>ID</th>
+          <th>E-mail</th>
+          <th>Senha</th>
           <th>Nome</th>
           <th>CPF</th>
           <th>Telefone</th>
-          <th>Email</th>
+          <th>Sexo</th>
           <th>Data de Nascimento</th>
-          <th>Editar</th>
-          <th>Excluir</th>
+          <th>Tipo</th>
+          <th>Acao</th>
         </tr>
-        <c:forEach items="${requestScope.clientes}" var="cliente">
+        <c:forEach var="cliente" items="${requestScope.listaClientes}">
           <tr>
             <td>${cliente.id}</td>
+            <td>${cliente.email}</td>
+            <td>${cliente.senha}</td>
             <td>${cliente.nome}</td>
             <td>${cliente.cpf}</td>
             <td>${cliente.telefone}</td>
-            <td>${cliente.email}</td>
-            <td>${cliente.data_nascimento}</td>
+            <td>${cliente.sexo}</td>
+            <td>${cliente.dataNascimento}</td>
+            <td>${cliente.tipo}</td>
             <td>
               <a
-                href="/${requestScope.contextPath}/clientes/editar/${cliente.id}"
-                >Editar</a
+                href="/${requestScope.contextPath}/clientes/edicao?id=${cliente.id}"
+                >Edição</a
               >
-            </td>
-            <td>
+              &nbsp;&nbsp;&nbsp;&nbsp;
               <a
-                href="/${requestScope.contextPath}/clientes/excluir/${cliente.id}"
-                >Excluir</a
+                href="/${requestScope.contextPath}/clientes/remocao?id=${cliente.id}"
+                onclick="return confirm('Tem certeza de que deseja excluir este item?');"
               >
+                Remoção
+              </a>
             </td>
           </tr>
         </c:forEach>

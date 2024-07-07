@@ -3,102 +3,102 @@ package br.ufscar.dc.dsw.domain;
 import java.sql.Date;
 
 public class Cliente {
-    private Long id;    
+    private Long id;
     private String email;
     private String senha;
-    private String cpf;
     private String nome;
+    private String cpf;
     private String telefone;
     private String sexo;
-    private Date data_nascimento;
+    private Date dataNascimento;
     private String tipo;
 
     public Cliente(Long id) {
         this.id = id;
     }
 
-    public Cliente(String email, String senha, String cpf, String nome, String telefone, String sexo, Date data_nascimento, String tipo) {
+    public Cliente(String email, String senha, String nome, String cpf, String telefone, String sexo, Date dataNascimento, String tipo) {
         this.email = email;
         this.senha = senha;
-        this.cpf = cpf;
         this.nome = nome;
+        this.cpf = cpf;
         this.telefone = telefone;
         this.sexo = sexo;
-        this.data_nascimento = data_nascimento;
+        this.dataNascimento = dataNascimento;
         this.tipo = tipo;
     }
 
-    public Cliente(Long id, String email, String senha, String cpf, String nome, String telefone, String sexo, Date data_nascimento, String tipo) {
-        this(email, senha, cpf, nome, telefone, sexo, data_nascimento, tipo);
+    public Cliente(Long id, String email, String senha, String nome, String cpf, String telefone, String sexo, Date dataNascimento, String tipo) {
+        this(email, senha, nome, cpf, telefone, sexo, dataNascimento, tipo);
         this.id = id;
     }
 
-    public Long getID() {
+    public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmail() {
         return email;
-    }
-    
-    public String getSenha() {
-        return senha;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public String getSexo() {
-        return sexo.toString();
-    }
-
-    public Date getDataNascimento() {
-        return data_nascimento;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setID(Long id) {
-        this.id = id;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
+    public String getSenha() {
+        return senha;
+    }
+
     public void setSenha(String senha) {
         this.senha = senha;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public String getNome() {
+        return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getSexo() {
+        return sexo;
     }
 
     public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 
-    public void setDataNascimento(Date data_nascimento) {
-        this.data_nascimento = data_nascimento;
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public String getTipo() {
+        return tipo;
     }
 
     public void setTipo(String tipo) {

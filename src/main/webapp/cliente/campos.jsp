@@ -13,6 +13,32 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     <input type="hidden" name="id" value="${cliente.id}" />
   </c:if>
   <tr>
+    <td><label for="email">E-mail</label></td>
+    <td>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        size="45"
+        required
+        value="${cliente.email}"
+      />
+    </td>
+  </tr>
+  <tr>
+    <td><label for="senha">Senha</label></td>
+    <td>
+      <input
+        type="text"
+        id="senha"
+        name="senha"
+        size="45"
+        required
+        value="${cliente.senha}"
+      />
+    </td>
+  </tr>
+  <tr>
     <td><label for="nome">Nome</label></td>
     <td>
       <input
@@ -52,28 +78,41 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     </td>
   </tr>
   <tr>
-    <td><label for="email">email</label></td>
+    <td><label for="sexo">Sexo</label></td>
     <td>
       <input
-        type="email"
-        id="email"
-        name="email"
+        type="text"
+        id="sexo"
+        name="sexo"
         size="45"
         required
-        value="${cliente.email}"
+        value="${cliente.sexo}"
       />
     </td>
   </tr>
   <tr>
-    <td><label for="data_nascimento">Data de Nascimento</label></td>
+    <td><label for="dataNascimento">Data de Nascimento</label></td>
     <td>
       <input
         type="date"
-        id="data_nascimento"
-        name="data_nascimento"
+        id="dataNascimento"
+        name="dataNascimento"
         size="45"
         required
-        value="${cliente.data_nascimento}"
+        value="${cliente.dataNascimento}"
+      />
+    </td>
+  </tr>
+  <tr>
+    <td><label for="tipo">Tipo</label></td>
+    <td>
+      <input
+        type="text"
+        id="tipo"
+        name="tipo"
+        size="45"
+        required
+        value="${cliente.tipo}"
       />
     </td>
   </tr>
