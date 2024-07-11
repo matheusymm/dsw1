@@ -49,7 +49,7 @@ public class UsuarioController extends HttpServlet {
 			
 			req.setAttribute("lista", lista);
 			
-			RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/listausu.jsp");//constroi uma instacia do objeto requestDispartcher para realizaar forager
+			RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/adm/listausu.jsp");//constroi uma instacia do objeto requestDispartcher para realizaar forager
 			dispatcher.forward(req, resp);
 		
 		}else if(acao.equals("alt")){
@@ -58,7 +58,7 @@ public class UsuarioController extends HttpServlet {
 			Usuario usuario = usuarioDAO.buscarPorCPF(cpf);
 			req.setAttribute("usu", usuario);
 			
-			RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/formusuario.jsp");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/adm/formusuario.jsp");
 			dispatcher.forward(req, resp);
 		
 		}else if(acao.equals("cad")) {
@@ -72,7 +72,7 @@ public class UsuarioController extends HttpServlet {
 			usuario.setTelefone("");
 			
 			req.setAttribute("usu", usuario);
-			RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/formusuario.jsp");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/adm/formusuario.jsp");
 			dispatcher.forward(req, resp);
 			
 		}
@@ -103,6 +103,8 @@ public class UsuarioController extends HttpServlet {
 		usuarioDAO.salvar(usu);
 		
 		resp.getWriter().print("<b>será?!<b>");
+		
+		
 		resp.sendRedirect("usucontroller.do?acao=lis");
 		
 	}

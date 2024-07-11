@@ -10,6 +10,15 @@ public class Usuario {
 	private String telefone;
 	private String sexo;
 	private Date datNas;
+	private String role;
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 
 	public Usuario() {
 		/*this.nome = nome;
@@ -72,5 +81,6 @@ public class Usuario {
 	public void setDatNas(Date datNas) {
 		this.datNas = datNas;
 	}
+
 	
 }

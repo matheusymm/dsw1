@@ -12,7 +12,7 @@ import br.com.locacao.persistencia.entidade.Usuario;
 public class UsuarioDAO {
 	private Connection con = ConexaoFactory.getConnection();
 	public void cadastrar(Usuario usu) {
-		String sql = "insert into usuario (nome, CPF, login, senha, telefone, sexo, datnas) values (?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into usuario (nome, CPF, login, senha, telefone, sexo, datnas, role) values (?, ?, ?, ?, ?, ?, ?, 'usu')";
 		
 		try {
 			PreparedStatement preparador  = con.prepareStatement(sql);
@@ -153,6 +153,7 @@ public class UsuarioDAO {
 			usuario.setCPF(resultado.getString("CPF"));
 			usuario.setSexo(resultado.getString("sexo"));
 			usuario.setTelefone(resultado.getString("telefone"));
+			usuario.setRole(resultado.getString("role"));
 			//usuario.setDatNas(resultado.getDate("datnas"));
 			return usuario;
 			}
