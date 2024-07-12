@@ -12,30 +12,18 @@ import javax.servlet.http.HttpSession;
 import br.com.locacao.persistencia.entidade.Usuario;
 import br.com.locacao.persistencia.jdbc.UsuarioDAO;
 
-@WebServlet(name = "autenticador.do", urlPatterns={"/IndexADM/*", "/logout/*"})
-public class AutenticadorController extends HttpServlet {
+@WebServlet(name = "autenticadorIntermediario.do", urlPatterns={"/redirecionamento/*"})
+public class AutenticadorIntermediario extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 		throws ServletException, IOException {
-		System.out.println("chamou a verificação pelo get adm!");
-		HttpSession sessao = req.getSession();
-		Usuario usu = (Usuario)req.getSession().getAttribute("usuAutenticado");
-		/*if(usu == null || usu.getRole().equals("usu")) {
-			sessao = req.getSession(false);
-			sessao.invalidate();
-			resp.sendRedirect("Entrada.html");
-		}
-		else{*/
-			sessao = req.getSession(false);
-			if(sessao!=null)
-				sessao.invalidate();
-			resp.sendRedirect("Entrada.html");
-		/*}HttpSession sessao = req.getSession(false);
+
+		HttpSession sessao = req.getSession(false);
 		
 		if(sessao != null) {
 			sessao.invalidate();
 		}
-		*/
-		//resp.sendRedirect("Entrada.html");
+		
+		resp.sendRedirect("Entrada.html");
 	}
 	
 	
@@ -51,15 +39,28 @@ public class AutenticadorController extends HttpServlet {
 		
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		Usuario usuAutenticado = usuarioDAO.autenticar(usuario);
+		
 		if(usuAutenticado!=null && usuAutenticado.getRole().equals("adm")) {
 			HttpSession sessao = req.getSession(true);
 			sessao.setAttribute("usuAutenticado", usuAutenticado);
 			Usuario usu = (Usuario)req.getSession().getAttribute("usuAutenticado");
 			System.out.println(usu.getRole());
 			sessao.setMaxInactiveInterval(60*5);
-			
-			req.getRequestDispatcher("WEB-INF/adm/index.jsp").forward(req, resp);;
-		}else{
+
+			req.getRequestDispatcher("IndexADM").forward(req, resp);
+			//req.getRequestDispatcher("WEB-INF/adm/index.jsp").forward(req, resp);
+		}
+		else if(usuAutenticado!=null && usuAutenticado.getRole().equals("usu")) {
+			HttpSession sessao = req.getSession(true);
+			sessao.setAttribute("usuAutenticado", usuAutenticado);
+			Usuario usu = (Usuario)req.getSession().getAttribute("usuAutenticado");
+			System.out.println(usu.getRole());
+			sessao.setMaxInactiveInterval(60*5);
+			//MUDAR ISSO AQUI DPS
+			//resp.getWriter().print("<script> window.alert('Usuário não administrador!'); location.href='Entrada.html';</script>");
+			req.getRequestDispatcher("IndexUsu").forward(req, resp);
+		}
+		else{
 			resp.getWriter().print("<script> window.alert('Não encontrado!'); location.href='Entrada.html';</script>");
 		}
 		

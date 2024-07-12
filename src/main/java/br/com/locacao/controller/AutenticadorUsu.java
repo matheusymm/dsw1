@@ -12,24 +12,25 @@ import javax.servlet.http.HttpSession;
 import br.com.locacao.persistencia.entidade.Usuario;
 import br.com.locacao.persistencia.jdbc.UsuarioDAO;
 
-@WebServlet(name = "autenticador.do", urlPatterns={"/IndexADM/*", "/logout/*"})
-public class AutenticadorController extends HttpServlet {
+@WebServlet(name = "autenticadorUsu.do", urlPatterns={"/IndexUsu/*", "/logoutUsu/*"})
+public class AutenticadorUsu extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 		throws ServletException, IOException {
-		System.out.println("chamou a verificação pelo get adm!");
+		System.out.println("chamou a verificação pelo get Usu!");
 		HttpSession sessao = req.getSession();
 		Usuario usu = (Usuario)req.getSession().getAttribute("usuAutenticado");
-		/*if(usu == null || usu.getRole().equals("usu")) {
+		if(usu == null || usu.getRole().equals("adm")) {
+			System.out.println("adm tentando mecher na area de usuario!");
 			sessao = req.getSession(false);
 			sessao.invalidate();
 			resp.sendRedirect("Entrada.html");
 		}
-		else{*/
+		else{
 			sessao = req.getSession(false);
 			if(sessao!=null)
 				sessao.invalidate();
 			resp.sendRedirect("Entrada.html");
-		/*}HttpSession sessao = req.getSession(false);
+		}/*HttpSession sessao = req.getSession(false);
 		
 		if(sessao != null) {
 			sessao.invalidate();
@@ -51,14 +52,14 @@ public class AutenticadorController extends HttpServlet {
 		
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		Usuario usuAutenticado = usuarioDAO.autenticar(usuario);
-		if(usuAutenticado!=null && usuAutenticado.getRole().equals("adm")) {
+		if(usuAutenticado!=null && usuAutenticado.getRole().equals("usu")) {
 			HttpSession sessao = req.getSession(true);
 			sessao.setAttribute("usuAutenticado", usuAutenticado);
 			Usuario usu = (Usuario)req.getSession().getAttribute("usuAutenticado");
 			System.out.println(usu.getRole());
 			sessao.setMaxInactiveInterval(60*5);
 			
-			req.getRequestDispatcher("WEB-INF/adm/index.jsp").forward(req, resp);;
+			req.getRequestDispatcher("WEB-INF/usu/index.jsp").forward(req, resp);;
 		}else{
 			resp.getWriter().print("<script> window.alert('Não encontrado!'); location.href='Entrada.html';</script>");
 		}

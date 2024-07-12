@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.locacao.persistencia.entidade.Usuario;
 import br.com.locacao.persistencia.jdbc.UsuarioDAO;
-//http://localhost:8080/fabricaweb/usucontroller.do
-@WebServlet("/usucontroller.do")
+//http://localhost:8080/fabricaweb/CRUD
+@WebServlet(name = "usucontroler.do", urlPatterns={"/CRUD/*"})
 public class UsuarioController extends HttpServlet {
 	public UsuarioController() {
 		System.out.println("Construtor..");
@@ -41,7 +41,7 @@ public class UsuarioController extends HttpServlet {
 		
 			resp.getWriter().print("<b>Excluído com sucesso!<b>");
 			System.out.println("Excluído com sucesso");
-			resp.sendRedirect("usucontroller.do?acao=lis");
+			resp.sendRedirect("CRUD?acao=lis");
 			
 		}else if(acao.equals("lis")) {
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -105,7 +105,7 @@ public class UsuarioController extends HttpServlet {
 		resp.getWriter().print("<b>será?!<b>");
 		
 		
-		resp.sendRedirect("usucontroller.do?acao=lis");
+		resp.sendRedirect("CRUD?acao=lis");
 		
 	}
 	

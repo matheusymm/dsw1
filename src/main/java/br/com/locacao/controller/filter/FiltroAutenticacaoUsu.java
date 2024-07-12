@@ -17,8 +17,8 @@ import javax.servlet.http.HttpSession;
 import br.com.locacao.persistencia.entidade.Usuario;
 
 //talvez colocar "adm" na frente do nove de cada servlet para bloquear
-@WebFilter(dispatcherTypes= {DispatcherType.REQUEST}, urlPatterns={"/CRUD/*", "/IndexADM/*"}) //está filtrando tudo desde o inicio "/*" marca a raiz do projeto
-public class FiltroAutenticacao implements Filter{
+@WebFilter(dispatcherTypes= {DispatcherType.REQUEST}, urlPatterns={ "/IndexUsu/*"}) //está filtrando tudo desde o inicio "/*" marca a raiz do projeto
+public class FiltroAutenticacaoUsu implements Filter{
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -34,7 +34,6 @@ public class FiltroAutenticacao implements Filter{
 		
 		String uri = httpRequest.getRequestURI();
 		HttpSession sessao = httpRequest.getSession(false);
-		String RoleSession = "adm";
 		
 		boolean naoLogado = true;
 		if(httpRequest.getSession().getAttribute("usuAutenticado") == null) {
@@ -43,12 +42,10 @@ public class FiltroAutenticacao implements Filter{
 		}
 		else {
 			naoLogado = false;
-			Usuario usu = (Usuario)httpRequest.getSession().getAttribute("usuAutenticado");
-			RoleSession = usu.getRole();
 		}
-	
+			
 		//bloqueia o acesso a outras áreas da navegação
-		if ((sessao!=null)&&(naoLogado==false)&&(RoleSession.equals("adm")) || uri.lastIndexOf("Entrada.html")!=-1||uri.indexOf("/fabricaweb/IndexADM")!=-1) {
+		if(((sessao!=null)&&(naoLogado==false)) || uri.lastIndexOf("Entrada.html")!=-1||uri.indexOf("/fabricaweb/IndexUsu")!=-1) {
 			chain.doFilter(request, response);
 		}else {
 			System.out.println(uri);
@@ -62,4 +59,5 @@ public class FiltroAutenticacao implements Filter{
 	}
 
 }
+
 

@@ -42,7 +42,7 @@
     <%
         Usuario u = (Usuario) request.getAttribute("usu");
     %>
-    <form action="usucontroller.do" method="post">
+    <form action="CRUD" method="post">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" value="<%= u.getNome() %>" />
 

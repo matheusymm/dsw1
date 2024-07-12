@@ -37,7 +37,7 @@
     <script type="text/javascript">
         function confirmaExclusao(cpf) {
             if (window.confirm('Tem certeza que deseja excluir?')) {
-                location.href = "usucontroller.do?acao=exc&cpf=" + cpf;
+                location.href = "CRUD?acao=exc&cpf=" + cpf;
             }
         }
     </script>
@@ -60,11 +60,11 @@
             <td><%= u.getNome() %></td>
             <td class="action-links">
                 <a href="javascript:confirmaExclusao('<%= u.getCPF() %>')">Excluir</a>
-                <a href="usucontroller.do?acao=alt&cpf=<%= u.getCPF() %>">Alterar</a>
+                <a href="CRUD?acao=alt&cpf=<%= u.getCPF() %>">Alterar</a>
             </td>
         </tr>
         <% } %>
     </table>
-    <a href="usucontroller.do?acao=cad">Cadastrar novo usuário</a>
+    <a href="CRUD?acao=cad">Cadastrar novo usuário</a>
 </body>
 </html>
