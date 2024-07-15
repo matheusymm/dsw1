@@ -11,13 +11,13 @@ public class Cliente {
     private String telefone;
     private String sexo;
     private Date dataNascimento;
-    private String tipo;
+    private String papel;
 
     public Cliente(Long id) {
         this.id = id;
     }
 
-    public Cliente(String email, String senha, String nome, String cpf, String telefone, String sexo, Date dataNascimento, String tipo) {
+    public Cliente(String email, String senha, String nome, String cpf, String telefone, String sexo, Date dataNascimento, String papel) {
         this.email = email;
         this.senha = senha;
         this.nome = nome;
@@ -25,11 +25,11 @@ public class Cliente {
         this.telefone = telefone;
         this.sexo = sexo;
         this.dataNascimento = dataNascimento;
-        this.tipo = tipo;
+        this.papel = papel;
     }
 
-    public Cliente(Long id, String email, String senha, String nome, String cpf, String telefone, String sexo, Date dataNascimento, String tipo) {
-        this(email, senha, nome, cpf, telefone, sexo, dataNascimento, tipo);
+    public Cliente(Long id, String email, String senha, String nome, String cpf, String telefone, String sexo, Date dataNascimento, String papel) {
+        this(email, senha, nome, cpf, telefone, sexo, dataNascimento, papel);
         this.id = id;
     }
 
@@ -97,11 +97,11 @@ public class Cliente {
         this.dataNascimento = dataNascimento;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getPapel() {
+        return papel;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setPapel(String papel) {
+        this.papel = papel;
     }
 }

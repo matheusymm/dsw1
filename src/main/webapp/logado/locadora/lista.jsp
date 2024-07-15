@@ -29,6 +29,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
           <th>CNPJ</th>
           <th>Nome</th>
           <th>Cidade</th>
+          <th>Papel</th>
           <th>Acao</th>
         </tr>
         <c:forEach var="locadora" items="${requestScope.listaLocadoras}">
@@ -39,6 +40,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
             <td>${locadora.cnpj}</td>
             <td>${locadora.nome}</td>
             <td>${locadora.cidade}</td>
+            <td>${locadora.papel}</td>
             <td>
               <a
                 href="/${requestScope.contextPath}/locadoras/edicao?id=${locadora.id}"

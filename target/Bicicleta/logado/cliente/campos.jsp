@@ -104,15 +104,15 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     </td>
   </tr>
   <tr>
-    <td><label for="tipo">Tipo</label></td>
+    <td><label for="papel">Papel</label></td>
     <td>
       <input
         type="text"
-        id="tipo"
-        name="tipo"
+        id="papel"
+        name="papel"
         size="45"
         required
-        value="${cliente.tipo}"
+        value="${cliente.papel}"
       />
     </td>
   </tr>

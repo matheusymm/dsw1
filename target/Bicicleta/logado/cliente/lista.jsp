@@ -31,7 +31,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
           <th>Telefone</th>
           <th>Sexo</th>
           <th>Data de Nascimento</th>
-          <th>Tipo</th>
+          <th>Papel</th>
           <th>Acao</th>
         </tr>
         <c:forEach var="cliente" items="${requestScope.listaClientes}">
@@ -44,7 +44,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
             <td>${cliente.telefone}</td>
             <td>${cliente.sexo}</td>
             <td>${cliente.dataNascimento}</td>
-            <td>${cliente.tipo}</td>
+            <td>${cliente.papel}</td>
             <td>
               <a
                 href="/${requestScope.contextPath}/clientes/edicao?id=${cliente.id}"

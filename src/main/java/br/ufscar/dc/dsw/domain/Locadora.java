@@ -7,26 +7,29 @@ public class Locadora {
     private String cnpj;
     private String nome;
     private String cidade;
+    private String papel;
 
     public Locadora(Long id) {
         this.id = id;
     }
 
-    public Locadora(String email, String senha, String cnpj, String nome, String cidade) {
+    public Locadora(String email, String senha, String cnpj, String nome, String cidade, String papel) {
         this.email = email;
         this.senha = senha;
         this.cnpj = cnpj;
         this.nome = nome;
         this.cidade = cidade;
+        this.papel = papel;
     }
 
-    public Locadora(Long id, String email, String senha, String cnpj, String nome, String cidade) {
+    public Locadora(Long id, String email, String senha, String cnpj, String nome, String cidade, String papel) {
         this.id = id;
         this.email = email;
         this.senha = senha;
         this.cnpj = cnpj;
         this.nome = nome;
         this.cidade = cidade;
+        this.papel = papel;
     }
 
     public Long getId() {
@@ -75,5 +78,13 @@ public class Locadora {
 
     public void setCidade(String cidade) { 
         this.cidade = cidade; 
+    }
+
+    public String getPapel() {
+        return papel;
+    }
+
+    public void setPapel(String papel) { 
+        this.papel = papel; 
     }
 }

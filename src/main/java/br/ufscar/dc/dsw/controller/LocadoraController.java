@@ -79,8 +79,9 @@ public class LocadoraController extends HttpServlet{
         String cnpj = request.getParameter("cnpj");
         String nome = request.getParameter("nome");
         String cidade = request.getParameter("cidade");
+        String papel = request.getParameter("papel");
 
-        Locadora locadora = new Locadora(email, senha, cnpj, nome, cidade);
+        Locadora locadora = new Locadora(email, senha, cnpj, nome, cidade, papel);
         dao.insert(locadora);
         response.sendRedirect("lista");
     }
@@ -97,7 +98,7 @@ public class LocadoraController extends HttpServlet{
     private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
-        request.setAttribute("locadora", dao.getId(id));
+        request.setAttribute("locadora", dao.getById(id));
         request.getRequestDispatcher("/locadora/formEdicao.jsp").forward(request, response);
     }
 
@@ -109,8 +110,9 @@ public class LocadoraController extends HttpServlet{
         String cnpj = request.getParameter("cnpj");
         String nome = request.getParameter("nome");
         String cidade = request.getParameter("cidade");
+        String papel = request.getParameter("papel");
 
-        Locadora locadora = new Locadora(id, email, senha, cnpj, nome, cidade);
+        Locadora locadora = new Locadora(id, email, senha, cnpj, nome, cidade, papel);
         dao.update(locadora);
         response.sendRedirect("lista");
     }

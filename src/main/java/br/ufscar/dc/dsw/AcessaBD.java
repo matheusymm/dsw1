@@ -1,4 +1,4 @@
-package br.ufscar.dc.dsw.dao;
+package br.ufscar.dc.dsw;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class AcessaBD extends GenericDAO{
+public class AcessaBD {
 
 	public static void main(String[] args) {
 		try {

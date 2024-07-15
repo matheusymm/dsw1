@@ -12,7 +12,7 @@ import br.ufscar.dc.dsw.domain.Cliente;
 
 public class ClienteDAO extends GenericDAO{
     public void insert(Cliente cliente) {
-        String sql = "INSERT INTO Cliente (email, senha, nome, cpf, telefone, sexo, dataNascimento, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Cliente (email, senha, nome, cpf, telefone, sexo, dataNascimento, papel) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             Connection conn = this.getConnection();
@@ -25,7 +25,7 @@ public class ClienteDAO extends GenericDAO{
             statement.setString(5, cliente.getTelefone());
             statement.setString(6, cliente.getSexo());
             statement.setDate(7, cliente.getDataNascimento());
-            statement.setString(8, cliente.getTipo());
+            statement.setString(8, cliente.getPapel());
             statement.executeUpdate();
 
             statement.close();
@@ -53,9 +53,9 @@ public class ClienteDAO extends GenericDAO{
                 String telefone = resultSet.getString("telefone");
                 String sexo = resultSet.getString("sexo");
                 Date dataNascimento = resultSet.getDate("dataNascimento");
-                String tipo = resultSet.getString("tipo");
+                String papel = resultSet.getString("papel");
 
-                Cliente cliente = new Cliente(id, email, senha, nome, cpf, telefone, sexo, dataNascimento, tipo);
+                Cliente cliente = new Cliente(id, email, senha, nome, cpf, telefone, sexo, dataNascimento, papel);
                 listaClientes.add(cliente);
             }
 
@@ -86,7 +86,7 @@ public class ClienteDAO extends GenericDAO{
     }
 
     public void update(Cliente cliente) {
-        String sql = "UPDATE Cliente SET email = ?, senha = ?, nome = ?, cpf = ?, telefone = ?, sexo = ?, dataNascimento = ?, tipo = ? WHERE id = ?";
+        String sql = "UPDATE Cliente SET email = ?, senha = ?, nome = ?, cpf = ?, telefone = ?, sexo = ?, dataNascimento = ?, papel = ? WHERE id = ?";
 
         try {
             Connection conn = this.getConnection();
@@ -99,7 +99,7 @@ public class ClienteDAO extends GenericDAO{
             statement.setString(5, cliente.getTelefone());
             statement.setString(6, cliente.getSexo());
             statement.setDate(7, cliente.getDataNascimento());
-            statement.setString(8, cliente.getTipo());
+            statement.setString(8, cliente.getPapel());
             statement.setLong(9, cliente.getId());
             statement.executeUpdate();
 
@@ -110,7 +110,7 @@ public class ClienteDAO extends GenericDAO{
         }
     }
 
-    public Cliente getId(Long id) {
+    public Cliente getById(Long id) {
         Cliente cliente = null;
         String sql = "SELECT * FROM Cliente WHERE id = ?";
 
@@ -128,9 +128,9 @@ public class ClienteDAO extends GenericDAO{
                 String telefone = resultSet.getString("telefone");
                 String sexo = resultSet.getString("sexo");
                 Date dataNascimento = resultSet.getDate("dataNascimento");
-                String tipo = resultSet.getString("tipo");
+                String papel = resultSet.getString("papel");
 
-                cliente = new Cliente(id, email, senha, nome, cpf, telefone, sexo, dataNascimento, tipo);
+                cliente = new Cliente(id, email, senha, nome, cpf, telefone, sexo, dataNascimento, papel);
             }
 
             resultSet.close();
@@ -139,6 +139,39 @@ public class ClienteDAO extends GenericDAO{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return cliente;
+    }
+
+    public Cliente getByEmail(String email) {
+        Cliente cliente = null;
+        String sql = "SELECT * FROM Cliente WHERE email = ?";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Long id = resultSet.getLong("id");
+                String senha = resultSet.getString("senha");
+                String nome = resultSet.getString("nome");
+                String cpf = resultSet.getString("cpf");
+                String telefone = resultSet.getString("telefone");
+                String sexo = resultSet.getString("sexo");
+                Date dataNascimento = resultSet.getDate("dataNascimento");
+                String papel = resultSet.getString("papel");
+
+                cliente = new Cliente(id, email, senha, nome, cpf, telefone, sexo, dataNascimento, papel);
+            }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         return cliente;
     }
 }

@@ -77,7 +77,19 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
       />
     </td>
   </tr>
-
+  <tr>
+    <td><label for="papel">Papel</label></td>
+    <td>
+      <input
+        type="text"
+        id="papel"
+        name="papel"
+        size="45"
+        required
+        value="${locadora.papel}"
+      />
+    </td>
+  </tr>
   <tr>
     <td colspan="2" align="center"><input type="submit" value="Salva" /></td>
   </tr>

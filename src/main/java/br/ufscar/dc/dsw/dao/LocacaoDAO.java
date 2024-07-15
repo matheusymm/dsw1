@@ -89,7 +89,7 @@ public class LocacaoDAO extends GenericDAO{
         }
     }
 
-    public Locacao get(String cpfCliente, String cnpjLocadora) {
+    public Locacao getByCpfCnpj(String cpfCliente, String cnpjLocadora) {
         Locacao locacao = null;
         String sql = "SELECT * FROM Locacao WHERE cpfCliente = ? AND cnpjLocadora = ?";
 

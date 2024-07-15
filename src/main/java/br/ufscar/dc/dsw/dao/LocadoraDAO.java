@@ -47,8 +47,9 @@ public class LocadoraDAO extends GenericDAO{
                 String cnpj = resultSet.getString("cnpj");
                 String nome = resultSet.getString("nome");
                 String cidade = resultSet.getString("cidade");
+                String papel = resultSet.getString("papel");
 
-                Locadora locadora = new Locadora(id, email, senha, cnpj, nome, cidade);
+                Locadora locadora = new Locadora(id, email, senha, cnpj, nome, cidade, papel);
                 listaLocadoras.add(locadora);
             }
         } catch (SQLException e) {
@@ -97,7 +98,7 @@ public class LocadoraDAO extends GenericDAO{
         }
     }
 
-    public Locadora getId(Long id) {
+    public Locadora getById(Long id) {
         Locadora locadora = null;
         String sql = "SELECT * FROM Locadora WHERE id = ?";
 
@@ -113,8 +114,9 @@ public class LocadoraDAO extends GenericDAO{
                 String cnpj = resultSet.getString("cnpj");
                 String nome = resultSet.getString("nome");
                 String cidade = resultSet.getString("cidade");
+                String papel = resultSet.getString("papel");
 
-                locadora = new Locadora(id, email, senha, cnpj, nome, cidade);
+                locadora = new Locadora(id, email, senha, cnpj, nome, cidade, papel);
             }
 
             resultSet.close();

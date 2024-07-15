@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.ufscar.dc.dsw.dao.ClienteDAO;
 import br.ufscar.dc.dsw.domain.Cliente;
+import br.ufscar.dc.dsw.util.Erro;
 
 @WebServlet(urlPatterns = "/clientes/*")
 public class ClienteController extends HttpServlet{
@@ -33,7 +34,22 @@ public class ClienteController extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException {
+            throws ServletException, IOException {
+
+        Cliente cliente = (Cliente) request.getSession().getAttribute("clienteLogado");
+        Erro erros = new Erro();
+
+        if(cliente == null) {
+            response.sendRedirect(request.getContextPath());
+            return;
+        } else if(!cliente.getPapel().equals("admin")) {
+            erros.add("Acesso não autorizado!");
+			erros.add("Apenas Papel [ADMIN] tem acesso a essa página");
+			request.setAttribute("mensagens", erros);
+			RequestDispatcher rd = request.getRequestDispatcher("/noAuth.jsp");
+			rd.forward(request, response);
+			return;
+        }
                 
         String action = request.getPathInfo();
         if (action == null) {
@@ -71,7 +87,7 @@ public class ClienteController extends HttpServlet{
         List<Cliente> listaClientes = dao.getAll();
         request.setAttribute("listaClientes", listaClientes);
         request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/lista.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/cliente/lista.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -85,17 +101,17 @@ public class ClienteController extends HttpServlet{
     
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/formulario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/cliente/formulario.jsp");
         dispatcher.forward(request, response);
     }
 
     private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
-        Cliente cliente = dao.getId(id);
+        Cliente cliente = dao.getById(id);
         request.setAttribute("cliente", cliente);
         request.setAttribute("Locacao", getLocacao());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/formulario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/cliente/formulario.jsp");
         dispatcher.forward(request, response);
     }
 
