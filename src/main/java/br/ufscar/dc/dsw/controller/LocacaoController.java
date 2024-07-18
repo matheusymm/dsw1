@@ -27,9 +27,7 @@ public class LocacaoController extends HttpServlet{
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException {
-                
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {                
         String action = request.getPathInfo();
         if (action == null) {
             action = "";
@@ -63,11 +61,11 @@ public class LocacaoController extends HttpServlet{
 
     private void lista(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("listaLocacoes", dao.getAll());
-        request.getRequestDispatcher("/locacao/lista.jsp").forward(request, response);
+        request.getRequestDispatcher("/logado/locacao/lista.jsp").forward(request, response);
     }
 
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/locacao/formCadastro.jsp").forward(request, response);
+        request.getRequestDispatcher("/logado/locacao/formCadastro.jsp").forward(request, response);
     }
 
     private void insere(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -91,7 +89,7 @@ public class LocacaoController extends HttpServlet{
         String cnpjLocadora = request.getParameter("cnpjLocadora");
         Locacao locacao = new Locacao(cpfCliente, cnpjLocadora);
         request.setAttribute("locacao", locacao);
-        request.getRequestDispatcher("/locacao/formEdicao.jsp").forward(request, response);
+        request.getRequestDispatcher("/logado/locacao/formEdicao.jsp").forward(request, response);
     }
 
     private void atualize(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

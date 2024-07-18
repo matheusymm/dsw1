@@ -20,7 +20,7 @@ public class IndexController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Erro erros = new Erro();
 
-        if(request.getParameter("bOK") != null) {
+        if(request.getParameter("bIn") != null) {
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
             if(email == null || email.isEmpty()) {
@@ -30,8 +30,9 @@ public class IndexController extends HttpServlet {
                 erros.add("Senha não informada!");
             }
             if(!erros.isExisteErros()) {
-                ClienteDAO dao = new ClienteDAO();
-                Cliente cliente = dao.getByEmail(email);
+                ClienteDAO cliDAO = new ClienteDAO();
+                Cliente cliente = cliDAO.getByEmail(email);
+                // TODO: Locadora entra aqui - Autenticação única de usuários ou separado
                 if(cliente != null) {
                     if(cliente.getSenha().equalsIgnoreCase(senha)) {
                         request.getSession().setAttribute("clienteLogado", cliente);
@@ -41,8 +42,7 @@ public class IndexController extends HttpServlet {
                             response.sendRedirect("clientes/");
                         }
                         else {
-                            // "locacoes/"
-                            response.sendRedirect("clientes/");
+                            response.sendRedirect("locacoes/");
                         }
                         return;
                     }
@@ -54,6 +54,12 @@ public class IndexController extends HttpServlet {
                     erros.add("Usuário não encontrado!");
                 }
             }
+        } else if(request.getParameter("bReg") != null) {
+            // ClienteDAO dao = new ClienteDAO();
+            // Cliente cliente = dao.getByEmail(email);
+            // if(cliente != null) {
+
+            // }
         }
         request.getSession().invalidate();
 
@@ -65,14 +71,12 @@ public class IndexController extends HttpServlet {
     }
 
     @Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processRequest(request, response);
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processRequest(request, response);
 	}
 }

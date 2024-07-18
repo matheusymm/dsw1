@@ -11,9 +11,9 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
       <h2>
         <a href="/${requestScope.contextPath}">Menu Principal</a>
         &nbsp;&nbsp;&nbsp;
-        <a href="/${requestScope.contextPath}/locadoras/cadastro"
-          >Adicione Nova Locadora</a
-        >
+        <a href="/${requestScope.contextPath}/locadoras/cadastro">Adicione Nova Locadora</a>
+        &nbsp;&nbsp;&nbsp;
+        <a href="/${requestScope.contextPath}/">Logout</a>
       </h2>
     </div>
 
@@ -43,14 +43,9 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
             <td>${locadora.papel}</td>
             <td>
               <a
-                href="/${requestScope.contextPath}/locadoras/edicao?id=${locadora.id}"
-                >Edição</a
-              >
+                href="/${requestScope.contextPath}/locadoras/edicao?id=${locadora.id}">Edição</a>
               &nbsp;&nbsp;&nbsp;&nbsp;
-              <a
-                href="/${requestScope.contextPath}/locadoras/remocao?id=${locadora.id}"
-                onclick="return confirm('Tem certeza de que deseja excluir este item?');"
-              >
+              <a href="/${requestScope.contextPath}/locadoras/remocao?id=${locadora.id}" onclick="return confirm('Tem certeza de que deseja excluir este item?');">
                 Remoção
               </a>
             </td>

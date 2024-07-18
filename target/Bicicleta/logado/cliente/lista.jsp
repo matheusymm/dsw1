@@ -11,9 +11,9 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
       <h2>
         <a href="/${requestScope.contextPath}">Menu Principal</a>
         &nbsp;&nbsp;&nbsp;
-        <a href="/${requestScope.contextPath}/clientes/cadastro"
-          >Adicione Novo Cliente</a
-        >
+        <a href="/${requestScope.contextPath}/clientes/cadastro">Adicione Novo Cliente</a>
+        &nbsp;&nbsp;&nbsp;
+        <a href="/${requestScope.contextPath}/">Logout</a>
       </h2>
     </div>
 
@@ -46,15 +46,9 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
             <td>${cliente.dataNascimento}</td>
             <td>${cliente.papel}</td>
             <td>
-              <a
-                href="/${requestScope.contextPath}/clientes/edicao?id=${cliente.id}"
-                >Edição</a
-              >
+              <a href="/${requestScope.contextPath}/clientes/edicao?id=${cliente.id}">Edição</a>
               &nbsp;&nbsp;&nbsp;&nbsp;
-              <a
-                href="/${requestScope.contextPath}/clientes/remocao?id=${cliente.id}"
-                onclick="return confirm('Tem certeza de que deseja excluir este item?');"
-              >
+              <a href="/${requestScope.contextPath}/clientes/remocao?id=${cliente.id}"onclick="return confirm('Tem certeza de que deseja excluir este item?');">
                 Remoção
               </a>
             </td>

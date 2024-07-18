@@ -33,10 +33,10 @@ prefix="c" %>
           </tr>
           <tr>
             <td>
-              <input type="submit" name="bOK" value="Entrar" />
+              <input type="submit" name="bIn" value="Entrar" />
             </td>
             <td>
-              <input type="button" name="bRegistrar" value="Registrar" />
+              <input type="submit" name="bReg" value="Registrar" />
             </td>
           </tr>
         </table>

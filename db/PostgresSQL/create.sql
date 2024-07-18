@@ -46,15 +46,14 @@ CREATE TABLE Locacao (
 
 -- Insert data into Cliente
 INSERT INTO Cliente(email, senha, cpf, nome, telefone, sexo, dataNascimento, papel) VALUES 
-('user1@ufscar.br', 'user1', '123.456.789-01', 'User1', '(12)34567-8901', 'Masculino', '2024-01-01', 'user'),
-('user2@ufscar.br', 'user2', '123.456.789-02', 'User2', '(12)34567-8902', 'Feminino', '2024-01-01', 'admin');
+('admin@ufscar.br', 'admin', '123.456.789-00', 'Admin', '(12)34567-8900', 'Masculino', '2024-01-01', 'admin'),
+('user@ufscar.br', 'user', '123.456.789-01', 'User', '(12)34567-8901', 'Feminino', '2024-01-01', 'user');
 
 -- Insert data into Locadora
 INSERT INTO Locadora(email, senha, cnpj, nome, cidade, papel) VALUES 
-('Lugar1', 'lugar1', '12.345.678/9012-34', 'lugar1', 'São Carlos', 'vendor'),
-('Lugar2', 'lugar2', '12.345.678/9012-35', 'lugar2', 'São Carlos', 'admin');
+('admin@locadora.br', 'admin', '12.345.678/9012-34', 'Admin', 'São Carlos', 'admin'),
+('loc1@locadora.br', 'loc1', '12.345.678/9012-35', 'Loc1', 'São Carlos', 'locadora');
 
 -- Insert data into Locacao
-INSERT INTO Locacao(cpfCliente, cnpjLocadora) VALUES 
-('123.456.789-01', '12.345.678/9012-34'),
-('123.456.789-01', '12.345.678/9012-35');
+-- INSERT INTO Locacao(cpfCliente, cnpjLocadora) VALUES 
+-- ('123.456.789-01', '12.345.678/9012-34');

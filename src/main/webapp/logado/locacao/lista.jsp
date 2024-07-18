@@ -7,20 +7,19 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   </head>
   <body>
     <div align="center">
-      <h1>Gerenciamento de Locacoes</h1>
+      <h1>Gerenciamento de Locações</h1>
       <h2>
         <a href="/${requestScope.contextPath}">Menu Principal</a>
         &nbsp;&nbsp;&nbsp;
-        <a href="/${requestScope.contextPath}/clientes/cadastro"
-          >Adicione Nova Locacao</a
-        >
+        <a href="/${requestScope.contextPath}/clientes/cadastro">Adicione Nova Locação</a>
+        &nbsp;&nbsp;&nbsp;
+        <a href="/${requestScope.contextPath}/">Logout</a>
       </h2>
     </div>
-
     <div align="center">
       <table border="1">
         <caption>
-          Lista de Locacoes
+          Lista de Locações
         </caption>
         <tr>
           <th>ID</th>
