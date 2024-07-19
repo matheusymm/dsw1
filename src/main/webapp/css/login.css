@@ -10,6 +10,14 @@ h1 {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 20px; /* Adiciona um espaço abaixo do formulário */
+}
+
+.nav-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; /* Adiciona um espaço acima da navegação */
 }
 
 #erro {

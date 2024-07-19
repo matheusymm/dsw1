@@ -9,11 +9,11 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     <div align="center">
       <h1>Gerenciamento de Clientes</h1>
       <h2>
-        <a href="/${requestScope.contextPath}">Menu Principal</a>
+        <a href="/Bicicleta">Menu Principal</a>
         &nbsp;&nbsp;&nbsp;
         <a href="/${requestScope.contextPath}/clientes/cadastro">Adicione Novo Cliente</a>
         &nbsp;&nbsp;&nbsp;
-        <a href="/${requestScope.contextPath}/">Logout</a>
+        <a href="/${requestScope.contextPath}/logout">Logout</a>
       </h2>
     </div>
 

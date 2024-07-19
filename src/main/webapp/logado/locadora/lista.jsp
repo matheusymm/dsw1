@@ -9,11 +9,11 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     <div align="center">
       <h1>Gerenciamento de Locadoras</h1>
       <h2>
-        <a href="/${requestScope.contextPath}">Menu Principal</a>
+        <a href="/Bicicleta/locadoras">Menu Principal</a>
         &nbsp;&nbsp;&nbsp;
         <a href="/${requestScope.contextPath}/locadoras/cadastro">Adicione Nova Locadora</a>
         &nbsp;&nbsp;&nbsp;
-        <a href="/${requestScope.contextPath}/">Logout</a>
+        <a href="/Bicicleta/logout">Logout</a>
       </h2>
     </div>
 
@@ -42,8 +42,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
             <td>${locadora.cidade}</td>
             <td>${locadora.papel}</td>
             <td>
-              <a
-                href="/${requestScope.contextPath}/locadoras/edicao?id=${locadora.id}">Edição</a>
+              <a href="/${requestScope.contextPath}/locadoras/edicao?id=${locadora.id}">Edição</a>
               &nbsp;&nbsp;&nbsp;&nbsp;
               <a href="/${requestScope.contextPath}/locadoras/remocao?id=${locadora.id}" onclick="return confirm('Tem certeza de que deseja excluir este item?');">
                 Remoção

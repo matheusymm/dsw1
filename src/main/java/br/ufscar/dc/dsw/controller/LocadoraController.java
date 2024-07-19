@@ -34,7 +34,7 @@ public class LocadoraController extends HttpServlet{
         Erro erros = new Erro();
 
         if(locadora == null) {
-            response.sendRedirect(request.getContextPath());
+            listaLocadoras(request, response);
             return;
         }
 
@@ -81,6 +81,11 @@ public class LocadoraController extends HttpServlet{
     private void lista(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("listaLocadoras", dao.getAll());
         request.getRequestDispatcher("/logado/locadora/lista.jsp").forward(request, response);
+    }
+
+    private void listaLocadoras(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("listaLocadoras", dao.getAll());
+        request.getRequestDispatcher("/listaParaCliente.jsp").forward(request, response);
     }
 
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
