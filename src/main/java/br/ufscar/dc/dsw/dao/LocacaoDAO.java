@@ -89,24 +89,26 @@ public class LocacaoDAO extends GenericDAO{
         }
     }
 
-    public Locacao getByCpfCnpj(String cpfCliente, String cnpjLocadora) {
-        Locacao locacao = null;
-        String sql = "SELECT * FROM Locacao WHERE cpfCliente = ? AND cnpjLocadora = ?";
+    public List<Locacao> getByCpf(String cpfCliente) {
+        List<Locacao> listaLocacoes = new ArrayList<>();
+        String sql = "SELECT * FROM Locacao WHERE cpfCliente = ?";
 
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
             statement.setString(1, cpfCliente);
-            statement.setString(2, cnpjLocadora);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                locacao = new Locacao(cpfCliente, cnpjLocadora);
+            while (resultSet.next()) {
+                String cnpjLocadora = resultSet.getString("cnpjLocadora");
+
+                Locacao locacao = new Locacao(cpfCliente, cnpjLocadora);
+                listaLocacoes.add(locacao);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        return locacao;
+        return listaLocacoes;
     }
 }

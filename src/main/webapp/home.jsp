@@ -11,8 +11,8 @@ isELIgnored="false"%>
     <h1>Sistema de Locação de Bicicletas</h1>
     <div class="nav-container">
       <nav>
-        <a href="locadoras">Locadoras</a>
-        <a href="locacoes">Locações</a>
+		    <a href="loginCliente">Clientes</a>
+        <a href="loginLocadora">Locadoras</a>
       </nav>
     </div>
   </body>

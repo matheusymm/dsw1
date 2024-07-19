@@ -6,7 +6,7 @@ prefix="c" %>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="./css/login.css" />
+    <link rel="stylesheet" href="../css/login.css" />
     <title>Autenticação de Cliente</title>
   </head>
   <body>
@@ -21,7 +21,7 @@ prefix="c" %>
       </div>
     </c:if>
     <div class="form-container">
-      <form method="post" action="index.jsp">
+      <form method="post" action="">
         <table>
           <tr>
             <th>E-mail:</th>

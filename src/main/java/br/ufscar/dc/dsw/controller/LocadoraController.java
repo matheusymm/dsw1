@@ -2,6 +2,7 @@ package br.ufscar.dc.dsw.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.ufscar.dc.dsw.dao.LocadoraDAO;
 import br.ufscar.dc.dsw.domain.Locadora;
+import br.ufscar.dc.dsw.util.Erro;
 
 @WebServlet(urlPatterns = "/locadoras/*")
 public class LocadoraController extends HttpServlet{
@@ -27,8 +29,23 @@ public class LocadoraController extends HttpServlet{
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+        Locadora locadora = (Locadora) request.getSession().getAttribute("locadoraLogada");
+        Erro erros = new Erro();
+
+        if(locadora == null) {
+            response.sendRedirect(request.getContextPath());
+            return;
+        }
+
+        if(!locadora.getPapel().equals("admin")) {
+            erros.add("Acesso não autorizado!");
+			erros.add("Apenas Papel [ADMIN] tem acesso a essa página");
+			request.setAttribute("mensagens", erros);
+			RequestDispatcher rd = request.getRequestDispatcher("/noAuth.jsp");
+			rd.forward(request, response);
+			return;
+        }
                 
         String action = request.getPathInfo();
         if (action == null) {
@@ -61,19 +78,16 @@ public class LocadoraController extends HttpServlet{
         }
     }
 
-    private void lista(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private void lista(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("listaLocadoras", dao.getAll());
-        request.getRequestDispatcher("/locadora/lista.jsp").forward(request, response);
+        request.getRequestDispatcher("/logado/locadora/lista.jsp").forward(request, response);
     }
 
-    private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        request.getRequestDispatcher("/locadora/formCadastro.jsp").forward(request, response);
+    private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/logado/locadora/formCadastro.jsp").forward(request, response);
     }
 
-    private void insere(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private void insere(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
         String cnpj = request.getParameter("cnpj");
@@ -86,8 +100,7 @@ public class LocadoraController extends HttpServlet{
         response.sendRedirect("lista");
     }
 
-    private void remove(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private void remove(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
 
         Locadora locadora = new Locadora(id);
@@ -95,15 +108,13 @@ public class LocadoraController extends HttpServlet{
         response.sendRedirect("lista");
     }
 
-    private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
         request.setAttribute("locadora", dao.getById(id));
-        request.getRequestDispatcher("/locadora/formEdicao.jsp").forward(request, response);
+        request.getRequestDispatcher("/logado/locadora/formulario.jsp").forward(request, response);
     }
 
-    private void atualize(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private void atualize(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");

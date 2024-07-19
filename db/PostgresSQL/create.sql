@@ -39,7 +39,7 @@ CREATE TABLE Locacao (
     id INTEGER NOT NULL PRIMARY KEY DEFAULT NEXTVAL('LocacaoSeq'),
     cpfCliente VARCHAR(15) NOT NULL,
     cnpjLocadora VARCHAR(18) NOT NULL,
-    -- dataLocacao DATE NOT NULL,
+    dataLocacao VARCHAR(50) NOT NULL,
     FOREIGN KEY (cpfCliente) REFERENCES Cliente(cpf),
     FOREIGN KEY (cnpjLocadora) REFERENCES Locadora(cnpj)
 );
@@ -53,7 +53,3 @@ INSERT INTO Cliente(email, senha, cpf, nome, telefone, sexo, dataNascimento, pap
 INSERT INTO Locadora(email, senha, cnpj, nome, cidade, papel) VALUES 
 ('admin@locadora.br', 'admin', '12.345.678/9012-34', 'Admin', 'São Carlos', 'admin'),
 ('loc1@locadora.br', 'loc1', '12.345.678/9012-35', 'Loc1', 'São Carlos', 'locadora');
-
--- Insert data into Locacao
--- INSERT INTO Locacao(cpfCliente, cnpjLocadora) VALUES 
--- ('123.456.789-01', '12.345.678/9012-34');
