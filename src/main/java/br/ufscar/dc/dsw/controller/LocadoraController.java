@@ -66,6 +66,8 @@ public class LocadoraController extends HttpServlet{
         request.setAttribute("listaLocadoras", dao.getAll());
         request.getRequestDispatcher("/locadora/lista.jsp").forward(request, response);
     }
+    
+    
 
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

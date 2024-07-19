@@ -14,7 +14,7 @@ import br.ufscar.dc.dsw.domain.Cliente;
 import br.ufscar.dc.dsw.util.Erro;
 
 @WebServlet(name = "Index", urlPatterns = {"/index.jsp", "/logout.jsp"})
-public class IndexController extends HttpServlet {
+public class ClienteLoginController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -54,18 +54,17 @@ public class IndexController extends HttpServlet {
                     erros.add("Usuário não encontrado!");
                 }
             }
-        } else if(request.getParameter("bReg") != null) {
-            // ClienteDAO dao = new ClienteDAO();
-            // Cliente cliente = dao.getByEmail(email);
-            // if(cliente != null) {
+        } else {
+            String URL = "./home.jsp";
 
-            // }
+            RequestDispatcher rd = request.getRequestDispatcher(URL);
+            rd.forward(request, response);
         }
         request.getSession().invalidate();
 
         request.setAttribute("mensagens", erros);
 
-        String URL = "/login.jsp";
+        String URL = "./login/loginUsuario.jsp";
         RequestDispatcher rd = request.getRequestDispatcher(URL);
         rd.forward(request, response);
     }

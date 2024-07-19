@@ -11,8 +11,9 @@ isELIgnored="false"%>
     <h1>Sistema de Locação de Bicicletas</h1>
     <div class="nav-container">
       <nav>
-        <a href="locadoras">Locadoras</a>
-        <a href="locacoes">Locações</a>
+		<a href="/${requestScope.contextPath}/clientes">Clientes</a>
+        <a href="/${requestScope.contextPath}/locadoras">Locadoras</a>
+        <a href="/${requestScope.contextPath}/locacoes">Locações</a>
       </nav>
     </div>
   </body>

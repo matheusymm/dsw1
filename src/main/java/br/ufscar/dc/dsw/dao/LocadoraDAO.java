@@ -58,6 +58,72 @@ public class LocadoraDAO extends GenericDAO{
 
         return listaLocadoras;
     }
+    
+    public Locadora getByCidade(String cidade) {
+    	List<Locadora> listaLocadoras = new ArrayList<>();
+        Locadora locadora = null;
+        String sql = "SELECT * FROM Locadora WHERE cidade = ?";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, cidade);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+	        	Long id = resultSet.getLong("id");
+	            String email = resultSet.getString("email");
+	            String senha = resultSet.getString("senha");
+	            String cnpj = resultSet.getString("cnpj");
+	            String nome = resultSet.getString("nome");
+	            String papel = resultSet.getString("papel");
+	
+	            locadora = new Locadora(id, email, senha, cnpj, nome, cidade, papel);
+	            listaLocadoras.add(locadora);
+	        }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return locadora;
+    }
+
+    public Locadora getByEmail(String email) {
+    	List<Locadora> listaLocadoras = new ArrayList<>();
+        Locadora locadora = null;
+        String sql = "SELECT * FROM Locadora WHERE email = ?";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+	        	Long id = resultSet.getLong("id");
+	            String cidade = resultSet.getString("cidade");
+	            String senha = resultSet.getString("senha");
+	            String cnpj = resultSet.getString("cnpj");
+	            String nome = resultSet.getString("nome");
+	            String papel = resultSet.getString("papel");
+	
+	            locadora = new Locadora(id, email, senha, cnpj, nome, cidade, papel);
+	            listaLocadoras.add(locadora);
+	        }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return locadora;
+    }
 
     public void delete(Locadora locadora) {
         String sql = "DELETE FROM Locadora WHERE id = ?";
