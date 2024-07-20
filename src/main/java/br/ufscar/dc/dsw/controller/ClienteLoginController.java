@@ -35,9 +35,9 @@ public class ClienteLoginController extends HttpServlet {
                     if (cliente.getSenha().equalsIgnoreCase(senha)) {
                         request.getSession().setAttribute("clienteLogado", cliente);
                         if (cliente.getPapel().equals("admin")) {
-                            response.sendRedirect(request.getContextPath() + "/clientes");
+                            response.sendRedirect(request.getContextPath() + "/adminsCliente");
                         } else {
-                            response.sendRedirect(request.getContextPath() + "/locacoes");
+                            response.sendRedirect(request.getContextPath() + "/clientes");
                         }
                         return;
                     } else {

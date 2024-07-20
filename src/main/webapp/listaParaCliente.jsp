@@ -20,22 +20,27 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         <input type="text" id="cidade" name="cidade">
         <button type="submit">Buscar</button>
       </form>
-      <table border="1">
-        <tr>
-          <th>Nome</th>   
-          <th>E-mail</th>
-          <th>CNPJ</th>
-          <th>Cidade</th>
-        </tr>
-        <c:forEach var="locadora" items="${requestScope.listaLocadoras}">
+      <c:if test="${not empty requestScope.listaLocadoras}">
+        <table border="1">
           <tr>
-            <td>${locadora.nome}</td>
-            <td>${locadora.email}</td>
-            <td>${locadora.cnpj}</td>
-            <td>${locadora.cidade}</td>
+            <th>Nome</th>   
+            <th>E-mail</th>
+            <th>CNPJ</th>
+            <th>Cidade</th>
           </tr>
-        </c:forEach>
-      </table>
+          <c:forEach var="locadora" items="${requestScope.listaLocadoras}">
+            <tr>
+              <td>${locadora.nome}</td>
+              <td>${locadora.email}</td>
+              <td>${locadora.cnpj}</td>
+              <td>${locadora.cidade}</td>
+            </tr>
+          </c:forEach>
+        </table>
+      </c:if>
+      <c:if test="${empty requestScope.listaLocadoras}">
+        <p>Nenhuma Locadora Encontrada.</p>
+      </c:if>
     </div>
   </body>
 </html>

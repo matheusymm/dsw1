@@ -29,7 +29,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     <td><label for="senha">Senha</label></td>
     <td>
       <input
-        type="text"
+        type="password"
         id="senha"
         name="senha"
         size="45"

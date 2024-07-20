@@ -35,9 +35,9 @@ public class LocadoraLoginController extends HttpServlet {
                     if (locadora.getSenha().equalsIgnoreCase(senha)) {
                         request.getSession().setAttribute("locadoraLogada", locadora);
                         if (locadora.getPapel().equals("admin")) {
-                            response.sendRedirect(request.getContextPath() + "/locadoras");
+                            response.sendRedirect(request.getContextPath() + "/adminsLocadora");
                         } else {
-                            response.sendRedirect(request.getContextPath() + "/locacoes");
+                            response.sendRedirect(request.getContextPath() + "/locadoras");
                         }
                         return;
                     } else {

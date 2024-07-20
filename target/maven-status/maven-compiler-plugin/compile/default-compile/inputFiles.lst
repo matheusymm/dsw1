@@ -2,6 +2,7 @@
 /home/mymm/dsw/Trabalhos/Bicicleta/src/main/java/br/ufscar/dc/dsw/controller/LogoutController.java
 /home/mymm/dsw/Trabalhos/Bicicleta/src/main/java/br/ufscar/dc/dsw/controller/IdiomaController.java
 /home/mymm/dsw/Trabalhos/Bicicleta/src/main/java/br/ufscar/dc/dsw/controller/ClienteController.java
+/home/mymm/dsw/Trabalhos/Bicicleta/src/main/java/br/ufscar/dc/dsw/controller/ClienteAdminController.java
 /home/mymm/dsw/Trabalhos/Bicicleta/src/main/java/br/ufscar/dc/dsw/dao/LocacaoDAO.java
 /home/mymm/dsw/Trabalhos/Bicicleta/src/main/java/br/ufscar/dc/dsw/controller/ClienteLoginController.java
 /home/mymm/dsw/Trabalhos/Bicicleta/src/main/java/br/ufscar/dc/dsw/domain/Locacao.java
@@ -15,3 +16,4 @@
 /home/mymm/dsw/Trabalhos/Bicicleta/src/main/java/br/ufscar/dc/dsw/controller/LocadoraLoginController.java
 /home/mymm/dsw/Trabalhos/Bicicleta/src/main/java/br/ufscar/dc/dsw/dao/LocadoraDAO.java
 /home/mymm/dsw/Trabalhos/Bicicleta/src/main/java/br/ufscar/dc/dsw/domain/Locadora.java
+/home/mymm/dsw/Trabalhos/Bicicleta/src/main/java/br/ufscar/dc/dsw/controller/LocadoraAdminController.java

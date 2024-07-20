@@ -3,26 +3,26 @@ pageEncoding="UTF-8"%> <%@ page isELIgnored="false"%> <%@ taglib
 uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
   <head>
-    <title>Locacao Virtual</title>
+    <title>Locadora Virtual</title>
   </head>
 
   <body>
     <div align="center">
-      <h1>Gerenciamento de Locações</h1>
+      <h1>Gerenciamento de Locadoras</h1>
       <h2>
-        <a href="lista">Lista de Locações</a>
+        <a href="lista">Lista de Locadoras</a>
       </h2>
     </div>
     <div align="center">
       <c:choose>
-        <c:when test="${locacao != null}">
+        <c:when test="${cliente != null}">
           <form action="atualizacao" method="post">
-            <%@include file="campos.jsp"%>
+            <%@include file="camposAdmin.jsp"%>
           </form>
         </c:when>
         <c:otherwise>
           <form action="insercao" method="post">
-            <%@include file="campos.jsp"%>
+            <%@include file="camposAdmin.jsp"%>
           </form>
         </c:otherwise>
       </c:choose>

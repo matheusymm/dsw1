@@ -3,7 +3,7 @@ pageEncoding="UTF-8"%> <%@ page isELIgnored="false"%> <%@ taglib
 uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
   <head>
-    <title>Locacao Virtual</title>
+    <title>Cliente Virtual</title>
   </head>
 
   <body>
@@ -14,18 +14,9 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
       </h2>
     </div>
     <div align="center">
-      <c:choose>
-        <c:when test="${locacao != null}">
-          <form action="atualizacao" method="post">
-            <%@include file="campos.jsp"%>
-          </form>
-        </c:when>
-        <c:otherwise>
-          <form action="insercao" method="post">
-            <%@include file="campos.jsp"%>
-          </form>
-        </c:otherwise>
-      </c:choose>
+      <form action="insercao" method="post">
+        <%@include file="camposCliente.jsp"%>
+      </form>
     </div>
     <c:if test="${!empty requestScope.mensagens}">
       <ul class="erro">

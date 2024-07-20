@@ -52,4 +52,5 @@ INSERT INTO Cliente(email, senha, cpf, nome, telefone, sexo, dataNascimento, pap
 -- Insert data into Locadora
 INSERT INTO Locadora(email, senha, cnpj, nome, cidade, papel) VALUES 
 ('admin@locadora.br', 'admin', '12.345.678/9012-34', 'Admin', 'São Carlos', 'admin'),
-('loc1@locadora.br', 'loc1', '12.345.678/9012-35', 'Loc1', 'São Carlos', 'locadora');
+('loc1@locadora.br', 'loc1', '12.345.678/9012-35', 'Loc1', 'São Carlos', 'locadora'),
+('loc2@locadora.br', 'loc2', '12.345.678/9012-36', 'Loc2', 'São Paulo', 'locadora');
