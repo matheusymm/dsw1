@@ -1,6 +1,7 @@
 package br.ufscar.dc.dsw.controller;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -71,7 +72,8 @@ public class LocacaoController extends HttpServlet{
     private void insere(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String cpfCliente = request.getParameter("cpfCliente");
         String cnpjLocadora = request.getParameter("cnpjLocadora");
-        Locacao locacao = new Locacao(cpfCliente, cnpjLocadora);
+        LocalDateTime dataLocacao = LocalDateTime.now();
+        Locacao locacao = new Locacao(cpfCliente, cnpjLocadora, dataLocacao);
         dao.insert(locacao);
         response.sendRedirect("lista");
     }
@@ -79,7 +81,8 @@ public class LocacaoController extends HttpServlet{
     private void remove(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String cpfCliente = request.getParameter("cpfCliente");
         String cnpjLocadora = request.getParameter("cnpjLocadora");
-        Locacao locacao = new Locacao(cpfCliente, cnpjLocadora);
+        LocalDateTime dataLocacao = LocalDateTime.now();
+        Locacao locacao = new Locacao(cpfCliente, cnpjLocadora, dataLocacao);
         dao.delete(locacao);
         response.sendRedirect("lista");
     }
@@ -87,7 +90,11 @@ public class LocacaoController extends HttpServlet{
     private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String cpfCliente = request.getParameter("cpfCliente");
         String cnpjLocadora = request.getParameter("cnpjLocadora");
-        Locacao locacao = new Locacao(cpfCliente, cnpjLocadora);
+        String dataLocacaoStr = request.getParameter("dataLocacao");
+
+        LocalDateTime dataLocacao = LocalDateTime.parse(dataLocacaoStr);                                            
+        
+        Locacao locacao = new Locacao(cpfCliente, cnpjLocadora, dataLocacao);
         request.setAttribute("locacao", locacao);
         request.getRequestDispatcher("/logado/locacao/formEdicao.jsp").forward(request, response);
     }
@@ -95,7 +102,8 @@ public class LocacaoController extends HttpServlet{
     private void atualize(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String cpfCliente = request.getParameter("cpfCliente");
         String cnpjLocadora = request.getParameter("cnpjLocadora");
-        Locacao locacao = new Locacao(cpfCliente, cnpjLocadora);
+        LocalDateTime dataLocacao = LocalDateTime.now();
+        Locacao locacao = new Locacao(cpfCliente, cnpjLocadora, dataLocacao);
         dao.update(locacao);
         response.sendRedirect("lista");
     }

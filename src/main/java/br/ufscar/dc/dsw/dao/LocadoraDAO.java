@@ -11,7 +11,7 @@ import br.ufscar.dc.dsw.domain.Locadora;
 
 public class LocadoraDAO extends GenericDAO{
     public void insert(Locadora locadora) {
-        String sql = "INSERT INTO Locadora (email, senha, cnpj, nome, cidade) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Locadora (email, senha, cnpj, nome, cidade, papel) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
             Connection conn = this.getConnection();
@@ -22,6 +22,7 @@ public class LocadoraDAO extends GenericDAO{
             statement.setString(3, locadora.getCnpj());
             statement.setString(4, locadora.getNome());
             statement.setString(5, locadora.getCidade());
+            statement.setString(6, locadora.getPapel());
             statement.executeUpdate();
 
             statement.close();
@@ -59,7 +60,7 @@ public class LocadoraDAO extends GenericDAO{
         return listaLocadoras;
     }
 
-    public Locadora getByCidade(String cidade) {
+    public List<Locadora> getByCidade(String cidade) {
     	List<Locadora> listaLocadoras = new ArrayList<>();
         Locadora locadora = null;
         String sql = "SELECT * FROM Locadora WHERE cidade = ?";
@@ -89,7 +90,7 @@ public class LocadoraDAO extends GenericDAO{
             throw new RuntimeException(e);
         }
 
-        return locadora;
+        return listaLocadoras;
     }
 
     public void delete(Locadora locadora) {
@@ -110,7 +111,7 @@ public class LocadoraDAO extends GenericDAO{
     }
 
     public void update(Locadora locadora) {
-        String sql = "UPDATE Locadora SET email = ?, senha = ?, cnpj = ?, nome = ?, cidade = ? WHERE id = ?";
+        String sql = "UPDATE Locadora SET email = ?, senha = ?, cnpj = ?, nome = ?, cidade = ?, papel = ? WHERE id = ?";
 
         try {
             Connection conn = this.getConnection();
@@ -121,7 +122,7 @@ public class LocadoraDAO extends GenericDAO{
             statement.setString(3, locadora.getCnpj());
             statement.setString(4, locadora.getNome());
             statement.setString(5, locadora.getCidade());
-            statement.setLong(6, locadora.getId());
+            statement.setString(6, locadora.getPapel());
             statement.executeUpdate();
 
             statement.close();
@@ -176,6 +177,37 @@ public class LocadoraDAO extends GenericDAO{
                 Long id = resultSet.getLong("id");
                 String senha = resultSet.getString("senha");
                 String cnpj = resultSet.getString("cnpj");
+                String nome = resultSet.getString("nome");
+                String cidade = resultSet.getString("cidade");
+                String papel = resultSet.getString("papel");
+
+                locadora = new Locadora(id, email, senha, cnpj, nome, cidade, papel);
+            }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return locadora;
+    }
+
+    public Locadora getByCNPJ(String cnpj) {
+        Locadora locadora = null;
+        String sql = "SELECT * FROM Locadora WHERE cnpj = ?";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, cnpj);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Long id = resultSet.getLong("id");
+                String email = resultSet.getString("email");
+                String senha = resultSet.getString("senha");
                 String nome = resultSet.getString("nome");
                 String cidade = resultSet.getString("cidade");
                 String papel = resultSet.getString("papel");

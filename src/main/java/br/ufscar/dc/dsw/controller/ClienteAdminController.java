@@ -124,9 +124,6 @@ public class ClienteAdminController extends HttpServlet{
         Date dataNascimento = Date.valueOf(request.getParameter("dataNascimento"));
         String papel = request.getParameter("papel");
         
-        // Long locacaoID = Long.parseLong(request.getParameter("locacao"));
-        // Locacao locacao = new locacaoDAO().get(locacaoID);
-        
         Cliente cliente = new Cliente(email, senha, nome, cpf, telefone, sexo, dataNascimento, papel);
         dao.insert(cliente);
         response.sendRedirect("lista");

@@ -15,7 +15,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     </div>
     <div align="center">
       <h2>Lista de Locadoras</h2>
-      <form action="${pageContext.request.contextPath}/locadoras" method="get">
+      <form action="${pageContext.request.contextPath}/locadoras/buscaCidade?cidade=${locadora.cidade}" method="get">
         <label for="cidade">Cidade:</label>
         <input type="text" id="cidade" name="cidade">
         <button type="submit">Buscar</button>

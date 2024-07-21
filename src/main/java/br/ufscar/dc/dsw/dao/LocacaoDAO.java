@@ -4,21 +4,24 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.ufscar.dc.dsw.domain.Locacao;
 
-public class LocacaoDAO extends GenericDAO{
+public class LocacaoDAO extends GenericDAO {
     public void insert(Locacao locacao) {
-        String sql = "INSERT INTO Locacao (cpfCliente, cnpjLocadora) VALUES (?, ?)";
+        String sql = "INSERT INTO Locacao (cpfCliente, cnpjLocadora, dataLocacao) VALUES (?, ?, ?)";
 
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
+            String dataLocacaoStr = locacao.getDataLocacao().toString();
             statement.setString(1, locacao.getCpfCliente());
             statement.setString(2, locacao.getCnpjLocadora());
+            statement.setString(3, dataLocacaoStr);
             statement.executeUpdate();
 
             statement.close();
@@ -40,10 +43,17 @@ public class LocacaoDAO extends GenericDAO{
             while (resultSet.next()) {
                 String cpfCliente = resultSet.getString("cpfCliente");
                 String cnpjLocadora = resultSet.getString("cnpjLocadora");
+                String dataLocacaoStr = resultSet.getString("dataLocacao");
 
-                Locacao locacao = new Locacao(cpfCliente, cnpjLocadora);
+                LocalDateTime dataLocacao = LocalDateTime.parse(dataLocacaoStr);
+
+                Locacao locacao = new Locacao(cpfCliente, cnpjLocadora, dataLocacao);
                 listaLocacoes.add(locacao);
             }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -52,14 +62,13 @@ public class LocacaoDAO extends GenericDAO{
     }
 
     public void delete(Locacao locacao) {
-        String sql = "DELETE FROM Locacao WHERE cpfCliente = ? AND cnpjLocadora = ?";
+        String sql = "DELETE FROM Locacao WHERE id = ?";
 
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setString(1, locacao.getCpfCliente());
-            statement.setString(2, locacao.getCnpjLocadora());
+            statement.setLong(1, locacao.getId());
             statement.executeUpdate();
 
             statement.close();
@@ -70,16 +79,16 @@ public class LocacaoDAO extends GenericDAO{
     }
 
     public void update(Locacao locacao) {
-        String sql = "UPDATE Locacao SET cpfCliente = ?, cnpjLocadora = ? WHERE cpfCliente = ? AND cnpjLocadora = ?";
+        String sql = "UPDATE Locacao SET cpfCliente = ?, cnpjLocadora = ?, dataLocacao = ? WHERE id = ?";
 
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
+            String dataLocacaoStr = locacao.getDataLocacao().toString();
             statement.setString(1, locacao.getCpfCliente());
             statement.setString(2, locacao.getCnpjLocadora());
-            statement.setString(3, locacao.getCpfCliente());
-            statement.setString(4, locacao.getCnpjLocadora());
+            statement.setString(3, dataLocacaoStr);
             statement.executeUpdate();
 
             statement.close();
@@ -101,14 +110,41 @@ public class LocacaoDAO extends GenericDAO{
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 String cnpjLocadora = resultSet.getString("cnpjLocadora");
+                String dataLocacaoStr = resultSet.getString("dataLocacao");
 
-                Locacao locacao = new Locacao(cpfCliente, cnpjLocadora);
+                LocalDateTime dataLocacao = LocalDateTime.parse(dataLocacaoStr);
+
+                Locacao locacao = new Locacao(cpfCliente, cnpjLocadora, dataLocacao);
                 listaLocacoes.add(locacao);
             }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
         return listaLocacoes;
+    }
+
+    public boolean existeConflito(String cpfCliente, String cnpjLocadora, String dataLocacaoStr) {
+        String sql = "SELECT COUNT(*) FROM Locacao WHERE (cpfCliente = ? OR cnpjLocadora = ?) AND dataLocacao = ?";
+
+        try (Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql)) {
+
+            statement.setString(1, cpfCliente);
+            statement.setString(2, cnpjLocadora);
+            statement.setString(3, dataLocacaoStr);
+
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            int count = resultSet.getInt(1);
+
+            return count > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

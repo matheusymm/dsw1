@@ -28,7 +28,6 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
             <tr>
               <th>CNPJ Locadora</th>
               <th>Horário</th>
-              <th>Ação</th>
             </tr>
             <c:forEach var="locacao" items="${requestScope.listaLocacoes}">
             <tr>

@@ -4,6 +4,9 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <table border="1">
   <h3>Nova Locação</h3>
+  <c:if test="${locacao != null}">
+    <input type="hidden" name="id" value="${locacao.id}" />
+  </c:if>
   <tr>
     <td><label for="cpfCliente">CPF Cliente</label></td>
     <td>
@@ -27,6 +30,19 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         size="45"
         required
         value="${locacao.cnpjLocadora}"
+      />
+    </td>
+  </tr>
+  <tr>
+    <td><label for="dataLocacao">Data/Horário</label></td>
+    <td>
+      <input
+        type="datetime-local"
+        id="dataLocacao"
+        name="dataLocacao"
+        size="45"
+        required
+        value="${locacao.dataLocacao}"
       />
     </td>
   </tr>

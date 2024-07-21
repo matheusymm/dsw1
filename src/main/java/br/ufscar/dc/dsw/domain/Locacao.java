@@ -2,6 +2,8 @@ package br.ufscar.dc.dsw.domain;
 
 import java.time.LocalDateTime;
 
+import br.ufscar.dc.dsw.util.Data;
+
 public class Locacao {
     private Long id;
     private String cpfCliente;
@@ -12,12 +14,13 @@ public class Locacao {
         this.id = id;
         this.cpfCliente = cpfCliente;
         this.cnpjLocadora = cnpjLocadora;
-        this.dataLocacao = dataLocacao;
+        this.dataLocacao = Data.setHoraCheia(dataLocacao);
     }
 
-    public Locacao(String cpfCliente, String cnpjLocadora) {
+    public Locacao(String cpfCliente, String cnpjLocadora, LocalDateTime dataLocacao) {
         this.cpfCliente = cpfCliente;
         this.cnpjLocadora = cnpjLocadora;
+        this.dataLocacao = Data.setHoraCheia(dataLocacao);
     }
 
     public Long getId() {
@@ -48,16 +51,11 @@ public class Locacao {
         return dataLocacao;
     }
 
-    public void setDataLocacao(LocalDateTime dataLocacao) {
-        this.dataLocacao = dataLocacao;
+    public String getDataLocacaoString() {
+        return Data.localDateTimeToString(dataLocacao);
     }
 
-    public static LocalDateTime setHoraCheia(LocalDateTime data) {
-        if(data.getSecond() > 0 || data.getMinute() > 0) {
-            data = data.plusHours(1);
-            data = data.withMinute(0);
-            data = data.withSecond(0);
-        }
-        return data;
+    public void setDataLocacao(LocalDateTime dataLocacao) {
+        this.dataLocacao = dataLocacao;
     }
 }

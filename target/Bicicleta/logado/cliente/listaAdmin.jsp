@@ -49,9 +49,9 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
               <td>${cliente.dataNascimento}</td>
               <td>${cliente.papel}</td>
               <td>
-                <a href="/${requestScope.contextPath}/admins/edicao?id=${cliente.id}">Edição</a>
+                <a href="/${requestScope.contextPath}/adminsCliente/edicao?id=${cliente.id}">Edição</a>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="/${requestScope.contextPath}/admins/remocao?id=${cliente.id}"onclick="return confirm('Tem certeza de que deseja excluir este item?');">
+                <a href="/${requestScope.contextPath}/adminsCliente/remocao?id=${cliente.id}"onclick="return confirm('Tem certeza de que deseja excluir este item?');">
                   Remoção
                 </a>
               </td>

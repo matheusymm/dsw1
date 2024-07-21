@@ -49,7 +49,9 @@ public class LocadoraController extends HttpServlet{
                 case "/listaLocadoras":
                     listaLocadoras(request, response);
                     break;
-                // TODO: Implementar busca por cidade
+                case "/buscaCidade":
+                    listaLocadorasCidade(request, response);
+                    break;
                 default:
                     listaLocacoes(request, response);
                     break;
@@ -69,6 +71,15 @@ public class LocadoraController extends HttpServlet{
 
     private void listaLocadoras(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Locadora> listaLocadoras = dao.getAll();
+        request.setAttribute("listaLocadoras", listaLocadoras);
+        request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/listaParaCliente.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void listaLocadorasCidade(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String cidade = request.getParameter("cidade");
+        List<Locadora> listaLocadoras = dao.getByCidade(cidade);
         request.setAttribute("listaLocadoras", listaLocadoras);
         request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/listaParaCliente.jsp");
