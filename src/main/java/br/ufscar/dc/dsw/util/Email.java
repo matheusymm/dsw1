@@ -11,7 +11,7 @@ import javax.mail.internet.MimeMessage;
 
 public class Email {
 
-    private static final String USERNAME = "sistema@email.com"; 
+    private static final String USERNAME = "sistema@sistema.com"; 
     private static final String PASSWORD = "sistema"; 
 
     public static void sendEmail(String to, String subject, String body) {

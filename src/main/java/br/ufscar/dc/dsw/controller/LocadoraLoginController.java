@@ -48,7 +48,8 @@ public class LocadoraLoginController extends HttpServlet {
                 }
             }
         } else if (request.getParameter("bReg") != null) {
-            // TODO: Implementar cadastro de locadora
+            response.sendRedirect("registro/registraLocadora.jsp");
+            return;
         }
         request.getSession().invalidate();
 

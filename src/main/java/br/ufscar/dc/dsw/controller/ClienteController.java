@@ -1,8 +1,8 @@
 package br.ufscar.dc.dsw.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.ufscar.dc.dsw.dao.ClienteDAO;
 import br.ufscar.dc.dsw.dao.LocacaoDAO;
@@ -20,6 +21,7 @@ import br.ufscar.dc.dsw.domain.Locacao;
 import br.ufscar.dc.dsw.domain.Locadora;
 
 import br.ufscar.dc.dsw.util.Email;
+import br.ufscar.dc.dsw.util.Erro;
 
 @WebServlet(urlPatterns = "/clientes/*")
 public class ClienteController extends HttpServlet{
@@ -59,8 +61,14 @@ public class ClienteController extends HttpServlet{
                 case "/cadastro":
                     apresentaFormCadastro(request, response);
                     break;
-                case "/insercao":
+                case "/insercaoLoc":
                     insereLocacao(request, response);
+                    break;
+                case "/registro":
+                    apresentaFormRegistro(request, response);
+                    break;
+                    case "/insercaoCli":
+                    insereCliente(request, response);
                     break;
                 default:
                     listaLocacoes(request, response);
@@ -72,7 +80,8 @@ public class ClienteController extends HttpServlet{
     }
 
     private void listaLocacoes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Locacao> listaLocacoes = daoLocacao.getAll();
+        HttpSession session = request.getSession();
+        List<Locacao> listaLocacoes = daoLocacao.getByCpf(((Cliente) session.getAttribute("clienteLogado")).getCpf());
         request.setAttribute("listaLocacoes", listaLocacoes);
         request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/cliente/listaCliente.jsp");
@@ -91,10 +100,11 @@ public class ClienteController extends HttpServlet{
         String cnpjLocadora = request.getParameter("cnpjLocadora");
         String dataLocacaoStr = request.getParameter("dataLocacao");
         LocalDateTime dataLocacao = LocalDateTime.parse(dataLocacaoStr);
+        Erro erros = new Erro();
 
         if(daoLocacao.existeConflito(cpfCliente, cnpjLocadora, dataLocacaoStr)) {
             // TODO: apresentar erro na tela
-            request.setAttribute("erro", "Já existe uma locação para este cliente nesta data");
+            erros.add("Já existe uma locação nesta data");
             apresentaFormCadastro(request, response);
             return;
         }
@@ -115,5 +125,27 @@ public class ClienteController extends HttpServlet{
         }
 
         response.sendRedirect("lista");
+    }
+
+    private void apresentaFormRegistro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/registro/registraCliente.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void insereCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String email = request.getParameter("email");
+        String senha = request.getParameter("senha");
+        String cpf = request.getParameter("cpf");
+        String nome = request.getParameter("nome");
+        String telefone = request.getParameter("telefone");
+        String sexo = request.getParameter("sexo");
+        Date dataNascimento = Date.valueOf(request.getParameter("dataNascimento"));
+        String papel = "user";
+
+        Cliente cliente = new Cliente(email, senha, cpf, nome, telefone, sexo, dataNascimento, papel);
+
+        dao.insert(cliente);
+        
+        response.sendRedirect(request.getContextPath() + "/loginCliente");
     }
 }

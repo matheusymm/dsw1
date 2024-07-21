@@ -128,6 +128,36 @@ public class LocacaoDAO extends GenericDAO {
         return listaLocacoes;
     }
 
+    public List<Locacao> getByCnpj(String cnpjLocadora) {
+        List<Locacao> listaLocacoes = new ArrayList<>();
+        String sql = "SELECT * FROM Locacao WHERE cnpjLocadora = ?";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, cnpjLocadora);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String cpfCliente = resultSet.getString("cpfCliente");
+                String dataLocacaoStr = resultSet.getString("dataLocacao");
+
+                LocalDateTime dataLocacao = LocalDateTime.parse(dataLocacaoStr);
+
+                Locacao locacao = new Locacao(cpfCliente, cnpjLocadora, dataLocacao);
+                listaLocacoes.add(locacao);
+            }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return listaLocacoes;
+    }
+
     public boolean existeConflito(String cpfCliente, String cnpjLocadora, String dataLocacaoStr) {
         String sql = "SELECT COUNT(*) FROM Locacao WHERE (cpfCliente = ? OR cnpjLocadora = ?) AND dataLocacao = ?";
 

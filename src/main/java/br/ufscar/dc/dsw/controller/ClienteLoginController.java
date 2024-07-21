@@ -48,7 +48,8 @@ public class ClienteLoginController extends HttpServlet {
                 }
             }
         } else if (request.getParameter("bReg") != null) {
-            // TODO: Implementar cadastro de cliente
+            response.sendRedirect("registro/registraCliente.jsp");
+            return;
         }
         request.getSession().invalidate();
 

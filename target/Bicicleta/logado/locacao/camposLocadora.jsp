@@ -5,7 +5,12 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <fmt:setLocale value="${not empty param.language ? param.language : 'pt'}" />
 <fmt:setBundle basename="message" />
 <table border="1">
-  <h3><fmt:message key="locacao.novo"/></h3>
+  <caption>
+    <c:choose>
+      <c:when test="${locacao != null}"> <fmt:message key="editar"/> </c:when>
+      <c:otherwise> <fmt:message key="cadastrar"/> </c:otherwise>
+    </c:choose>
+  </caption>
   <c:if test="${locacao != null}">
     <input type="hidden" name="id" value="${locacao.id}" />
   </c:if>
@@ -25,13 +30,14 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   <tr>
     <td><label for="cnpjLocadora"><fmt:message key="locacao.cnpjLocadora"/></label></td>
     <td>
-      <select id="cnpjLocadora" name="cnpjLocadora" required>
-        <c:forEach var="locadora" items="${listaLocadoras}">
-            <option value="${locadora.cnpj}" ${locadora.cnpj == locacao.cnpjLocadora ? 'selected' : ''}>
-                ${locadora.nome} - ${locadora.cnpj}
-            </option>
-        </c:forEach>
-    </select>
+      <input 
+      type="text" 
+      id="cnpjLocadora" 
+      name="cnpjLocadora" 
+      size="45" 
+      required 
+      readonly 
+      value="${cnpjLocadora}" />
     </td>
   </tr>
   <tr>
