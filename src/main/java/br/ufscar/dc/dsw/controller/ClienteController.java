@@ -44,13 +44,6 @@ public class ClienteController extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Cliente cliente = (Cliente) request.getSession().getAttribute("clienteLogado");
-
-        if(cliente == null) {
-            response.sendRedirect(request.getContextPath() + "/loginCliente");
-            return;
-        } 
-                
         String action = request.getPathInfo();
         if (action == null) {
             action = "";
@@ -64,10 +57,10 @@ public class ClienteController extends HttpServlet{
                 case "/insercaoLoc":
                     insereLocacao(request, response);
                     break;
-                case "/registro":
+                case "/novo":
                     apresentaFormRegistro(request, response);
                     break;
-                    case "/insercaoCli":
+                case "/insercaoCli":
                     insereCliente(request, response);
                     break;
                 default:
@@ -89,7 +82,10 @@ public class ClienteController extends HttpServlet{
     }
 
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String cpfCliente = ((Cliente) session.getAttribute("clienteLogado")).getCpf();
         List<Locadora> listaLocadoras = daoLocadora.getAll();
+        request.setAttribute("cpfCliente", cpfCliente);
         request.setAttribute("listaLocadoras", listaLocadoras);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/locacao/formulario.jsp");
         dispatcher.forward(request, response);
@@ -102,26 +98,21 @@ public class ClienteController extends HttpServlet{
         LocalDateTime dataLocacao = LocalDateTime.parse(dataLocacaoStr);
         Erro erros = new Erro();
 
-        if(daoLocacao.existeConflito(cpfCliente, cnpjLocadora, dataLocacaoStr)) {
-            // TODO: apresentar erro na tela
-            erros.add("Já existe uma locação nesta data");
-            apresentaFormCadastro(request, response);
-            return;
-        }
-
         Locacao locacao = new Locacao(cpfCliente, cnpjLocadora, dataLocacao);
-        daoLocacao.insert(locacao);
+        Boolean inseriu = daoLocacao.insert(locacao);
 
-        try {
+        if(inseriu){
             Cliente cliente = dao.getByCPF(cpfCliente);
             Locadora locadora = daoLocadora.getByCNPJ(cnpjLocadora);
             String assunto = "Nova Locação de Bicicleta";
             String mensagem = "Uma nova locação foi realizada por " + cliente.getNome() + " para a locadora " + locadora.getNome() + " no dia " + dataLocacaoStr;
-            Email.sendEmail(assunto, cliente.getEmail(), mensagem);
-            Email.sendEmail(assunto, locadora.getEmail(), mensagem);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ServletException("Erro ao enviar e-mail: " + e.getMessage());
+            Email.sendEmail(cliente.getEmail(), assunto, mensagem);
+            Email.sendEmail(locadora.getEmail(), assunto, mensagem);
+        } else {
+            erros.add("Já existe uma locação nesta data");
+            RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
+            rd.forward(request, response);
+            return;
         }
 
         response.sendRedirect("lista");

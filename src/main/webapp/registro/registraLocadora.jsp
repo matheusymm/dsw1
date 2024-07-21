@@ -23,7 +23,7 @@ prefix="c" %>
       </div>
     </c:if>
     <div class="form-container">
-      <form method="post" action="${pageContext.request.contextPath}/locadoras/insercaoLocadora">
+      <form method="post" action="insercaoLocadora">
         <table>
           <tr>
             <th><fmt:message key="locadora.email"/>:</th>

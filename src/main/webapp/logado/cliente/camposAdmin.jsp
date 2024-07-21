@@ -5,12 +5,12 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <fmt:setLocale value="${not empty param.language ? param.language : 'pt'}" />
 <fmt:setBundle basename="message" />
 <table border="1">
-  <caption>
+  <h3>
     <c:choose>
       <c:when test="${cliente != null}"> <fmt:message key="editar"/> </c:when>
       <c:otherwise> <fmt:message key="cadastrar"/> </c:otherwise>
     </c:choose>
-  </caption>
+  </h3>
   <c:if test="${cliente != null}">
     <input type="hidden" name="id" value="${cliente.id}" />
   </c:if>

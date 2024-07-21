@@ -48,7 +48,7 @@ public class ClienteLoginController extends HttpServlet {
                 }
             }
         } else if (request.getParameter("bReg") != null) {
-            response.sendRedirect("registro/registraCliente.jsp");
+            response.sendRedirect(request.getContextPath() + "/clientes/novo");
             return;
         }
         request.getSession().invalidate();

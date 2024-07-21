@@ -10,6 +10,10 @@ public class Locacao {
     private String cnpjLocadora;
     private LocalDateTime dataLocacao;
 
+    public Locacao(Long id) {
+        this.id = id;
+    }
+
     public Locacao(Long id, String cpfCliente, String cnpjLocadora, LocalDateTime dataLocacao) {
         this.id = id;
         this.cpfCliente = cpfCliente;

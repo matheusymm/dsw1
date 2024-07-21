@@ -48,7 +48,7 @@ public class LocadoraLoginController extends HttpServlet {
                 }
             }
         } else if (request.getParameter("bReg") != null) {
-            response.sendRedirect("registro/registraLocadora.jsp");
+            response.sendRedirect(request.getContextPath() + "/locadoras/novo");
             return;
         }
         request.getSession().invalidate();

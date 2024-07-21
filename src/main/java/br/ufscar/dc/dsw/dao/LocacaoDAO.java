@@ -11,12 +11,18 @@ import java.util.List;
 import br.ufscar.dc.dsw.domain.Locacao;
 
 public class LocacaoDAO extends GenericDAO {
-    public void insert(Locacao locacao) {
+    public Boolean insert(Locacao locacao) {
         String sql = "INSERT INTO Locacao (cpfCliente, cnpjLocadora, dataLocacao) VALUES (?, ?, ?)";
 
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
+
+            if(this.getBydataLocacao(locacao.getDataLocacao(), locacao.getCnpjLocadora()) != null) {
+                statement.close();
+                conn.close();
+                return false;
+            }
 
             String dataLocacaoStr = locacao.getDataLocacao().toString();
             statement.setString(1, locacao.getCpfCliente());
@@ -29,6 +35,7 @@ public class LocacaoDAO extends GenericDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return true;
     }
 
     public List<Locacao> getAll() {
@@ -158,23 +165,30 @@ public class LocacaoDAO extends GenericDAO {
         return listaLocacoes;
     }
 
-    public boolean existeConflito(String cpfCliente, String cnpjLocadora, String dataLocacaoStr) {
-        String sql = "SELECT COUNT(*) FROM Locacao WHERE (cpfCliente = ? OR cnpjLocadora = ?) AND dataLocacao = ?";
-
-        try (Connection conn = this.getConnection();
-            PreparedStatement statement = conn.prepareStatement(sql)) {
-
-            statement.setString(1, cpfCliente);
-            statement.setString(2, cnpjLocadora);
-            statement.setString(3, dataLocacaoStr);
-
+    public Locacao getBydataLocacao(LocalDateTime diaHora, String cnpj) {
+        String sql = "SELECT * from locacao where dataLocacao = ? AND cnpjLocadora = ?";
+        Locacao locacao = null;
+        try {
+            Connection con = this.getConnection();
+            PreparedStatement statement = con.prepareStatement(sql);
+            String stringDiaHora = diaHora.toString();
+            statement.setString(1, stringDiaHora);
+            statement.setString(2, cnpj);
             ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-            int count = resultSet.getInt(1);
+            if (resultSet.next()) {
+                Long id = resultSet.getLong("id");
+                String cpfCliente = resultSet.getString("cpfCliente");
+                String cnpjLocadora = resultSet.getString("cnpjLocadora");
 
-            return count > 0;
+                locacao = new Locacao(id, cpfCliente, cnpjLocadora, diaHora);
+            }
+
+            resultSet.close();
+            statement.close();
+            con.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return locacao;
     }
 }

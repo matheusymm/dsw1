@@ -10,9 +10,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class Email {
-
-    private static final String USERNAME = "sistema@sistema.com"; 
-    private static final String PASSWORD = "sistema"; 
+    private static final String USERNAME = "sistemadsw@ufscar.br"; 
+    private static final String PASSWORD = "sistemadsw"; 
 
     public static void sendEmail(String to, String subject, String body) {
         Properties props = new Properties();

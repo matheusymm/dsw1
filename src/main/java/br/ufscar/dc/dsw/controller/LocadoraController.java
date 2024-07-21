@@ -54,7 +54,7 @@ public class LocadoraController extends HttpServlet{
                 case "/insereLocacao":
                     insereLocacao(request, response);
                     break;
-                case "/registro":
+                case "/novo":
                     apresentaFormRegistro(request, response);
                     break;
                 case "/insercaoLocadora":
@@ -65,6 +65,12 @@ public class LocadoraController extends HttpServlet{
                     break;
                 case "/buscaCidade":
                     listaLocadorasCidade(request, response);
+                    break;
+                case "/edicao":
+                    atualize(request, response);
+                    break;
+                case "/remocao":
+                    remove(request, response);
                     break;
                 default:
                     listaLocacoes(request, response);
@@ -116,26 +122,21 @@ public class LocadoraController extends HttpServlet{
         LocalDateTime dataLocacao = LocalDateTime.parse(dataLocacaoStr);
         Erro erros = new Erro();
 
-        if(daoLocacao.existeConflito(cpfCliente, cnpjLocadora, dataLocacaoStr)) {
-            // TODO: apresentar erro na tela
-            erros.add("Já existe uma locação nesta data");
-            apresentaFormCadastro(request, response);
-            return;
-        }
-
         Locacao locacao = new Locacao(cpfCliente, cnpjLocadora, dataLocacao);
-        daoLocacao.insert(locacao);
+        Boolean inseriu = daoLocacao.insert(locacao);
 
-        try {
+        if(inseriu){
             Cliente cliente = daoCliente.getByCPF(cpfCliente);
             Locadora locadora = dao.getByCNPJ(cnpjLocadora);
             String assunto = "Nova Locação de Bicicleta";
             String mensagem = "Uma nova locação foi realizada por " + cliente.getNome() + " para a locadora " + locadora.getNome() + " no dia " + dataLocacaoStr;
             Email.sendEmail(assunto, cliente.getEmail(), mensagem);
             Email.sendEmail(assunto, locadora.getEmail(), mensagem);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ServletException("Erro ao enviar e-mail: " + e.getMessage());
+        } else {
+            erros.add("Já existe uma locação nesta data");
+            RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
+            rd.forward(request, response);
+            return;
         }
 
         response.sendRedirect("lista");
@@ -159,5 +160,25 @@ public class LocadoraController extends HttpServlet{
         dao.insert(locadora);
         
         response.sendRedirect(request.getContextPath() + "/loginLocadora");
+    }
+
+    private void atualize(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        String cpfCliente = request.getParameter("cpfCliente");
+        String cnpjLocadora = request.getParameter("cnpjLocadora");
+        String dataLocacaoStr = request.getParameter("dataLocacao");
+        LocalDateTime dataLocacao = LocalDateTime.parse(dataLocacaoStr);
+        
+        Locacao locacao = new Locacao(id, cpfCliente, cnpjLocadora, dataLocacao);
+        daoLocacao.update(locacao);
+        response.sendRedirect("listaAdmin");
+    }
+
+    private void remove(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+
+        Locacao locacao = new Locacao(id);
+        daoLocacao.delete(locacao);
+        response.sendRedirect("lista");
     }
 }

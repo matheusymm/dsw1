@@ -18,7 +18,8 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         name="cpfCliente"
         size="45"
         required
-        value="${locacao.cpfCliente}"
+        readonly
+        value="${cpfCliente}"
       />
     </td>
   </tr>

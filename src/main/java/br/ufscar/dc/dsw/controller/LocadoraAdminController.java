@@ -121,10 +121,7 @@ public class LocadoraAdminController extends HttpServlet{
         String cidade = request.getParameter("cidade");
         String papel = request.getParameter("papel");
         
-        // Long locacaoID = Long.parseLong(request.getParameter("locacao"));
-        // Locacao locacao = new locacaoDAO().get(locacaoID);
-        
-        Locadora locadora = new Locadora(email, senha, nome, cnpj, cidade, papel);
+        Locadora locadora = new Locadora(email, senha, cnpj, nome, cidade, papel);
         dao.insert(locadora);
         response.sendRedirect("listaAdmin");
     }
@@ -138,9 +135,6 @@ public class LocadoraAdminController extends HttpServlet{
         String nome = request.getParameter("nome");
         String cidade = request.getParameter("cidade");
         String papel = request.getParameter("papel");
-        
-        // Long locacaoID = Long.parseLong(request.getParameter("Locacao"));
-        // Locacao locacao = new LocacaoDAO().get(locacaoID);
         
         Locadora locadora = new Locadora(id, email, senha, nome, cnpj, cidade, papel);
         dao.update(locadora);

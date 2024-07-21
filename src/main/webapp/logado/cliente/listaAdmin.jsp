@@ -54,7 +54,8 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
               <td>
                 <a href="/${requestScope.contextPath}/adminsCliente/edicao?id=${cliente.id}"><fmt:message key="editar"/></a>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="/${requestScope.contextPath}/adminsCliente/remocao?id=${cliente.id}"onclick="return confirm(<fmt:message key="remover.confirma"/>);">
+                <c:set var="confirmMessage" value="<fmt:message key='remover.confirma' />" />
+                <a href="/${requestScope.contextPath}/adminsCliente/remocao?id=${cliente.id}"onclick="return confirm(${confirmMessage});">
                   <fmt:message key="remover"/>
                 </a>
               </td>

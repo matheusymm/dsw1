@@ -23,7 +23,7 @@ prefix="c" %>
       </div>
     </c:if>
     <div class="form-container">
-      <form method="post" action="${pageContext.request.contextPath}/clientes/insercaoCli">
+      <form method="post" action="insercaoCli">
         <table>
           <tr>
             <th><fmt:message key="cliente.email"/>:</th>
@@ -34,12 +34,12 @@ prefix="c" %>
             <td><input type="password" name="senha" /></td>
           </tr>
           <tr>
-            <th><fmt:message key="cliente.nome"/>:</th>
-            <td><input type="text" name="nome" /></td>
-          </tr>
-          <tr>
             <th><fmt:message key="cliente.cpf"/>:</th>
             <td><input type="text" name="cpf" /></td>
+          </tr>
+          <tr>
+            <th><fmt:message key="cliente.nome"/>:</th>
+            <td><input type="text" name="nome" /></td>
           </tr>
           <tr>
             <th><fmt:message key="cliente.telefone"/>:</th>

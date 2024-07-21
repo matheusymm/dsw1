@@ -47,7 +47,7 @@ CREATE TABLE Locacao (
 -- Insert data into Cliente
 INSERT INTO Cliente(email, senha, cpf, nome, telefone, sexo, dataNascimento, papel) VALUES 
 ('admin@ufscar.br', 'admin', '123.456.789-00', 'Admin', '(12)34567-8900', 'Masculino', '2024-01-01', 'admin'),
-('user@ufscar.br', 'user', '123.456.789-01', 'User', '(12)34567-8901', 'Feminino', '2024-01-01', 'user');
+('user@ufscar.br', 'user', '123.456.789-01', 'User', '(12)34567-8901', 'Feminino', '2024-01-01', 'cliente');
 
 -- Insert data into Locadora
 INSERT INTO Locadora(email, senha, cnpj, nome, cidade, papel) VALUES 
