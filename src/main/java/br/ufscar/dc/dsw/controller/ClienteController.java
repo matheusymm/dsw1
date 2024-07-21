@@ -126,14 +126,14 @@ public class ClienteController extends HttpServlet{
     private void insereCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
-        String cpf = request.getParameter("cpf");
         String nome = request.getParameter("nome");
+        String cpf = request.getParameter("cpf");
         String telefone = request.getParameter("telefone");
         String sexo = request.getParameter("sexo");
         Date dataNascimento = Date.valueOf(request.getParameter("dataNascimento"));
         String papel = "user";
 
-        Cliente cliente = new Cliente(email, senha, cpf, nome, telefone, sexo, dataNascimento, papel);
+        Cliente cliente = new Cliente(email, senha, nome, cpf, telefone, sexo, dataNascimento, papel);
 
         dao.insert(cliente);
         

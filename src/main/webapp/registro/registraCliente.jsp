@@ -34,12 +34,12 @@ prefix="c" %>
             <td><input type="password" name="senha" /></td>
           </tr>
           <tr>
-            <th><fmt:message key="cliente.cpf"/>:</th>
-            <td><input type="text" name="cpf" /></td>
-          </tr>
-          <tr>
             <th><fmt:message key="cliente.nome"/>:</th>
             <td><input type="text" name="nome" /></td>
+          </tr>
+          <tr>
+            <th><fmt:message key="cliente.cpf"/>:</th>
+            <td><input type="text" name="cpf" /></td>
           </tr>
           <tr>
             <th><fmt:message key="cliente.telefone"/>:</th>
