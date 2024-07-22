@@ -14,7 +14,7 @@ public class GenericDAO {
     }
 
     protected Connection getConnection() throws SQLException {
-        String url = "jdbc:postgresql://localhost:5432/Bicicleta";
-        return DriverManager.getConnection(url, "postgres", "cachorro");
+        String url = "jdbc:postgresql://localhost:5432/bicicleta";
+        return DriverManager.getConnection(url, "mymm", "Postgres802097");
     }
 }

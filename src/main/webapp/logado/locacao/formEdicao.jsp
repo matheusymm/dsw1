@@ -7,12 +7,12 @@
 
 <html>
   <head>
-    <title><fmt:message key="locacao.edicao.titulo"/></title>
+    <title><fmt:message key="locadora.titulo"/></title>
   </head>
 
   <body>
     <div align="center">
-      <h1><fmt:message key="locacao.edicao"/></h1>
+      <h1><fmt:message key="locacao.gerencia"/></h1>
       <h2>
         <a href="lista"><fmt:message key="locacao.lista"/></a>
       </h2>
@@ -38,9 +38,7 @@
         <label for="dataLocacao"><fmt:message key="locacao.dataLocacao"/></label>
         <input type="datetime-local" id="dataLocacao" name="dataLocacao" value="${locacao.dataLocacao}" required /><br/>
         
-        <!-- Adicione mais campos conforme necessário -->
-        
-        <input type="submit" value="<fmt:message key='locacao.atualizar'/>" />
+        <input type="submit" value="<fmt:message key='salvar'/>" />
       </form>
     </div>
     

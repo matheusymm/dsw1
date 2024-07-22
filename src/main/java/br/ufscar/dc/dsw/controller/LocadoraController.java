@@ -31,6 +31,7 @@ public class LocadoraController extends HttpServlet{
     @Override
     public void init() {
         dao = new LocadoraDAO();
+        daoCliente = new ClienteDAO();
         daoLocacao = new LocacaoDAO();
     }
 
@@ -118,6 +119,7 @@ public class LocadoraController extends HttpServlet{
 
     private void listaLocadorasCidade(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String cidade = request.getParameter("cidade");
+        cidade = cidade.toLowerCase();
         List<Locadora> listaLocadoras = dao.getByCidade(cidade);
         request.setAttribute("listaLocadoras", listaLocadoras);
         request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
@@ -148,8 +150,8 @@ public class LocadoraController extends HttpServlet{
             Locadora locadora = dao.getByCNPJ(cnpjLocadora);
             String assunto = "Nova Locação de Bicicleta";
             String mensagem = "Uma nova locação foi realizada por " + cliente.getNome() + " para a locadora " + locadora.getNome() + " no dia " + dataLocacaoStr;
-            Email.sendEmail(assunto, cliente.getEmail(), mensagem);
-            Email.sendEmail(assunto, locadora.getEmail(), mensagem);
+            Email.sendEmail(cliente.getEmail(), assunto, mensagem);
+            Email.sendEmail(locadora.getEmail(), assunto, mensagem);
         } else {
             erros.add("Já existe uma locação nesta data");
             RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
