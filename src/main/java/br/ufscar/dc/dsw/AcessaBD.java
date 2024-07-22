@@ -11,8 +11,8 @@ public class AcessaBD {
 	public static void main(String[] args) {
 		try {
             Class.forName("org.postgresql.Driver");
-            String url = "jdbc:postgresql://localhost:5432/bicicleta";
-            Connection con = (Connection) DriverManager.getConnection(url, "mymm", "psql802097");
+            String url = "jdbc:postgresql://localhost:5432/Bicicleta";
+            Connection con = (Connection) DriverManager.getConnection(url, "postgres", "cachorro");
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("select * from Cliente");
 			System.out.println("Tabela Cliente:");

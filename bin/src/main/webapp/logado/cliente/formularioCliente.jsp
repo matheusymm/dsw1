@@ -6,29 +6,20 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <fmt:setBundle basename="message" />
 <html>
   <head>
-    <title><fmt:message key="locadora.titulo"/></title>
+    <title><fmt:message key="cliente.titulo"/></title>
   </head>
 
   <body>
     <div align="center">
-      <h1><fmt:message key="locadora.gerencia"/></h1>
+      <h1><fmt:message key="locacao.gerencia"/></h1>
       <h2>
-        <a href="lista"><fmt:message key="locadora.lista"/></a>
+        <a href="lista"><fmt:message key="locacao.lista"/></a>
       </h2>
     </div>
     <div align="center">
-      <c:choose>
-        <c:when test="${locadora != null}">
-          <form action="atualizacao" method="post">
-            <%@include file="camposAdmin.jsp"%>
-          </form>
-        </c:when>
-        <c:otherwise>
-          <form action="insercao" method="post">
-            <%@include file="camposAdmin.jsp"%>
-          </form>
-        </c:otherwise>
-      </c:choose>
+      <form action="insercao" method="post">
+        <%@include file="camposCliente.jsp"%>
+      </form>
     </div>
     <c:if test="${!empty requestScope.mensagens}">
       <ul class="erro">

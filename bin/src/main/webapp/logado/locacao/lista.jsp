@@ -23,14 +23,12 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
       <h2><fmt:message key="locacao.lista"/></h2>
       <table border="1">
         <tr>
-          <th><fmt:message key="locacao.id"/></th>
           <th><fmt:message key="locacao.cpfCliente"/></th>
           <th><fmt:message key="locacao.cnpjLocadora"/></th>
           <th><fmt:message key="locacao.dataLocacao"/></th>
         </tr>
         <c:forEach var="locacao" items="${requestScope.listaLocacoes}">
           <tr>
-          	<td>${locacao.id}</td>
             <td>${locacao.cpfCliente}</td>
             <td>${locacao.cnpjLocadora}</td>
             <td>${locacao.dataLocacao}</td>

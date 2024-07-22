@@ -18,7 +18,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     </div>
     <div align="center">
       <c:choose>
-        <c:when test="${locadora != null}">
+        <c:when test="${cliente != null}">
           <form action="atualizacao" method="post">
             <%@include file="camposAdmin.jsp"%>
           </form>

@@ -123,6 +123,7 @@ public class LocadoraDAO extends GenericDAO{
             statement.setString(4, locadora.getNome());
             statement.setString(5, locadora.getCidade());
             statement.setString(6, locadora.getPapel());
+            statement.setLong(7, locadora.getId());
             statement.executeUpdate();
 
             statement.close();

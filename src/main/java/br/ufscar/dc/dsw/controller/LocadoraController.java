@@ -67,8 +67,12 @@ public class LocadoraController extends HttpServlet{
                     listaLocadorasCidade(request, response);
                     break;
                 case "/edicao":
-                    atualize(request, response);
+                    apresentaFormEdicao(request, response);
+                	//atualize(request, response);criar o caso atualize
                     break;
+                case "/atualize":
+                	atualize(request, response);
+                	break;
                 case "/remocao":
                     remove(request, response);
                     break;
@@ -81,7 +85,21 @@ public class LocadoraController extends HttpServlet{
         }
     }
 
-    private void listaLocacoes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
+    	
+    	String dataLocacaoStr = request.getParameter("dataLocacao");
+    	LocalDateTime dataLocacao = LocalDateTime.parse(dataLocacaoStr);
+    	String cnpj = request.getParameter("cnpjLocadora");
+    	LocacaoDAO locacaoDAO = new LocacaoDAO();
+    	Locacao locacao = locacaoDAO.getBydataLocacao(dataLocacao, cnpj);
+    	request.setAttribute("locacao", locacao);
+    	
+    	RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/locacao/formEdicao.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	private void listaLocacoes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         List<Locacao> listaLocacoes = daoLocacao.getByCnpj(((Locadora) session.getAttribute("locadoraLogada")).getCnpj());
         request.setAttribute("listaLocacoes", listaLocacoes);

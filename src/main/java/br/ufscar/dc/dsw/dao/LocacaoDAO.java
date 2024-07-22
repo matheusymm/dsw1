@@ -48,13 +48,14 @@ public class LocacaoDAO extends GenericDAO {
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
+            	long idLocacao = resultSet.getInt("id");
                 String cpfCliente = resultSet.getString("cpfCliente");
                 String cnpjLocadora = resultSet.getString("cnpjLocadora");
                 String dataLocacaoStr = resultSet.getString("dataLocacao");
 
                 LocalDateTime dataLocacao = LocalDateTime.parse(dataLocacaoStr);
 
-                Locacao locacao = new Locacao(cpfCliente, cnpjLocadora, dataLocacao);
+                Locacao locacao = new Locacao(idLocacao, cpfCliente, cnpjLocadora, dataLocacao);
                 listaLocacoes.add(locacao);
             }
 
@@ -96,6 +97,7 @@ public class LocacaoDAO extends GenericDAO {
             statement.setString(1, locacao.getCpfCliente());
             statement.setString(2, locacao.getCnpjLocadora());
             statement.setString(3, dataLocacaoStr);
+            statement.setFloat(4, locacao.getId());
             statement.executeUpdate();
 
             statement.close();
@@ -146,12 +148,13 @@ public class LocacaoDAO extends GenericDAO {
             statement.setString(1, cnpjLocadora);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
+            	Long id = (long) resultSet.getInt("id");
                 String cpfCliente = resultSet.getString("cpfCliente");
                 String dataLocacaoStr = resultSet.getString("dataLocacao");
 
                 LocalDateTime dataLocacao = LocalDateTime.parse(dataLocacaoStr);
 
-                Locacao locacao = new Locacao(cpfCliente, cnpjLocadora, dataLocacao);
+                Locacao locacao = new Locacao(id, cpfCliente, cnpjLocadora, dataLocacao);
                 listaLocacoes.add(locacao);
             }
 
@@ -191,4 +194,6 @@ public class LocacaoDAO extends GenericDAO {
         }
         return locacao;
     }
+    
+    
 }

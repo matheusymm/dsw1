@@ -28,7 +28,8 @@ public class LocacaoController extends HttpServlet{
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {                
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {   
+    	System.out.println("chamou do get");
         String action = request.getPathInfo();
         if (action == null) {
             action = "";
@@ -88,13 +89,13 @@ public class LocacaoController extends HttpServlet{
     }
 
     private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String cpfCliente = request.getParameter("cpfCliente");
+    	String cpfCliente = request.getParameter("cpfCliente");
         String cnpjLocadora = request.getParameter("cnpjLocadora");
         String dataLocacaoStr = request.getParameter("dataLocacao");
-
+        
         LocalDateTime dataLocacao = LocalDateTime.parse(dataLocacaoStr);                                            
         
-        Locacao locacao = new Locacao(cpfCliente, cnpjLocadora, dataLocacao);
+        Locacao locacao = new Locacao( cpfCliente, cnpjLocadora, dataLocacao);
         request.setAttribute("locacao", locacao);
         request.getRequestDispatcher("/logado/locacao/formEdicao.jsp").forward(request, response);
     }
