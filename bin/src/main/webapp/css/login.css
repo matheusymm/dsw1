@@ -1,0 +1,28 @@
+h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 20px; /* Adiciona um espaço abaixo do formulário */
+}
+
+.nav-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; /* Adiciona um espaço acima da navegação */
+}
+
+#erro {
+  width: 80%;
+  margin: 0 auto;
+  border: 1px solid red;
+  background-color: beige;
+}

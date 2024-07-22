@@ -37,12 +37,12 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
             </tr>
             <c:forEach var="locacao" items="${requestScope.listaLocacoes}">
               <tr>
-              	<td>${locacao.id}</td>
+                <td>${locacao.id}</td>
                 <td>${locacao.cpfCliente}</td>
                 <td>${locacao.cnpjLocadora}</td>  
                 <td>${locacao.dataLocacao}</td>
                 <td>
-                  <a href="/${requestScope.contextPath}/locadoras/edicao?dataLocacao=${locacao.dataLocacao}&cnpjLocadora=${locacao.cnpjLocadora}"><fmt:message key="editar"/></a>
+                  <a href="/${requestScope.contextPath}/locadoras/edicao?id=${locacao.id}"><fmt:message key="editar"/></a>
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <a href="/${requestScope.contextPath}/locadoras/remocao?id=${locacao.id}"onclick="return confirm(<fmt:message key="remover.confirma"/>);">
                     <fmt:message key="remover"/>
