@@ -171,7 +171,7 @@ public class LocadoraController extends HttpServlet{
         
         Locacao locacao = new Locacao(id, cpfCliente, cnpjLocadora, dataLocacao);
         daoLocacao.update(locacao);
-        response.sendRedirect("listaAdmin");
+        response.sendRedirect("listaLocadora");
     }
 
     private void remove(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -179,6 +179,6 @@ public class LocadoraController extends HttpServlet{
 
         Locacao locacao = new Locacao(id);
         daoLocacao.delete(locacao);
-        response.sendRedirect("lista");
+        response.sendRedirect("listaLocadora");
     }
 }
