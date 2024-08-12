@@ -8,6 +8,8 @@ public interface ILocadoraService {
 
 	Locadora buscarPorId(Long id);
 
+    Locadora buscarPorCNPJ(String CNPJ);
+
 	List<Locadora> buscarTodos();
 
 	void salvar(Locadora locadora);

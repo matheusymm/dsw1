@@ -31,6 +31,11 @@ public class LocadoraService implements ILocadoraService {
 	}
 
 	@Transactional(readOnly = true)
+	public Locadora buscarPorCNPJ(String CNPJ) {
+		return dao.findByCNPJ(CNPJ);
+	}
+
+	@Transactional(readOnly = true)
 	public List<Locadora> buscarTodos() {
 		return dao.findAll();
 	} 

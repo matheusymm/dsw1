@@ -10,7 +10,7 @@ import br.ufscar.dc.dsw.domain.Cliente;
 
 @SuppressWarnings("unchecked")
 public interface IClienteDAO extends CrudRepository<Cliente, Long> {
-    Cliente findById(long id);   
+    Cliente findById(long id); 
     
     List<Cliente> findAll();
 
@@ -20,4 +20,7 @@ public interface IClienteDAO extends CrudRepository<Cliente, Long> {
 
     @Query("SELECT c FROM Cliente c WHERE c.email = :email")
     public Cliente getUserByEmail(@Param("email") String email);
+
+    @Query("SELECT c FROM Cliente c WHERE c.cpf = :cpf")
+    public Cliente findByCPF(@Param("cpf") String cpf);
 }

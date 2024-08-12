@@ -8,6 +8,8 @@ public interface IClienteService {
 
 	Cliente buscarPorId(Long id);
 
+    Cliente buscarPorCPF(String CPF);
+
 	List<Cliente> buscarTodos();
 
 	void salvar(Cliente locadora);
