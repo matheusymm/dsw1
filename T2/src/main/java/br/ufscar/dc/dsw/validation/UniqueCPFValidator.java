@@ -6,20 +6,20 @@ import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.ufscar.dc.dsw.dao.ILocadoraDAO;
-import br.ufscar.dc.dsw.domain.Locadora;
+import br.ufscar.dc.dsw.dao.IClienteDAO;
+import br.ufscar.dc.dsw.domain.Cliente;
 
 @Component
 public class UniqueCPFValidator implements ConstraintValidator<UniqueCPF, String> {
 
 	@Autowired
-	private ILocadoraDAO dao;
+	private IClienteDAO dao;
 
 	@Override
 	public boolean isValid(String CPF, ConstraintValidatorContext context) {
 		if (dao != null) {
-			Locadora locadora = dao.findByCPF(CPF);
-			return locadora == null;
+			Cliente cliente = dao.findByCPF(CPF);
+			return cliente == null;
 		} else {
 			// Durante a execução da classe LivrariaMvcApplication
 			// não há injeção de dependência
