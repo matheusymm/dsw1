@@ -23,12 +23,13 @@ public class Locadora extends AbstractEntity<Long> {
     private String senha;
 
     @NotBlank
-    @UniqueCNPJ(message="{Unique.locadora.cnpj}")
-    @Size(min=18, max=18, message="{Size.locadora.cnpj}")
+    @UniqueCNPJ(message="{Unique.locadora.CNPJ}")
+    @Size(min=18, max=18, message="{Size.locadora.CNPJ}")
     @Column(nullable=false, unique=true, length=18)
     private String CNPJ;
 
     @NotBlank
+    @Size(min=3, max=50)
     @Column(nullable=false, length=50)
     private String nome;
 
@@ -58,11 +59,11 @@ public class Locadora extends AbstractEntity<Long> {
         this.senha = senha;
     }
 
-    public String getCnpj() {
+    public String getCNPJ() {
         return CNPJ;
     }
 
-    public void setCnpj(String cnpj) {
+    public void setCNPJ(String cnpj) {
         this.CNPJ = cnpj;
     }
 

@@ -2,6 +2,7 @@ package br.ufscar.dc.dsw.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
@@ -40,6 +41,9 @@ public class Cliente extends AbstractEntity<Long> {
     @NotBlank
     @Column(nullable=false, length=10)
     private String papel;
+
+    @OneToOne(mappedBy="cliente")
+    private Locacao locacao;
 
     public String getEmail() {
         return email;

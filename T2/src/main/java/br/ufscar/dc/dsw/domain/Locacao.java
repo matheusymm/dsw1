@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -16,12 +17,12 @@ public class Locacao extends AbstractEntity<Long> {
 
     @NotNull(message="O campo cliente não pode ser nulo")
     @OneToOne
-    @JoinColumn(name="cpfCliente")
+    @JoinColumn(name="cliente_id")
     private Cliente cliente;
 
     @NotNull(message="O campo locadora não pode ser nulo")
-    @OneToOne
-    @JoinColumn(name="cnpjLocadora")
+    @ManyToOne
+    @JoinColumn(name="locadora_id")
     private Locadora locadora;
 
     public String getData() {

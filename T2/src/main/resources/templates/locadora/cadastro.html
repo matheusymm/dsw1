@@ -21,25 +21,36 @@
 
 		<div class="container" id="cadastro">
 
-			<div th:replace="fragments/alert"></div>
+			<div th:replace="~{fragments/alert}"></div>
 
 			<form
 				th:action="${locadora.id == null} ? @{/locadoras/salvar} : @{/locadoras/editar}"
 				th:object="${locadora}" method="POST">
 				
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						<label for="nome">Nome</label> 
-						<input type="text" class="form-control" id="nome" placeholder="Nome"
-							autofocus="autofocus" th:field="*{nome}"
-							th:classappend="${#fields.hasErrors('nome')} ? is-invalid" />
+				<div class="form-column">
+					<div class="form-group ">
+						<label for="email">E-mail</label> 
+						<input type="email" class="form-control" id="email" placeholder="Email"
+							autofocus="autofocus" th:field="*{email}"
+							th:classappend="${#fields.hasErrors('email')} ? is-invalid" />
 
 						<div class="invalid-feedback">
-							<span th:errors="*{nome}"></span>
+							<span th:errors="*{email}"></span>
 						</div>
 					</div>
 
-					<div class="form-group col-md-6">
+					<div class="form-group ">
+						<label for="senha">Senha</label> 
+						<input type="password" class="form-control" id="senha" placeholder="Senha"
+							autofocus="autofocus" th:field="*{senha}"
+							th:classappend="${#fields.hasErrors('senha')} ? is-invalid" />
+
+						<div class="invalid-feedback">
+							<span th:errors="*{senha}"></span>
+						</div>
+					</div>
+
+					<div class="form-group ">
 						<label for="CNPJ">CNPJ</label> 
 						<input type="text" class="form-control" id="CNPJ" placeholder="__.___.___/____-__"
 							autofocus="autofocus" th:field="*{CNPJ}"
@@ -49,6 +60,28 @@
 						<div class="invalid-feedback">
 							<span th:errors="*{CNPJ}"></span>
 						</div>
+					</div>
+				</div>
+
+				<div class="form-group ">
+					<label for="nome">Nome</label> 
+					<input type="text" class="form-control" id="nome" placeholder="Nome"
+						autofocus="autofocus" th:field="*{nome}"
+						th:classappend="${#fields.hasErrors('nome')} ? is-invalid" />
+
+					<div class="invalid-feedback">
+						<span th:errors="*{nome}"></span>
+					</div>
+				</div>
+
+				<div class="form-group ">
+					<label for="cidade">Cidade</label> 
+					<input type="text" class="form-control" id="cidade" placeholder="Cidade"
+						autofocus="autofocus" th:field="*{cidade}"
+						th:classappend="${#fields.hasErrors('cidade')} ? is-invalid" />
+
+					<div class="invalid-feedback">
+						<span th:errors="*{cidade}"></span>
 					</div>
 				</div>
 
