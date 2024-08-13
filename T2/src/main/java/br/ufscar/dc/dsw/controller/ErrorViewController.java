@@ -18,16 +18,16 @@ public class ErrorViewController implements ErrorViewResolver{
 
         switch (status.value()) {
             case 404:
-                model.addObject("error", "Página não encontrada.");
-                model.addObject("message", "A URL para a página '" + map.get("path") + "' não existe.");
+                model.addObject("error", "404.error");
+                model.addObject("message", "404.message");
                 break;
             case 500:
-                model.addObject("error", "Ocorreu um erro interno no servidor.");
-                model.addObject("message", "Ocorreu um erro inexperado, tente mais tarde.");
+                model.addObject("error", "500.error");
+                model.addObject("message", "500.message");
                 break;
             default:
-                model.addObject("error", map.get("error"));
-                model.addObject("message", map.get("message"));
+                model.addObject("error", "default.error");
+                model.addObject("message", "default.message");
                 break;
         }
 

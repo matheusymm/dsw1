@@ -10,7 +10,7 @@
 			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item active"><i class="oi oi-caret-right"></i>
-						<span>Cadastrar Locadoras</span></li>
+						<span th:text="#{locadora.listar.label}"></span></li>
 				</ul>
 				<a class="btn btn-primary btn-md" th:href="@{/locadoras/listar}"
 					role="button"> <span class="oi oi-spreadsheet" title="Listar"
@@ -29,7 +29,7 @@
 				
 				<div class="form-column">
 					<div class="form-group ">
-						<label for="email">E-mail</label> 
+						<label th:text="#{locadora.email.label}" for="email"></label> 
 						<input type="email" class="form-control" id="email" placeholder="Email"
 							autofocus="autofocus" th:field="*{email}"
 							th:classappend="${#fields.hasErrors('email')} ? is-invalid" />
@@ -40,7 +40,7 @@
 					</div>
 
 					<div class="form-group ">
-						<label for="senha">Senha</label> 
+						<label th:text="#{locadora.senha.label}" for="senha"></label> 
 						<input type="password" class="form-control" id="senha" placeholder="Senha"
 							autofocus="autofocus" th:field="*{senha}"
 							th:classappend="${#fields.hasErrors('senha')} ? is-invalid" />
@@ -51,7 +51,7 @@
 					</div>
 
 					<div class="form-group ">
-						<label for="CNPJ">CNPJ</label> 
+						<label th:text="#{locadora.cnpj.label}" for="CNPJ"></label> 
 						<input type="text" class="form-control" id="CNPJ" placeholder="__.___.___/____-__"
 							autofocus="autofocus" th:field="*{CNPJ}"
 							th:classappend="${#fields.hasErrors('CNPJ')} ? is-invalid" 
@@ -64,7 +64,7 @@
 				</div>
 
 				<div class="form-group ">
-					<label for="nome">Nome</label> 
+					<label th:text="#{locadora.nome.label}" for="nome"></label> 
 					<input type="text" class="form-control" id="nome" placeholder="Nome"
 						autofocus="autofocus" th:field="*{nome}"
 						th:classappend="${#fields.hasErrors('nome')} ? is-invalid" />
@@ -75,7 +75,7 @@
 				</div>
 
 				<div class="form-group ">
-					<label for="cidade">Cidade</label> 
+					<label th:text="#{locadora.cidade.label}" for="cidade"></label> 
 					<input type="text" class="form-control" id="cidade" placeholder="Cidade"
 						autofocus="autofocus" th:field="*{cidade}"
 						th:classappend="${#fields.hasErrors('cidade')} ? is-invalid" />
@@ -86,7 +86,7 @@
 				</div>
 
 				<input type="hidden" id="id" th:field="*{id}" />
-				<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+				<button type="submit" th:text="#{button.salvar.label}" class="btn btn-primary btn-sm"></button>
 			</form>
 		</div>
 	</section>
