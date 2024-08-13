@@ -1,9 +1,19 @@
 package br.ufscar.dc.dsw.domain;
 
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotBlank;
+import java.util.List;
 
-public class Locadora {
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import br.ufscar.dc.dsw.validation.UniqueCNPJ;
+
+@SuppressWarnings("serial")
+@Entity
+@Table(name="Locadora")
+public class Locadora extends AbstractEntity<Long> {
     @NotBlank
     @Column(nullable=false, length=100)
     private String email;
@@ -13,16 +23,24 @@ public class Locadora {
     private String senha;
 
     @NotBlank
-    @Column(nullable=false, length=18)
-    private String cnpj;
+    @UniqueCNPJ(message="{Unique.locadora.cnpj}")
+    @Size(min=18, max=18, message="{Size.locadora.cnpj}")
+    @Column(nullable=false, unique=true, length=18)
+    private String CNPJ;
 
     @NotBlank
-    @Column(nullable=false, length=60)
+    @Column(nullable=false, length=50)
     private String nome;
 
     @NotBlank
-    @Column(nullable=false, length=60)
+    @Column(nullable=false, length=100)
     private String cidade;
+
+    // @OneToMany(mappedBy="locadora")
+    // private List<Cliente> clientes;
+
+    @OneToMany(mappedBy="locadora")
+    private List<Locacao> locacoes;
 
     public String getEmail() {
         return email;
@@ -41,11 +59,11 @@ public class Locadora {
     }
 
     public String getCnpj() {
-        return cnpj;
+        return CNPJ;
     }
 
     public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+        this.CNPJ = cnpj;
     }
 
     public String getNome() {
@@ -64,5 +82,11 @@ public class Locadora {
         this.cidade = cidade;
     }
 
-    
+    public List<Locacao> getLocacoes() {
+        return locacoes;
+    }
+
+    public void setLocacoes(List<Locacao> locacoes) {
+        this.locacoes = locacoes;
+    }
 }

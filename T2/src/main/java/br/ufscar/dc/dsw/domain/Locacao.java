@@ -1,30 +1,41 @@
 package br.ufscar.dc.dsw.domain;
 
-import java.time.LocalDateTime;
-
-import groovyjarjarantlr4.v4.runtime.misc.NotNull;
+import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
+@SuppressWarnings("serial")
+@Entity
+@Table(name="Locacao")
 public class Locacao extends AbstractEntity<Long> {
-    @NotNull
+    @Column(nullable=false, length=19)
+    private String data;
+
+    @NotNull(message="O campo cliente não pode ser nulo")
     @OneToOne
-    @JoinColumn(name="cliente_id")
+    @JoinColumn(name="cpfCliente")
     private Cliente cliente;
 
-    @NotNull
+    @NotNull(message="O campo locadora não pode ser nulo")
     @OneToOne
-    @JoinColumn(name="locadora_id")
+    @JoinColumn(name="cnpjLocadora")
     private Locadora locadora;
 
-    @NotNull
-    @Column(nullable=false)
-    private LocalDateTime dataLocacao;
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
 
     public Cliente getCliente() {
         return cliente;
     }
+
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
@@ -35,13 +46,5 @@ public class Locacao extends AbstractEntity<Long> {
 
     public void setLocadora(Locadora locadora) {
         this.locadora = locadora;
-    }
-
-    public LocalDateTime getDataLocacao() {
-        return dataLocacao;
-    }
-
-    public void setDataLocacao(LocalDateTime dataLocacao) {
-        this.dataLocacao = dataLocacao;
     }
 }

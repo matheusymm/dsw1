@@ -1,15 +1,13 @@
 package br.ufscar.dc.dsw.domain;
 
-import java.sql.Date;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @SuppressWarnings("serial")
-@Entity
-@Table(name = "Bicicleta")
+@Entity 
+@Table(name="Cliente")
 public class Cliente extends AbstractEntity<Long> {
     @NotBlank
     @Column(nullable=false, length=100)
@@ -20,29 +18,29 @@ public class Cliente extends AbstractEntity<Long> {
     private String senha;
 
     @NotBlank
-    @Column(nullable=false, length=60)
-    private String nome;
+    @Column(nullable=false, unique=true, length=14)
+    private String cpf;
 
     @NotBlank
-    @Column(nullable=false, length=14)
-    private String cpf;
+    @Column(nullable=false, length=50)
+    private String nome;
 
     @NotBlank
     @Column(nullable=false, length=20)
     private String telefone;
 
     @NotBlank
-    @Column(nullable=false, length=10)
+    @Column(nullable=false, length=01)
     private String sexo;
 
     @NotBlank
     @Column(nullable=false, length=10)
-    private Date dataNascimento;
+    private String dataNascimento;
 
-    @NotBlank    
-    @Column(nullable=false, length=5)
+    @NotBlank
+    @Column(nullable=false, length=10)
     private String papel;
-    
+
     public String getEmail() {
         return email;
     }
@@ -59,20 +57,20 @@ public class Cliente extends AbstractEntity<Long> {
         this.senha = senha;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public String getCpf() {
         return cpf;
     }
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getTelefone() {
@@ -91,11 +89,11 @@ public class Cliente extends AbstractEntity<Long> {
         this.sexo = sexo;
     }
 
-    public Date getDataNascimento() {
+    public String getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
