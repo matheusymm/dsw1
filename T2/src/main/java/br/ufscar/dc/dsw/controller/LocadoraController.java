@@ -30,6 +30,13 @@ public class LocadoraController {
         model.addAttribute("locadoras", service.buscarTodos());
         return "locadora/lista";
     }
+    
+    @GetMapping("/buscar")
+    public String buscar(ModelMap model, String cidade) {
+        model.addAttribute("locadoras", service.buscarPorCidade(cidade));
+        return "Buscar/lista";
+    }
+    
 
     // TODO: Não aparece a mensagem de sucesso ao cadastrar uma locadora
     @PostMapping("/salvar")

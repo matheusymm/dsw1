@@ -8,6 +8,13 @@
 					class="oi oi-home"></i> <span th:text="#{sidebar.link.home}"></span>
 			</a></li>
 		</ul>
+		
+		<ul class="nav nav-pills">
+			<li class="nav-item"><span class="nav-link active" th:text="#{sidebar.titulo.buscarLocadoras}"></span></li>
+			<li class="nav-item"><a class="nav-link" th:href="@{/locadoras/buscar}"> <i class="oi oi-spreadsheet"></i>
+					<span th:text="#{sidebar.link.buscar}"></span>
+			</a></li>
+		</ul>
 
 		<ul class="nav nav-pills">
 			<li class="nav-item"><span class="nav-link active" th:text="#{sidebar.titulo.locadora}"></span></li>
@@ -35,6 +42,7 @@
 					<span th:text="#{sidebar.link.listar}"></span>
 			</a></li>
 		</ul>
+		
 	</nav>
 </body>
 </html>

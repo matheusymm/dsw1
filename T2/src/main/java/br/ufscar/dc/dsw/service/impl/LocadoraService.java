@@ -33,6 +33,10 @@ public class LocadoraService implements ILocadoraService {
     public List<Locadora> buscarTodos() {
         return dao.findAll();
     }
+    @Transactional(readOnly=true)
+    public List<Locadora> buscarPorCidade(String cidade) {
+        return dao.findByCidade(cidade);
+    }
 
     @Transactional(readOnly=true)
     public boolean locadoraTemLocacoes(Long id) {

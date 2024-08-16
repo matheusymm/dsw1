@@ -6,6 +6,7 @@ import br.ufscar.dc.dsw.domain.Locadora;
 public interface ILocadoraService {
     Locadora buscarPorId(Long id);
     List<Locadora> buscarTodos();
+    List<Locadora> buscarPorCidade(String cidade);
     void salvar(Locadora locadora);
     void excluir(Long id);
     boolean locadoraTemLocacoes(Long id);

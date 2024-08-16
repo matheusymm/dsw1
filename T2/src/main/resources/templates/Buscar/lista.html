@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+
+		<nav class="navbar navbar-expand-md bg-light">
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<i class="oi oi-caret-right"></i>
+						<span th:text="#{sidebar.titulo.buscarLocadoras}"></span>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="container" id="listagem">
+
+			<div th:replace="~{fragments/alert}"></div>
+			
+			<!-- Formulário para buscar locadoras por cidade -->
+			<form action="#" th:action="@{/locadoras/buscar}" method="get" class="form-inline mb-3">
+				<div class="form-group">
+					<label for="cidade" class="mr-2" th:text="#{locadora.cidade.label}"></label>
+					<input type="text" id="cidade" name="cidade" class="form-control mr-2" placeholder="Digite a cidade">
+				</div>
+				<button type="submit" class="btn btn-primary" th:text="#{button.buscar}">Buscar</button>
+			</form>
+
+			<div class="table-responsive">
+				<table class="table table-striped table-hover table-sm">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th th:text="#{locadora.nome.label}"></th>
+							<th th:text="#{locadora.cnpj.label}"></th>
+							<th th:text="#{locadora.cidade.label}"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="locadora : ${locadoras}">
+							<td th:text="${locadora.id}"></td>
+							<td th:text="${locadora.nome}"></td>
+							<td th:text="${locadora.CNPJ}"></td>
+							<td th:text="${locadora.cidade}"></td>
+							<td colspan="2">
+								
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div th:replace="~{fragments/modal :: modal}"></div>
+	</section>
+</body>
+</html>
