@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @SuppressWarnings("serial")
 @Entity 
@@ -19,10 +20,12 @@ public class Cliente extends AbstractEntity<Long> {
     private String senha;
 
     @NotBlank
+    @Size(min=14, max=14)
     @Column(nullable=false, unique=true, length=14)
     private String cpf;
 
     @NotBlank
+    @Size(min=3, max=50)
     @Column(nullable=false, length=50)
     private String nome;
 
@@ -31,7 +34,7 @@ public class Cliente extends AbstractEntity<Long> {
     private String telefone;
 
     @NotBlank
-    @Column(nullable=false, length=01)
+    @Column(nullable=false, length=10)
     private String sexo;
 
     @NotBlank
