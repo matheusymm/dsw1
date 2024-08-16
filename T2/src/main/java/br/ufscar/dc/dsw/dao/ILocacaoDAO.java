@@ -8,8 +8,8 @@ import br.ufscar.dc.dsw.domain.Cliente;
 import br.ufscar.dc.dsw.domain.Locacao;
 
 @SuppressWarnings("unchecked")
-public interface ILocacaoDAO extends CrudRepository<Locacao, Long>{
+public interface ILocacaoDAO extends CrudRepository<Locacao, Long> {
 	Locacao findById(long id);
-	List<Locacao> findAllByUsuario(Cliente user);
+	List<Locacao> findAllByCliente(Cliente user);
 	Locacao save(Locacao locacao);
 }

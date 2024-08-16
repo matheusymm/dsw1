@@ -29,21 +29,21 @@ public class LocacaoController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(Locacao locacao) {
-		locacao.setCliente(this.getCliente());
+		// locacao.setCliente(this.getCliente());
 		locacao.setData("31/08/2020");
 		//compra.setValor(compra.getLivro().getPreco());
-		return "compra/cadastro";
+		return "locacao/cadastro";
 	}
 	
-	private Cliente getCliente() {
-		ClienteDetails usuarioDetails = (ClienteDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return clienteDetails.getCliente();
-	}
+	// private Cliente getCliente() {
+	// 	ClienteDetails usuarioDetails = (ClienteDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		// return clienteDetails.getCliente();
+	// }
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 					
-		model.addAttribute("locacoes",service.buscarTodos(this.getCliente()));
+		// model.addAttribute("locacoes",service.buscarTodos(this.getCliente()));
 		
 		return "locacao/lista";
 	}
@@ -52,7 +52,7 @@ public class LocacaoController {
 	public String salvar(Locacao locacao, BindingResult result, RedirectAttributes attr) {
 		
 		String data = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Calendar.getInstance().getTime());
-		locacao.setCliente(this.getCliente());
+		// locacao.setCliente(this.getCliente());
 		locacao.setData(data);
 		
 		service.salvar(locacao);
