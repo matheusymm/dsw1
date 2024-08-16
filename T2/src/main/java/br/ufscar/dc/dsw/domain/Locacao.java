@@ -5,22 +5,21 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name="Locacao")
 public class Locacao extends AbstractEntity<Long> {
+    // TODO: how to include time in the date?
     @Column(nullable=false, length=19)
     private String data;
 
-    @NotNull(message="O campo cliente não pode ser nulo")
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="cliente_id")
     private Cliente cliente;
 
-    @NotNull(message="O campo locadora não pode ser nulo")
+    @NotNull(message="{NotNull.locacao.locadora}")
     @ManyToOne
     @JoinColumn(name="locadora_id")
     private Locadora locadora;

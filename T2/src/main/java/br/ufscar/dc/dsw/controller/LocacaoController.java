@@ -30,8 +30,7 @@ public class LocacaoController {
 	@GetMapping("/cadastrar")
 	public String cadastrar(Locacao locacao) {
 		// locacao.setCliente(this.getCliente());
-		locacao.setData("31/08/2020");
-		//compra.setValor(compra.getLivro().getPreco());
+		locacao.setData(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Calendar.getInstance().getTime()));
 		return "locacao/cadastro";
 	}
 	

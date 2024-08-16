@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufscar.dc.dsw.domain.Cliente;
-//import br.ufscar.dc.dsw.service.impl.ClienteService;
 import br.ufscar.dc.dsw.service.spec.IClienteService;
 import jakarta.validation.Valid;
 
@@ -58,11 +57,11 @@ public class ClienteController {
 		attr.addFlashAttribute("sucess", "Cliente editado com sucesso.");
 		return "redirect:/clientes/listar";
 	}
+	
 	@GetMapping("/excluir/{id}")
 	public String excluir(@PathVariable("id") Long id, ModelMap model) {
 		service.excluir(id);
 		model.addAttribute("sucess", "Cliente excluído com sucesso.");
 		return listar(model);
 	}
-	
 }

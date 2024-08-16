@@ -61,27 +61,27 @@
 							<span th:errors="*{CNPJ}"></span>
 						</div>
 					</div>
-				</div>
 
-				<div class="form-group ">
-					<label th:text="#{locadora.nome.label}" for="nome"></label> 
-					<input type="text" class="form-control" id="nome" placeholder="Nome"
-						autofocus="autofocus" th:field="*{nome}"
-						th:classappend="${#fields.hasErrors('nome')} ? is-invalid" />
-
-					<div class="invalid-feedback">
-						<span th:errors="*{nome}"></span>
+					<div class="form-group ">
+						<label th:text="#{locadora.nome.label}" for="nome"></label> 
+						<input type="text" class="form-control" id="nome" placeholder="Nome"
+							autofocus="autofocus" th:field="*{nome}"
+							th:classappend="${#fields.hasErrors('nome')} ? is-invalid" />
+	
+						<div class="invalid-feedback">
+							<span th:errors="*{nome}"></span>
+						</div>
 					</div>
-				</div>
-
-				<div class="form-group ">
-					<label th:text="#{locadora.cidade.label}" for="cidade"></label> 
-					<input type="text" class="form-control" id="cidade" placeholder="Cidade"
-						autofocus="autofocus" th:field="*{cidade}"
-						th:classappend="${#fields.hasErrors('cidade')} ? is-invalid" />
-
-					<div class="invalid-feedback">
-						<span th:errors="*{cidade}"></span>
+	
+					<div class="form-group ">
+						<label th:text="#{locadora.cidade.label}" for="cidade"></label> 
+						<input type="text" class="form-control" id="cidade" placeholder="Cidade"
+							autofocus="autofocus" th:field="*{cidade}"
+							th:classappend="${#fields.hasErrors('cidade')} ? is-invalid" />
+	
+						<div class="invalid-feedback">
+							<span th:errors="*{cidade}"></span>
+						</div>
 					</div>
 				</div>
 

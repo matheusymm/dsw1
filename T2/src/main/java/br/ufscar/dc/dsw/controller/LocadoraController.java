@@ -31,6 +31,7 @@ public class LocadoraController {
         return "locadora/lista";
     }
 
+    // TODO: Não aparece a mensagem de sucesso ao cadastrar uma locadora
     @PostMapping("/salvar")
     public String salvar(@Valid Locadora locadora, BindingResult result, RedirectAttributes attr) {
         if (result.hasErrors()) {

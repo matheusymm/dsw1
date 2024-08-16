@@ -1,8 +1,10 @@
 package br.ufscar.dc.dsw.domain;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -45,8 +47,8 @@ public class Cliente extends AbstractEntity<Long> {
     @Column(nullable=false, length=10)
     private String papel;
 
-    @OneToOne(mappedBy="cliente")
-    private Locacao locacao;
+    @OneToMany(mappedBy="cliente")
+    private List<Locacao> locacoes;
 
     public String getEmail() {
         return email;
@@ -110,5 +112,13 @@ public class Cliente extends AbstractEntity<Long> {
 
     public void setPapel(String papel) {
         this.papel = papel;
+    }
+
+    public List<Locacao> getLocacoes() {
+        return locacoes;
+    }
+
+    public void setLocacoes(List<Locacao> locacoes) {
+        this.locacoes = locacoes;
     }
 }
