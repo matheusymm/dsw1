@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 @Table(name="Locacao")
 public class Locacao extends AbstractEntity<Long> {
     // TODO: how to include time in the date?
-    @Column(nullable=false, length=19)
+    @Column(nullable=false, length=20)
     private String data;
 
     @ManyToOne

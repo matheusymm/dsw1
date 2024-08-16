@@ -34,7 +34,4 @@ public class ClienteService implements IClienteService {
 		dao.deleteById(id);
 		
 	}
-
-	
-	
 }

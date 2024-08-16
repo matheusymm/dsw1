@@ -54,7 +54,8 @@
 						<label th:text="#{cliente.cpf.label}" for="cpf"></label> 
 						<input type="text" class="form-control" id="cpf" placeholder="___.___.___-__"
 							autofocus="autofocus" th:field="*{cpf}"
-							th:classappend="${#fields.hasErrors('cpf')} ? is-invalid" />
+							th:classappend="${#fields.hasErrors('cpf')} ? is-invalid" 
+							data-mask="000.000.000-00" data-mask-reverse="true"/>
 						                               
 						<div class="invalid-feedback">
 							<span th:errors="*{cpf}"></span>

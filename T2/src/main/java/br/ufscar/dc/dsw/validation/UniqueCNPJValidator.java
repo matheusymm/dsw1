@@ -2,11 +2,11 @@ package br.ufscar.dc.dsw.validation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 import br.ufscar.dc.dsw.dao.ILocadoraDAO;
 import br.ufscar.dc.dsw.domain.Locadora;
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
 
 @Component
 public class UniqueCNPJValidator implements ConstraintValidator<UniqueCNPJ, String> {

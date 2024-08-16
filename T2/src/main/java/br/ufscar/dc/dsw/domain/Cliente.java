@@ -2,6 +2,7 @@ package br.ufscar.dc.dsw.domain;
 
 import java.util.List;
 
+import br.ufscar.dc.dsw.validation.UniqueCPF;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -22,6 +23,7 @@ public class Cliente extends AbstractEntity<Long> {
     private String senha;
 
     @NotBlank
+    @UniqueCPF(message="{Unique.cliente.CPF}")
     @Size(min=14, max=14)
     @Column(nullable=false, unique=true, length=14)
     private String cpf;
@@ -46,6 +48,9 @@ public class Cliente extends AbstractEntity<Long> {
     @NotBlank
     @Column(nullable=false, length=10)
     private String papel;
+
+    // @Column(nullable=false)
+    // private boolean enabled;
 
     @OneToMany(mappedBy="cliente")
     private List<Locacao> locacoes;
@@ -118,7 +123,16 @@ public class Cliente extends AbstractEntity<Long> {
         return locacoes;
     }
 
+    // public boolean isEnabled() {
+    //     return enabled;
+    // }
+
+    // public void setEnabled(boolean enabled) {
+    //     this.enabled = enabled;
+    // }
+
     public void setLocacoes(List<Locacao> locacoes) {
         this.locacoes = locacoes;
     }
+
 }
