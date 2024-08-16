@@ -14,7 +14,7 @@
 				</ul>
 				<a class="btn btn-primary btn-md" th:href="@{/clientes/listar}"
 					role="button"> <span class="oi oi-spreadsheet" title="Listar"
-					aria-hidden="true"></span> <span>Listar Clientes</span>
+					aria-hidden="true"></span> <span th:text="#{cliente.listar.label}"></span>
 				</a>
 			</div>
 		</nav>
@@ -97,7 +97,7 @@
 				
 				<div class="form-group ">
 					<label th:text="#{cliente.dataNascimento.label}" for="dataNascimento"></label> 
-					<input type="text" class="form-control" id="dataNascimento" placeholder="Data de Nascimento"
+					<input type="date" class="form-control" id="dataNascimento" placeholder="Data de Nascimento"
 						autofocus="autofocus" th:field="*{dataNascimento}"
 						th:classappend="${#fields.hasErrors('dataNascimento')} ? is-invalid" />
 

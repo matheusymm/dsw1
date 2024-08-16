@@ -31,15 +31,18 @@ public class ClienteController {
 		model.addAttribute("clientes", service.buscarTodos());
 		return "cliente/lista";
 	}
+
 	@PostMapping("/salvar")
 	public String salvar(@Valid Cliente cliente, BindingResult result, RedirectAttributes attr) {
 		if (result.hasErrors()) {
 			return "clientes/cadastro";
 		}
+		
 		service.salvar(cliente);
 		attr.addFlashAttribute("sucess", "Cliente inserido com sucesso.");
 		return "redirect:/clientes/listar";
 	}
+
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("cliente", service.buscarPorId(id));
