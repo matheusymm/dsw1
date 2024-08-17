@@ -30,12 +30,14 @@
 					<thead>
 						<tr>
 							<th>#</th>
+							<th th:text="#{locacao.locadora.label}"></th>
 							<th th:text="#{locacao.data.label}"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="locacao: ${locacoes}">
 							<td th:text="${locacao.id}"></td>
+							<td th:text="${locacao.locadora.nome}"></td>
 							<td th:text="${locacao.data}"></td>
 						</tr>
 					</tbody>

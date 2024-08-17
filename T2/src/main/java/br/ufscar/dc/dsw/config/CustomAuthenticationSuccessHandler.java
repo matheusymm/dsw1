@@ -1,6 +1,9 @@
 package br.ufscar.dc.dsw.config;
 
+import java.util.Collection;
+
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -14,19 +17,23 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
+
+        Collection<? extends GrantedAuthority> authorities =  authentication.getAuthorities();
         // Lógica de redirecionamento personalizada
-        String redirectUrl = "/home";
+        String redirectUrl = null;
 
         // Verifique os papéis do usuário autenticado
-        if (authentication.getAuthorities().stream()
-                .anyMatch(role -> role.getAuthority().equals("ADMIN"))) {
-            redirectUrl = "/clientes/home";
-        } else if (authentication.getAuthorities().stream()
-                .anyMatch(role -> role.getAuthority().equals("CLIENTE"))) {
-            redirectUrl = "/clientes/home";
-        } else if (authentication.getAuthorities().stream()
-                .anyMatch(role -> role.getAuthority().equals("LOCADORA"))) {
-            redirectUrl = "/locadoras/home";
+        for (GrantedAuthority authority : authorities) {
+            if (authority.getAuthority().equals("ROLE_CLIENTE")) {
+                redirectUrl = "/locacoes/listar";
+                break;
+            } else if (authority.getAuthority().equals("ROLE_ADMIN")) {
+                redirectUrl = "/clientes/listar";
+                break;
+            } else if (authority.getAuthority().equals("ROLE_LOCADORA")) {
+                redirectUrl = "/locadoras/listar";
+                break;
+            }
         }
 
         // Redireciona o usuário para a URL determinada

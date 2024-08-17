@@ -24,9 +24,9 @@ public class ClienteController {
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 
-	@GetMapping("/home")
+	@GetMapping("/")
 	public String home() {
-		return "cliente/home";
+		return "cliente/lista";
 	}
 	
 	@GetMapping("/cadastrar")

@@ -6,10 +6,12 @@ import org.springframework.data.repository.CrudRepository;
 
 import br.ufscar.dc.dsw.domain.Cliente;
 import br.ufscar.dc.dsw.domain.Locacao;
+import br.ufscar.dc.dsw.domain.Locadora;
 
 @SuppressWarnings("unchecked")
 public interface ILocacaoDAO extends CrudRepository<Locacao, Long> {
 	Locacao findById(long id);
 	List<Locacao> findAllByCliente(Cliente cliente);
+	Locacao findByClienteAndLocadoraAndData(Cliente cliente, Locadora locadora, String data);
 	Locacao save(Locacao locacao);
 }

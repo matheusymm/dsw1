@@ -45,6 +45,7 @@ public class LocadoraController {
 
         service.salvar(locadora);
         attr.addFlashAttribute("success", "Locadora inserida com sucesso.");
+        
         return "redirect:/locadoras/listar";
     }
 

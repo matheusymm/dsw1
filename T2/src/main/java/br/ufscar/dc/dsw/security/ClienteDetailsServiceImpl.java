@@ -20,7 +20,7 @@ public class ClienteDetailsServiceImpl implements UserDetailsService {
         if (cliente == null) {
             throw new UsernameNotFoundException("Could not find user");
         }
-        System.out.println("E-mail: " + cliente.getEmail() + " Papel: " + cliente.getPapel());
+        
         return new ClienteDetails(cliente);
     }
 }

@@ -1,61 +1,83 @@
 package br.ufscar.dc.dsw.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufscar.dc.dsw.domain.Locacao;
+import br.ufscar.dc.dsw.security.ClienteDetails;
 import br.ufscar.dc.dsw.domain.Cliente;
-// import br.ufscar.dc.dsw.security.ClienteDetails;
 import br.ufscar.dc.dsw.service.spec.ILocacaoService;
+import br.ufscar.dc.dsw.service.spec.ILocadoraService;
 
 @Controller
 @RequestMapping("/locacoes")
 public class LocacaoController {
-	
 	@Autowired
 	private ILocacaoService service;
+
+	@Autowired
+	private ILocadoraService serviceLocadora;
 	
 	@GetMapping("/cadastrar")
-	public String cadastrar(Locacao locacao) {
-		// locacao.setCliente(this.getCliente());
-		locacao.setData(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Calendar.getInstance().getTime()));
+	public String cadastrar(ModelMap model, Locacao locacao) {
+		model.addAttribute("locadoras", serviceLocadora.buscarTodos());
+		locacao.setCliente(this.getCliente());
+		locacao.setData(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").toString());
+
 		return "locacao/cadastro";
 	}
 	
-	// private Cliente getCliente() {
-	// 	ClienteDetails usuarioDetails = (ClienteDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		// return clienteDetails.getCliente();
-	// }
+	private Cliente getCliente() {
+		ClienteDetails clienteDetails = (ClienteDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return clienteDetails.getCliente();
+	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-					
-		// model.addAttribute("locacoes",service.buscarTodos(this.getCliente()));
+		model.addAttribute("locacoes",service.buscarTodos(this.getCliente()));
 		
 		return "locacao/lista";
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(Locacao locacao, BindingResult result, RedirectAttributes attr) {
+	public String salvar(Locacao locacao, BindingResult result, RedirectAttributes attr) throws ParseException {
+		String data = locacao.getData();
+		LocalDateTime dataHora = LocalDateTime.parse(data);
+
+		int min = dataHora.getMinute();
+
+		if(min != 0) {
+			dataHora = dataHora.plusHours(1);
+		}
+		dataHora = dataHora.withMinute(0).withSecond(0);
+
+		data = dataHora.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
 		
-		String data = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Calendar.getInstance().getTime());
-		// locacao.setCliente(this.getCliente());
+		locacao.setCliente(this.getCliente());
 		locacao.setData(data);
+
+		Locacao locacaoExistente = service.buscarPorClienteELocadoraEData(locacao.getCliente(), locacao.getLocadora(), locacao.getData());
+
+		if(locacaoExistente != null) {
+			attr.addFlashAttribute("error", "Já existe uma locação para este cliente ou esta locadora nesta data e hora.");
+			return "redirect:/locacoes/cadastrar";
+		}
 		
 		service.salvar(locacao);
 		attr.addFlashAttribute("sucess", "Locacao inserida com sucesso.");
+		
 		return "redirect:/locacoes/listar";
 	}
 }

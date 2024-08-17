@@ -55,7 +55,7 @@
 						<input type="text" class="form-control" id="cpf" placeholder="___.___.___-__"
 							autofocus="autofocus" th:field="*{cpf}"
 							th:classappend="${#fields.hasErrors('cpf')} ? is-invalid" 
-							data-mask="000.000.000-00" data-mask-reverse="true"/>
+							data-mask="000.000.000-00"/>
 						                               
 						<div class="invalid-feedback">
 							<span th:errors="*{cpf}"></span>
@@ -77,7 +77,8 @@
 							<label th:text="#{cliente.telefone.label}" for="telefone"></label> 
 							<input type="text" class="form-control" id="telefone" placeholder="(__)_____-____"
 								autofocus="autofocus" th:field="*{telefone}"
-								th:classappend="${#fields.hasErrors('telefone')} ? is-invalid"/>
+								th:classappend="${#fields.hasErrors('telefone')} ? is-invalid" 
+								data-mask="(00)00000-0000" />
 														   
 							<div class="invalid-feedback">
 								<span th:errors="*{telefone}"></span>

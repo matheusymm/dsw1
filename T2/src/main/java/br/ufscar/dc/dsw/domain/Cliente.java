@@ -46,7 +46,7 @@ public class Cliente extends AbstractEntity<Long> {
     private String dataNascimento;
 
     @NotBlank
-    @Column(nullable=false, length=10)
+    @Column(nullable=false, length=30)
     private String papel;
 
     @Column(nullable=false)

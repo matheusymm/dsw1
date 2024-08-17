@@ -44,8 +44,8 @@ public class WebSecurityConfig {
             .authorizeHttpRequests((authz) -> authz
                     .requestMatchers("/error", "/login/**", "/js/**").permitAll()
                     .requestMatchers("/css/**", "/image/**", "/webjars/**").permitAll()
-                    .requestMatchers("/clientes/**").hasAnyRole("CLIENTE", "ADMIN")
-                    .requestMatchers("/locadoras/**").hasAnyRole("LOCADORA", "ADMIN")
+                    .requestMatchers("/clientes/**").hasRole("ADMIN")
+                    .requestMatchers("/locadoras/**").hasRole("ADMIN")
                     .requestMatchers("/locacoes/**").authenticated()
                     .requestMatchers("/lista/**").permitAll()
                     .requestMatchers("/buscar").permitAll()
