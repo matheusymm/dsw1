@@ -28,6 +28,7 @@ public class BicicletaApplication {
 	// 		admin.setSexo("Masculino");
 	// 		admin.setDataNascimento("01/01/2000");
 	// 		admin.setPapel("ADMIN");
+	// 		admin.setEnabled(true);
 	// 		clienteDAO.save(admin);
 
 	// 		Cliente cliente = new Cliente();
@@ -38,7 +39,8 @@ public class BicicletaApplication {
 	// 		cliente.setTelefone("(22) 22222-2222");
 	// 		cliente.setSexo("Feminino");
 	// 		cliente.setDataNascimento("02/02/2000");
-	// 		cliente.setPapel("USER");
+	// 		cliente.setPapel("CLIENTE");
+	// 		cliente.setEnabled(true);
 	// 		clienteDAO.save(cliente);
 
 	// 		Locadora l1 = new Locadora();

@@ -1,16 +1,44 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout}">
+<html>
 <head>
 <meta charset="UTF-8" />
+<title th:text="#{title.label}"></title>
+<link rel="stylesheet" th:href="@{/css/stylePub.css}" />
 </head>
 <body>
-	<section class="layout-content" layout:fragment="corpo">
-
-		<div class="container" style="text-align: center;">
-			<h1 th:text="#{title.label}"></h1>
-			<img alt="" th:src="@{/image/logo.jpg}" style="width:500px;">
+	<header>
+		<nav
+			class="navbar navbar-inverse navbar navbar-dark bg-dark fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<div style="right: 30px; position: absolute">
+						<a th:href="@{''(lang=pt)}"><img alt=""
+							th:src="@{/image/Brasil.gif}" style="width: 30px;" /></a> <a
+							th:href="@{''(lang=en)}"><img alt=""
+							th:src="@{/image/EUA.gif}" style="width: 30px;" /></a>
+					</div>
+					
+					<button type="button" class="btn btn-dark navbar-toggle pull-left">
+						<i class="oi oi-menu"></i>
+					</button>
+					<a class="navbar-brand " th:href="@{/}" th:text="#{title.label}">
+					</a>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container" style="text-align: center;">
+		<h1 th:text="#{title.label}"></h1>
+		<img alt="" th:src="@{/image/logo.jpg}" style="width:500px;">
+	</div>
+	<div class="form-group text-center">
+		<div class="row justify-content-center">
+			<div class="col-sm-5">
+				<p><a th:href="@{/login}" class="form-control btn btn-info" th:text="#{sidebar.titulo.cliente}"></a></p>
+				<p><a th:href="@{/locadoras}" class="form-control btn btn-info" th:text="#{sidebar.titulo.locadora}"></a></p>
+				<p><a th:href="@{/lista}" class="form-control btn btn-info" th:text="#{locadora.listar.label}"></a></p>
+			</div>
 		</div>
-
-	</section>
+	</div>
 </body>
 </html>

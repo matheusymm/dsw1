@@ -13,7 +13,7 @@
 					class="oi oi-home"></i> <span th:text="#{sidebar.link.home}"></span>
 			</a></li>
 		</ul>
-		<div sec:authorize="hasRole('USER')">
+		<div sec:authorize="hasAnyRole('CLIENTE', 'LOCADORA', 'ADMIN')">
 			<ul class="nav nav-pills">
 				<li class="nav-item"><span class="nav-link active"
 					th:text="#{sidebar.titulo.locacao}"></span></li>
@@ -43,10 +43,10 @@
 			</ul>
 		</div>
 
-		<div sec:authorize="hasRole('ADMIN')">
+		<div sec:authorize="hasAnyRole('LOCADORA', 'ADMIN')">
 			<ul class="nav nav-pills">
 				<li class="nav-item"><span class="nav-link active"
-					th:text="#{sidebar.titulo.usuario}"></span></li>
+					th:text="#{sidebar.titulo.cliente}"></span></li>
 				<li class="nav-item"><a class="nav-link"
 					th:href="@{/clientes/cadastrar}"> <i class="oi oi-plus"></i> <span
 						th:text="#{sidebar.link.cadastrar}"></span>

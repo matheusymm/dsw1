@@ -11,7 +11,6 @@ import br.ufscar.dc.dsw.domain.Cliente;
  
 @SuppressWarnings("serial")
 public class ClienteDetails implements UserDetails {
- 
     private Cliente cliente;
      
     public ClienteDetails(Cliente cliente) {
@@ -57,5 +56,4 @@ public class ClienteDetails implements UserDetails {
 	public Cliente getCliente() {
 		return cliente;
 	}
-    
 }

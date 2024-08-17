@@ -1,5 +1,6 @@
 package br.ufscar.dc.dsw.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -14,9 +15,12 @@ import br.ufscar.dc.dsw.security.ClienteDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig {
+public class WebSecurityConfig { 
+    @Autowired
+    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+
     @Bean
-    public UserDetailsService userDetailsService() {
+    public UserDetailsService clienteDetailsService() {
         return new ClienteDetailsServiceImpl();
     }
 
@@ -26,9 +30,9 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
+    public DaoAuthenticationProvider clienteAuthenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setUserDetailsService(clienteDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
 
         return authProvider;
@@ -39,15 +43,17 @@ public class WebSecurityConfig {
         http
             .authorizeHttpRequests((authz) -> authz
                     .requestMatchers("/error", "/login/**", "/js/**").permitAll()
-                    .requestMatchers("/css/**", "/imagens/**", "/webjars/**").permitAll()
-                    .requestMatchers("/clientes/**").hasRole("USER")
-                    .requestMatchers("/locadoras/**").hasRole("LOCADORA")
-                    .requestMatchers("/admins/**").hasRole("ADMIN")
+                    .requestMatchers("/css/**", "/image/**", "/webjars/**").permitAll()
+                    .requestMatchers("/clientes/**").hasAnyRole("CLIENTE", "ADMIN")
+                    .requestMatchers("/locadoras/**").hasAnyRole("LOCADORA", "ADMIN")
                     .requestMatchers("/locacoes/**").authenticated()
+                    .requestMatchers("/lista/**").permitAll()
+                    .requestMatchers("/buscar").permitAll()
                     .anyRequest().authenticated())
             .csrf(AbstractHttpConfigurer::disable)
             .formLogin((form) -> form
                     .loginPage("/login")
+                    .successHandler(customAuthenticationSuccessHandler)
                     .permitAll())
             .logout((logout) -> logout
                     .logoutSuccessUrl("/").permitAll());

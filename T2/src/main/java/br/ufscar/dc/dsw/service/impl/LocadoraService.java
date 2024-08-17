@@ -35,6 +35,11 @@ public class LocadoraService implements ILocadoraService {
     }
 
     @Transactional(readOnly=true)
+    public List<Locadora> buscarPorCidade(String cidade) {
+        return dao.findByCidade(cidade);
+    }
+
+    @Transactional(readOnly=true)
     public boolean locadoraTemLocacoes(Long id) {
         return !dao.findById(id.longValue()).getLocacoes().isEmpty();
     }

@@ -20,6 +20,11 @@ public class LocadoraController {
     @Autowired
     private ILocadoraService service;
 
+    @GetMapping("/home")
+	public String home() {
+		return "locadora/home";
+	}
+
     @GetMapping("/cadastrar")
     public String cadastrar(Locadora locadora) {
         return "locadora/cadastro";

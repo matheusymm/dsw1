@@ -49,8 +49,8 @@ public class Cliente extends AbstractEntity<Long> {
     @Column(nullable=false, length=10)
     private String papel;
 
-    // @Column(nullable=false)
-    // private boolean enabled;
+    @Column(nullable=false)
+    private boolean enabled;
 
     @OneToMany(mappedBy="cliente")
     private List<Locacao> locacoes;
@@ -123,16 +123,15 @@ public class Cliente extends AbstractEntity<Long> {
         return locacoes;
     }
 
-    // public boolean isEnabled() {
-    //     return enabled;
-    // }
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-    // public void setEnabled(boolean enabled) {
-    //     this.enabled = enabled;
-    // }
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public void setLocacoes(List<Locacao> locacoes) {
         this.locacoes = locacoes;
     }
-
 }
