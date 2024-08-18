@@ -7,30 +7,30 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import br.ufscar.dc.dsw.domain.Cliente;
+import br.ufscar.dc.dsw.domain.Locadora;
  
 @SuppressWarnings("serial")
-public class ClienteDetails implements UserDetails {
-    private Cliente cliente;
+public class LocadoraDetails implements UserDetails {
+    private Locadora locadora;
      
-    public ClienteDetails(Cliente cliente) {
-        this.cliente = cliente;
+    public LocadoraDetails(Locadora locadora) {
+        this.locadora = locadora;
     }
  
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(cliente.getPapel());
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(locadora.getPapel());
         return Arrays.asList(authority);
     }
  
     @Override
     public String getPassword() {
-        return cliente.getSenha();
+        return locadora.getSenha();
     }
  
     @Override
     public String getUsername() {
-        String username = cliente.getEmail();
+        String username = locadora.getEmail();
         username = username.substring(0, username.indexOf('@'));
         return username;
     }
@@ -55,7 +55,7 @@ public class ClienteDetails implements UserDetails {
         return true;
     }
 
-	public Cliente getCliente() {
-		return cliente;
+	public Locadora getLocadora() {
+		return locadora;
 	}
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layoutCli}">
+<html layout:decorate="~{layoutLocadora}">
 <head>
 </head>
 <body>
@@ -10,7 +10,7 @@
 					<li class="nav-item active"><i class="oi oi-caret-right"></i>
 						<span th:text="#{locacao.cadastrar.label}"></span></li>
 				</ul>
-				<a class="btn btn-primary btn-md" th:href="@{/locacoes/listar}"
+				<a class="btn btn-primary btn-md" th:href="@{/locacoes/listarLocadora}"
 					role="button"> <span class="oi oi-spreadsheet" title="Listar"
 					aria-hidden="true"></span> <span th:text="#{locacao.listar.label}"></span>
 				</a>
@@ -21,30 +21,31 @@
 
 			<div th:replace="~{fragments/alert}"></div>
 
-			<form th:action="@{/locacoes/salvarCliente}" th:object="${locacao}"
+			<form th:action="@{/locacoes/salvarLocadora}" th:object="${locacao}"
 				method="POST">
 
 				<div th:replace="~{fragments/validacao :: validacao}"></div>
 
 				<div class="form-column">
-					<div class="form-group ">
-						<label th:text="#{locacao.cliente.cpf.label}" for="cpf"></label> 
-						<input type="text" class="form-control" id="cpf" placeholder="___.___.___-__"
-						autofocus="autofocus" data-mask="000.000.000-00" data-mask-reverse="true"/>
-					</div>
-	
+
 					<div class="form-group">
-						<label th:text="#{locacao.locadora.label}" for="locadora"></label> 
-						<select id="locadora" class="form-control" th:field="*{locadora}"
-							th:classappend="${#fields.hasErrors('locadora')} ? is-invalid">
+						<label th:text="#{locacao.cliente.label}" for="cliente"></label> 
+						<select id="cliente" class="form-control" th:field="*{cliente}"
+							th:classappend="${#fields.hasErrors('cliente')} ? is-invalid">
 							<option value="" th:text="#{select.label}"></option>
-							<option th:each="locadora : ${locadoras}" th:value="${locadora.id}"
-								th:text="${locadora.nome}"></option>
+							<option th:each="cliente : ${clientes}" th:value="${cliente.id}"
+								th:text="${cliente.nome}"></option>
 						</select>
 
 						<div class="invalid-feedback">
-							<span th:errors="*{locadora}"></span>
+							<span th:errors="*{cliente}"></span>
 						</div>
+					</div>
+	
+					<div class="form-group ">
+						<label th:text="#{locacao.locadora.cnpj.label}" for="cnpj"></label> 
+						<input type="text" class="form-control" id="cnpj" placeholder="__.___.___/____-__"
+						autofocus="autofocus" data-mask="00.000.000/0000-00"/>
 					</div>
 
 					<div class="form-group ">

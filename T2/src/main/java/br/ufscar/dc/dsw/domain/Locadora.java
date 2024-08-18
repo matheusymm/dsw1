@@ -37,6 +37,10 @@ public class Locadora extends AbstractEntity<Long> {
     @Column(nullable=false, length=100)
     private String cidade;
 
+    @NotBlank
+    @Column(nullable=false, length=13)
+    private String papel="ROLE_LOCADORA";
+
     // @OneToMany(mappedBy="locadora")
     // private List<Cliente> clientes;
 
@@ -81,6 +85,14 @@ public class Locadora extends AbstractEntity<Long> {
 
     public void setCidade(String cidade) {
         this.cidade = cidade;
+    }
+
+    public String getPapel() {
+        return papel;
+    }
+
+    public void setPapel(String papel) {
+        this.papel = papel;
     }
 
     public List<Locacao> getLocacoes() {

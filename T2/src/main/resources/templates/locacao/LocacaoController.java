@@ -20,7 +20,6 @@ import br.ufscar.dc.dsw.domain.Locadora;
 import br.ufscar.dc.dsw.security.ClienteDetails;
 import br.ufscar.dc.dsw.security.LocadoraDetails;
 import br.ufscar.dc.dsw.domain.Cliente;
-import br.ufscar.dc.dsw.service.spec.IClienteService;
 import br.ufscar.dc.dsw.service.spec.ILocacaoService;
 import br.ufscar.dc.dsw.service.spec.ILocadoraService;
 
@@ -34,7 +33,7 @@ public class LocacaoController {
 	private ILocadoraService serviceLocadora;
 
 	@Autowired
-	private IClienteService serviceCliente;
+	private ILocadoraService serviceCliente;
 
 	private Cliente getCliente() {
 		ClienteDetails clienteDetails = (ClienteDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -62,8 +61,24 @@ public class LocacaoController {
 		return "locacao/lista";
 	}
 
-	@PostMapping("/salvarCliente")
-	public String salvarCliente(Locacao locacao, BindingResult result, RedirectAttributes attr) throws ParseException {
+	@GetMapping("/cadastrarLocadora")
+	public String cadastrarLocadora(ModelMap model, Locacao locacao) {
+		model.addAttribute("locadoras", serviceCliente.buscarTodos());
+		locacao.setLocadora(this.getLocadora());
+		locacao.setData(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").toString());
+
+		return "locacao/cadastro";
+	}
+	
+	@GetMapping("/listarLocadora")
+	public String listarLocadora(ModelMap model) {
+		model.addAttribute("locacoes",service.buscarTodos(this.getLocadora()));
+		
+		return "locacao/lista";
+	}
+	
+	@PostMapping("/salvar")
+	public String salvar(Locacao locacao, BindingResult result, RedirectAttributes attr) throws ParseException {
 		String data = locacao.getData();
 		LocalDateTime dataHora = LocalDateTime.parse(data);
 
@@ -83,58 +98,12 @@ public class LocacaoController {
 
 		if(locacaoExistente != null) {
 			attr.addFlashAttribute("error", "Já existe uma locação para este cliente ou esta locadora nesta data e hora.");
-			return "redirect:/locacoes/cadastrarCliente";
+			return "redirect:/locacoes/cadastrar";
 		}
 		
 		service.salvar(locacao);
 		attr.addFlashAttribute("sucess", "Locacao inserida com sucesso.");
 		
-		return "redirect:/locacoes/listarCliente";
-	}
-
-	@GetMapping("/cadastrarLocadora")
-	public String cadastrarLocadora(ModelMap model, Locacao locacao) {
-		model.addAttribute("clientes", serviceCliente.buscarTodos());
-		locacao.setLocadora(this.getLocadora());
-		locacao.setData(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").toString());
-
-		return "locacao/cadastroLocadora";
-	}
-	
-	@GetMapping("/listarLocadora")
-	public String listarLocadora(ModelMap model) {
-		model.addAttribute("locacoes",service.buscarTodos(this.getLocadora()));
-		
-		return "locacao/listaLocadora";
-	}
-	
-	@PostMapping("/salvarLocadora")
-	public String salvarLocadora(Locacao locacao, BindingResult result, RedirectAttributes attr) throws ParseException {
-		String data = locacao.getData();
-		LocalDateTime dataHora = LocalDateTime.parse(data);
-
-		int min = dataHora.getMinute();
-
-		if(min != 0) {
-			dataHora = dataHora.plusHours(1);
-		}
-		dataHora = dataHora.withMinute(0).withSecond(0);
-
-		data = dataHora.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
-		
-		locacao.setLocadora(this.getLocadora());
-		locacao.setData(data);
-
-		Locacao locacaoExistente = service.buscarPorClienteELocadoraEData(locacao.getCliente(), locacao.getLocadora(), locacao.getData());
-
-		if(locacaoExistente != null) {
-			attr.addFlashAttribute("error", "Já existe uma locação para este cliente ou esta locadora nesta data e hora.");
-			return "redirect:/locacoes/cadastrarLocadora";
-		}
-		
-		service.salvar(locacao);
-		attr.addFlashAttribute("sucess", "Locacao inserida com sucesso.");
-		
-		return "redirect:/locacoes/listarLocadora";
+		return "redirect:/locacoes/listar";
 	}
 }

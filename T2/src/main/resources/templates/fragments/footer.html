@@ -9,12 +9,7 @@
 		<div class="container">
 
 			<div class="footer-copy">
-				<div sec:authorize="isAuthenticated()">
-					<span th:text="#{login.email}"></span>: <span
-						sec:authentication="name"></span> | <span th:text="#{user.role}"></span>:
-					<span sec:authentication="principal.authorities"></span> <br />
 				<span>&copy; Departamento de Computação &copy;</span>
-				</div>
 			</div>
 		</div>
 	</footer>

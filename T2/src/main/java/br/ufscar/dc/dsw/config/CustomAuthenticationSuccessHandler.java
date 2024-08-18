@@ -25,13 +25,13 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         // Verifique os papéis do usuário autenticado
         for (GrantedAuthority authority : authorities) {
             if (authority.getAuthority().equals("ROLE_CLIENTE")) {
-                redirectUrl = "/locacoes/listar";
+                redirectUrl = "/clientes/home";
                 break;
             } else if (authority.getAuthority().equals("ROLE_ADMIN")) {
-                redirectUrl = "/clientes/listar";
+                redirectUrl = "/admins/home";
                 break;
             } else if (authority.getAuthority().equals("ROLE_LOCADORA")) {
-                redirectUrl = "/locadoras/listar";
+                redirectUrl = "/locadoras/home";
                 break;
             }
         }

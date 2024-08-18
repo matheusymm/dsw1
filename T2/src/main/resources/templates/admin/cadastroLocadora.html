@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout}">
+<html layout:decorate="~{layoutAdmin}">
 <head>
 <meta charset="UTF-8" />
 </head>
@@ -12,7 +12,7 @@
 					<li class="nav-item active"><i class="oi oi-caret-right"></i>
 						<span th:text="#{locadora.listar.label}"></span></li>
 				</ul>
-				<a class="btn btn-primary btn-md" th:href="@{/locadoras/listar}"
+				<a class="btn btn-primary btn-md" th:href="@{/admins/listarLocadora}"
 					role="button"> <span class="oi oi-spreadsheet" title="Listar"
 					aria-hidden="true"></span> <span th:text="#{locadora.listar.label}"></span>
 				</a>
@@ -24,7 +24,7 @@
 			<div th:replace="~{fragments/alert}"></div>
 
 			<form
-				th:action="${locadora.id == null} ? @{/locadoras/salvar} : @{/locadoras/editar}"
+				th:action="${locadora.id == null} ? @{/admins/salvarLocadora} : @{/admins/editarLocadora}"
 				th:object="${locadora}" method="POST">
 				
 				<div class="form-column">

@@ -12,6 +12,7 @@ import br.ufscar.dc.dsw.domain.Locadora;
 public interface ILocacaoDAO extends CrudRepository<Locacao, Long> {
 	Locacao findById(long id);
 	List<Locacao> findAllByCliente(Cliente cliente);
+	List<Locacao> findAllByLocadora(Locadora locadora);
 	Locacao findByClienteAndLocadoraAndData(Cliente cliente, Locadora locadora, String data);
 	Locacao save(Locacao locacao);
 }

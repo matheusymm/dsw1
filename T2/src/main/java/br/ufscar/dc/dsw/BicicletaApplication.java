@@ -49,6 +49,7 @@ public class BicicletaApplication {
 	// 		l1.setCNPJ("11.111.111/1111-11");
 	// 		l1.setNome("Locadora 1");
 	// 		l1.setCidade("São Carlos");
+	// 		l1.setPapel("ROLE_LOCADORA");
 	// 		locadoraDAO.save(l1);
 
 	// 		Locadora l2 = new Locadora();
@@ -57,6 +58,7 @@ public class BicicletaApplication {
 	// 		l2.setCNPJ("22.222.222/2222-22");
 	// 		l2.setNome("Locadora 2");
 	// 		l2.setCidade("Araraquara");
+	// 		l2.setPapel("ROLE_LOCADORA");
 	// 		locadoraDAO.save(l2);
 	// 	};
 	// }

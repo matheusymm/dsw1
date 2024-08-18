@@ -6,21 +6,32 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import br.ufscar.dc.dsw.dao.IClienteDAO;
+import br.ufscar.dc.dsw.dao.ILocadoraDAO;
 import br.ufscar.dc.dsw.domain.Cliente;
+import br.ufscar.dc.dsw.domain.Locadora;
  
-public class ClienteDetailsServiceImpl implements UserDetailsService {
+public class UsuarioDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private IClienteDAO dao;
+
+    @Autowired  
+    private ILocadoraDAO daoLocadora;
      
     @Override
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
         Cliente cliente = dao.findByEmail(username);
 
-        if (cliente == null) {
-            throw new UsernameNotFoundException("Could not find user");
+        if (cliente != null) {
+            return new ClienteDetails(cliente);
         }
-        
-        return new ClienteDetails(cliente);
+
+        Locadora locadora = daoLocadora.findByEmail(username);
+
+        if (locadora != null) {
+            return new LocadoraDetails(locadora);
+        }
+
+        throw new UsernameNotFoundException("Usuário não encontrado");
     }
 }

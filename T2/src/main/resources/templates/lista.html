@@ -7,8 +7,7 @@
 </head>
 <body>
 	<header>
-		<nav
-			class="navbar navbar-inverse navbar navbar-dark bg-dark fixed-top">
+		<nav class="navbar navbar-inverse navbar navbar-dark bg-dark fixed-top">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<div style="right: 30px; position: absolute">
@@ -29,10 +28,14 @@
 	</header>
 	<div class="container" id="listagem">
 		<!-- Formulário para buscar locadoras por cidade -->
-		<form action="#" th:action="@{/buscar}" method="get" class="form-inline mb-3">
+		<form th:action="@{/buscar}" method="get" class="form-inline mb-3">
 			<div class="form-group">
 				<label for="cidade" class="mr-2" th:text="#{locadora.cidade.label}"></label>
-				<input type="text" id="cidade" name="cidade" class="form-control mr-2" placeholder="Digite a cidade">
+				<select id="cidade" name="cidade" class="form-control mr-2">
+					<option value="">Selecione a cidade</option>
+					<option th:each="cidade : ${cidades}" th:value="${cidade}" th:text="${cidade}" 
+                        th:selected="${cidade == cidadeSelecionada}"></option>
+				</select>
 			</div>
 			<button type="submit" class="btn btn-primary" th:text="#{button.buscar.label}"></button>
 		</form>
