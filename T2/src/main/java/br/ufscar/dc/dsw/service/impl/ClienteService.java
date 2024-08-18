@@ -22,6 +22,11 @@ public class ClienteService implements IClienteService {
 	}
 
 	@Transactional(readOnly=true)
+	public Cliente buscarPorCPF(String cpf) {
+		return dao.findByCpf(cpf);
+	}
+
+	@Transactional(readOnly=true)
 	public List<Cliente> buscarTodos() {
 		return dao.findAll();
 	}
@@ -32,6 +37,5 @@ public class ClienteService implements IClienteService {
 
 	public void excluir(Long id) {
 		dao.deleteById(id);
-		
 	}
 }

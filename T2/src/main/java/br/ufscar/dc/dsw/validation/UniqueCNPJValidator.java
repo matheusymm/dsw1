@@ -17,9 +17,6 @@ public class UniqueCNPJValidator implements ConstraintValidator<UniqueCNPJ, Stri
     public boolean isValid(String cnpj, ConstraintValidatorContext context) {
         if(dao != null) {
             Locadora locadora = dao.findByCNPJ(cnpj);
-            if(locadora != null && locadora.getId() != null) {
-                return true;
-            }
             return locadora == null;
         } else {
             return true;

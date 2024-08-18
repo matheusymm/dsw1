@@ -103,8 +103,7 @@ public class AdminController {
 		locadora.setSenha(encoder.encode(locadora.getSenha()));
 		locadora.setPapel("ROLE_LOCADORA");
         serviceLocadora.salvar(locadora);
-        attr.addFlashAttribute("success", "Locadora inserida com sucesso.");
-        
+        attr.addFlashAttribute("sucess", "Locadora inserida com sucesso.");
         return "redirect:/admins/listarLocadora";
     }
 
@@ -121,7 +120,7 @@ public class AdminController {
         }
 
         serviceLocadora.salvar(locadora);
-        attr.addFlashAttribute("success", "Locadora editada com sucesso.");
+        attr.addFlashAttribute("sucess", "Locadora editada com sucesso.");
         return "redirect:/admins/listarLocadora";
     }
 
@@ -131,7 +130,7 @@ public class AdminController {
             model.addAttribute("fail", "Locadora não excluída. Possui locação(ões) vinculada(s).");
         } else {
             serviceLocadora.excluir(id);    
-            model.addAttribute("success", "Locadora excluída com sucesso.");
+            model.addAttribute("sucess", "Locadora excluída com sucesso.");
         }
         return listarLocadora(model);
     }

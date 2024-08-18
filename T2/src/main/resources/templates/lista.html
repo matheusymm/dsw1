@@ -27,12 +27,15 @@
 		</nav>
 	</header>
 	<div class="container" id="listagem">
+		<div class="mb-3">
+			<button class="btn btn-secondary" onclick="window.history.back()">Voltar</button>
+		</div>
 		<!-- Formulário para buscar locadoras por cidade -->
 		<form th:action="@{/buscar}" method="get" class="form-inline mb-3">
 			<div class="form-group">
 				<label for="cidade" class="mr-2" th:text="#{locadora.cidade.label}"></label>
 				<select id="cidade" name="cidade" class="form-control mr-2">
-					<option value="">Selecione a cidade</option>
+					<option value="" th:text="#{select.cidade.label}"></option>
 					<option th:each="cidade : ${cidades}" th:value="${cidade}" th:text="${cidade}" 
                         th:selected="${cidade == cidadeSelecionada}"></option>
 				</select>
