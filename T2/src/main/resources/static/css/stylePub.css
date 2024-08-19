@@ -32,6 +32,13 @@ header .navbar-brand {
 	margin-left: 15px;
 }
 
+header .navbar-opt {
+	color: white;
+	font-size: 18px;
+	text-decoration: none;
+	margin-left: 15px;
+}
+
 header .navbar-brand img {
 	margin-left: 10px;
 	vertical-align: middle;
@@ -166,3 +173,4 @@ tr:hover {
         padding: 10px;
     }
 }
+
