@@ -1,0 +1,176 @@
+html, body {
+height: 100%;
+}
+/* Corpo da página */
+body {
+	padding-top: 56px;
+	padding-left: 0;
+}
+
+/* Cabeçalho */
+header {
+	background-color: #343a40;
+	color: white;
+	padding: 10px 0;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+}
+
+header nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+header .navbar-brand {
+	color: white;
+	font-size: 24px;
+	text-decoration: none;
+	margin-left: 15px;
+}
+
+header .navbar-opt {
+	color: white;
+	font-size: 18px;
+	text-decoration: none;
+	margin-left: 15px;
+}
+
+header .navbar-brand img {
+	margin-left: 10px;
+	vertical-align: middle;
+}
+
+header .navbar-toggle {
+	border: none;
+	background: none;
+	color: white;
+	font-size: 24px;
+}
+
+header .navbar-toggle .oi-menu {
+	vertical-align: middle;
+}
+
+header .logout-btn {
+	margin-right: 15px;
+	background-color: #007bff;
+	color: white;
+	padding: 8px 16px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+header .logout-btn:hover {
+	background-color: #0056b3;
+}
+
+/* Container principal */
+.container {
+	margin-top: 80px;
+	text-align: center;
+}
+
+.container h1 {
+	font-size: 36px;
+	color: #333;
+	margin-bottom: 20px;
+}
+
+.container img {
+	width: 400px;
+	max-width: 100%;
+	height: auto;
+	margin-bottom: 20px;
+}
+
+/* Rodapé */
+footer {
+	background-color: #f8f9fa;
+	color: #6c757d;
+	padding: 10px 0;
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	border-top: 1px solid #dee2e6;
+}
+
+footer .footer-copy {
+	text-align: center;
+	font-size: 14px;
+}
+
+footer .footer-copy span {
+	display: block;
+	margin-bottom: 5px;
+}
+
+footer .footer-copy a {
+	color: #007bff;
+	text-decoration: none;
+}
+
+footer .footer-copy a:hover {
+	text-decoration: underline;
+}
+
+ul li a{
+	display: block;
+	color:#1a1a1a;
+	padding: 10px 15px;
+	white-space: nowrap;
+}
+
+/* Estilo básico para a tabela */
+table {
+    width: 100%;
+    border-collapse: collapse; /* Remove espaços entre as células */
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+}
+
+/* Estilo para as células do cabeçalho */
+th, td {
+    padding: 12px 15px; /* Espaçamento interno das células */
+    border: 1px solid #ddd; /* Borda das células */
+}
+
+/* Estilo específico para o cabeçalho */
+th {
+    background-color: #4CAF50; /* Cor de fundo do cabeçalho */
+    color: white; /* Cor do texto do cabeçalho */
+}
+
+/* Estilo para as linhas da tabela */
+tr {
+    border-bottom: 1px solid #ddd; /* Borda inferior das linhas */
+}
+
+/* Estilo alternativo para linhas pares */
+tr:nth-of-type(even) {
+    background-color: #f3f3f3; /* Cor de fundo alternada */
+}
+
+/* Efeito de destaque ao passar o mouse sobre uma linha */
+tr:hover {
+    background-color: #f1f1f1; /* Cor de fundo ao passar o mouse */
+}
+
+/* Responsividade: ajuste de fonte e margens para telas pequenas */
+@media screen and (max-width: 600px) {
+    table {
+        font-size: 16px;
+    }
+
+    th, td {
+        padding: 10px;
+    }
+}
+

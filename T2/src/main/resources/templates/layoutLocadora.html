@@ -4,7 +4,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 
-<title>Livraria Virtual</title>
+<title th:text="#{title.label}"></title>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport"
@@ -23,13 +23,13 @@
 </head>
 <body>
 
-	<header th:replace="fragments/header :: cabecalho">
+	<header th:replace="~{fragments/header :: cabecalho}">
 		<div>header</div>
 	</header>
 
 	<div class="layout-main">
 		<aside>
-			<nav th:replace="fragments/sidebar :: nav-sidebar">
+			<nav th:replace="~{fragments/sidebarLocadora :: nav-sidebar}">
 				<span>menu</span>
 			</nav>
 		</aside>
@@ -39,7 +39,7 @@
 		</section>
 	</div>
 
-	<footer th:replace="fragments/footer :: rodape">
+	<footer th:replace="~{fragments/footer :: rodape}">
 		<div>footer</div>
 	</footer>
 
