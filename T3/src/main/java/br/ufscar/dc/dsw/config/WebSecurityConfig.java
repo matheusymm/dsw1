@@ -44,12 +44,12 @@ public class WebSecurityConfig {
             .authorizeHttpRequests((authz) -> authz
                     .requestMatchers("/error", "/login/**", "/js/**").permitAll()
                     .requestMatchers("/css/**", "/image/**", "/webjars/**").permitAll()
-                    .requestMatchers("/clientes/**").hasRole("CLIENTE")
-                    .requestMatchers("/locadoras/**").hasRole("LOCADORA")
-                    .requestMatchers("/admins/**").hasRole("ADMIN")
-                    .requestMatchers("/locacoes/**").authenticated()
-                    .requestMatchers("/lista/**").permitAll()
-                    .requestMatchers("/buscar").permitAll()
+                    .requestMatchers("/clientes", "/locadoras", "/locacoes").permitAll()
+                    .requestMatchers("/clientes/{\\d+}", "/locadoras/{\\d+}").permitAll()
+                    .requestMatchers("/locacoes/{\\d+}").permitAll()
+                    .requestMatchers("/locadoras/cidades/{\\w+}").permitAll()
+                    .requestMatchers("/locacoes/clientes/{\\d+}").permitAll()
+                    .requestMatchers("/locacoes/locadoras/{\\d+}").permitAll()
                     .anyRequest().authenticated())
             .csrf(AbstractHttpConfigurer::disable)
             .formLogin((form) -> form

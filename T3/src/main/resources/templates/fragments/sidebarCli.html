@@ -9,11 +9,11 @@
 <body>
 	<nav class="sidebar sidebar-open" th:fragment="nav-sidebar">
 		<ul class="nav nav-pills">
-			<li class="nav-item"><a class="nav-link " th:href="@{/clientes/home}"> <i
+			<li class="nav-item"><a class="nav-link " th:href="@{/clientes}"> <i
 					class="oi oi-home"></i> <span th:text="#{sidebar.link.home}"></span>
 			</a></li>
 		</ul>
-		<div sec:authorize="authenticated()">
+		<div>
 			<ul class="nav nav-pills">
 				<li class="nav-item"><a class="nav-link"
 					th:href="@{/clientes/perfil}"> <i class="oi oi-person"></i> <span
@@ -21,7 +21,7 @@
 				</a></li>
 			</ul>
 		</div>
-		<div sec:authorize="authenticated()">
+		<div>
 			<ul class="nav nav-pills">
 				<li class="nav-item"><span class="nav-link active"
 					th:text="#{sidebar.titulo.locacao}"></span></li>
