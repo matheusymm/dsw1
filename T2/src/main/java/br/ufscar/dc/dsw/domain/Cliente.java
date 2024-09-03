@@ -23,7 +23,7 @@ public class Cliente extends AbstractEntity<Long> {
     private String senha;
 
     @NotBlank
-    @UniqueCPF(message="{Unique.cliente.CPF}")
+    //@UniqueCPF(message="{Unique.cliente.CPF}")
     @Size(min=14, max=14)
     @Column(nullable=false, unique=true, length=14)
     private String cpf;

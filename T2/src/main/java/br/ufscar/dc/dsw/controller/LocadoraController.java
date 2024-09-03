@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.ufscar.dc.dsw.domain.Locadora;
 import br.ufscar.dc.dsw.security.LocadoraDetails;
 import br.ufscar.dc.dsw.service.spec.ILocadoraService;
+import br.ufscar.dc.dsw.validation.CNPJAlreadyInUseException;
 import jakarta.validation.Valid;
 
 @Controller
@@ -43,7 +44,7 @@ public class LocadoraController {
     }
 
     @PostMapping("/perfil")
-    public String salvar(@Valid Locadora locadora, BindingResult result, RedirectAttributes attr) {
+    public String salvar(@Valid Locadora locadora, BindingResult result, RedirectAttributes attr) throws CNPJAlreadyInUseException {
         if (result.hasErrors()) {
             return "locadora/formulario";
         }

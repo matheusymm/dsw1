@@ -7,8 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.ufscar.dc.dsw.dao.ILocadoraDAO;
+import br.ufscar.dc.dsw.domain.Cliente;
 import br.ufscar.dc.dsw.domain.Locadora;
 import br.ufscar.dc.dsw.service.spec.ILocadoraService;
+import br.ufscar.dc.dsw.validation.CNPJAlreadyInUseException;
+import br.ufscar.dc.dsw.validation.CPFAlreadyInUseException;
 
 @Service
 @Transactional(readOnly=false)
@@ -16,7 +19,15 @@ public class LocadoraService implements ILocadoraService {
     @Autowired
     private ILocadoraDAO dao;
 
-    public void salvar(Locadora locadora) {
+    public void salvar(Locadora locadora) throws CNPJAlreadyInUseException{
+    	// Verificação de unicidade do CPF
+       Locadora existingLocadora = dao.findByCNPJ(locadora.getCNPJ());
+
+        if (existingLocadora != null && !existingLocadora.getId().equals(locadora.getId())) {
+            throw new CNPJAlreadyInUseException("CNPJ já está em uso por outro cliente.");
+        }
+
+    	
         dao.save(locadora);
     }
 

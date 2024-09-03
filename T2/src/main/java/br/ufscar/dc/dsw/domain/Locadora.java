@@ -23,7 +23,7 @@ public class Locadora extends AbstractEntity<Long> {
     private String senha;
 
     @NotBlank
-    @UniqueCNPJ(message="{Unique.locadora.CNPJ}")
+    //@UniqueCNPJ(message="{Unique.locadora.CNPJ}")
     @Size(min=18, max=18, message="{Size.locadora.CNPJ}")
     @Column(nullable=false, unique=true, length=18)
     private String CNPJ;

@@ -14,4 +14,5 @@ public @interface UniqueCPF {
     String message() default "CPF is already registered";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
+    
 }

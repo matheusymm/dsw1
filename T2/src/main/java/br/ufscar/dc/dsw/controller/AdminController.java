@@ -15,6 +15,8 @@ import br.ufscar.dc.dsw.domain.Cliente;
 import br.ufscar.dc.dsw.domain.Locadora;
 import br.ufscar.dc.dsw.service.spec.IClienteService;
 import br.ufscar.dc.dsw.service.spec.ILocadoraService;
+import br.ufscar.dc.dsw.validation.CNPJAlreadyInUseException;
+import br.ufscar.dc.dsw.validation.CPFAlreadyInUseException;
 import jakarta.validation.Valid;
 
 @Controller
@@ -47,15 +49,21 @@ public class AdminController {
 	}
 
 	@PostMapping("/salvarCli")
-	public String salvarCliente(@Valid Cliente cliente, BindingResult result, RedirectAttributes attr) {
+	public String salvarCliente(@Valid Cliente cliente, BindingResult result, RedirectAttributes attr) throws CPFAlreadyInUseException {
 		if (result.hasErrors()) {
 			return "admin/cadastroCli";
 		}
 		
-		cliente.setSenha(encoder.encode(cliente.getSenha()));
-		serviceCliente.salvar(cliente);
-		attr.addFlashAttribute("sucess", "Cliente inserido com sucesso.");
-		return "redirect:/admins/listarCli";
+		try {
+			serviceCliente.salvar(cliente);
+			attr.addFlashAttribute("success", "Cliente inserido com sucesso.");
+			return "redirect:/admins/listarCli";
+        } catch (CPFAlreadyInUseException e) {
+            attr.addFlashAttribute("mensagemErro", e.getMessage());
+            System.out.println("Erro: " + e.getMessage());
+            return "redirect:/admins/cadastrarCli";
+        }
+		
 	}
 
 	@GetMapping("/editarCli/{id}")
@@ -65,14 +73,20 @@ public class AdminController {
 	}
 	
 	@PostMapping("/editarCli")
-	public String editarCliente(@Valid Cliente cliente, BindingResult result, RedirectAttributes attr) {
-		if(result.hasErrors()) {
+	public String editarCliente(@Valid Cliente cliente, BindingResult result, RedirectAttributes attr) throws CPFAlreadyInUseException {
+		if (result.hasErrors()) {
 			return "admin/cadastroCli";
 		}
 		
-		serviceCliente.salvar(cliente);
-		attr.addFlashAttribute("sucess", "Cliente editado com sucesso.");
-		return "redirect:/admins/listarCli";
+		try {
+			serviceCliente.salvar(cliente);
+			attr.addFlashAttribute("success", "Cliente inserido com sucesso.");
+			return "redirect:/admins/listarCli";
+        } catch (CPFAlreadyInUseException e) {
+            attr.addFlashAttribute("mensagemErro", e.getMessage());
+            System.out.println("Erro: " + e.getMessage());
+            return "redirect:/admins/cadastrarCli";
+        }
 	}
 	
 	@GetMapping("/excluirCli/{id}")
@@ -95,16 +109,23 @@ public class AdminController {
     }
 
     @PostMapping("/salvarLocadora")
-    public String salvarLocadora(@Valid Locadora locadora, BindingResult result, RedirectAttributes attr) {
-        if (result.hasErrors()) {
-            return "admin/cadastroLocadora";
+    public String salvarLocadora(@Valid Locadora locadora, BindingResult result, RedirectAttributes attr) throws CNPJAlreadyInUseException {
+    	if (result.hasErrors()) {
+			return "admin/cadastroLocadora";
+		}
+		
+		try {
+			locadora.setSenha(encoder.encode(locadora.getSenha()));
+			locadora.setPapel("ROLE_LOCADORA");
+	        serviceLocadora.salvar(locadora);
+	        attr.addFlashAttribute("sucess", "Locadora inserida com sucesso.");
+	        return "redirect:/admins/listarLocadora";
+        } catch (CNPJAlreadyInUseException e) {
+            attr.addFlashAttribute("mensagemErro", e.getMessage());
+            System.out.println("Erro: " + e.getMessage());
+            return "redirect:/admins/cadastrarLocadora";
         }
-
-		locadora.setSenha(encoder.encode(locadora.getSenha()));
-		locadora.setPapel("ROLE_LOCADORA");
-        serviceLocadora.salvar(locadora);
-        attr.addFlashAttribute("sucess", "Locadora inserida com sucesso.");
-        return "redirect:/admins/listarLocadora";
+    	
     }
 
     @GetMapping("/editarLocadora/{id}")
@@ -114,14 +135,22 @@ public class AdminController {
     }
 
     @PostMapping("/editarLocadora")
-    public String editarLocadora(@Valid Locadora locadora, BindingResult result, RedirectAttributes attr) {
+    public String editarLocadora(@Valid Locadora locadora, BindingResult result, RedirectAttributes attr) throws CNPJAlreadyInUseException {
         if (result.hasErrors()) {
             return "admin/cadastroLocadora";
         }
 
-        serviceLocadora.salvar(locadora);
-        attr.addFlashAttribute("sucess", "Locadora editada com sucesso.");
-        return "redirect:/admins/listarLocadora";
+        try {
+			locadora.setSenha(encoder.encode(locadora.getSenha()));
+			locadora.setPapel("ROLE_LOCADORA");
+	        serviceLocadora.salvar(locadora);
+	        attr.addFlashAttribute("sucess", "Locadora editada com sucesso.");
+	        return "redirect:/admins/listarLocadora";
+        } catch (CNPJAlreadyInUseException e) {
+            attr.addFlashAttribute("mensagemErro", e.getMessage());
+            System.out.println("Erro: " + e.getMessage());
+            return "redirect:/admins/cadastrarLocadora";
+        }
     }
 
     @GetMapping("/excluirLocadora/{id}")

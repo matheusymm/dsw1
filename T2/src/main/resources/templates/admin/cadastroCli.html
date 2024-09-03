@@ -20,7 +20,9 @@
 		</nav>
 
 		<div class="container" id="cadastro">
-
+			<div th:if="${mensagemErro}" class="alert alert-danger">
+        	<span th:text="${mensagemErro}"></span>
+    	</div>
 			<div th:replace="~{fragments/alert}"></div>
 
 			<form
@@ -50,8 +52,8 @@
 						</div>
 					</div>
 
-					<div class="form-group ">
-						<label th:text="#{cliente.cpf.label}" for="cpf"></label> 
+					<div class="form-group">
+						<label th:text="#{cliente.cpf.label}" for="cpf"></label>  
 						<input type="text" class="form-control" id="cpf" placeholder="___.___.___-__"
 							autofocus="autofocus" th:field="*{cpf}"
 							th:classappend="${#fields.hasErrors('cpf')} ? is-invalid" 
@@ -119,6 +121,8 @@
 						</div>
 					</div>
 				</div>
+				
+				
 
 				<input type="hidden" id="id" th:field="*{id}" />
 				<button type="submit" th:text="#{button.salvar.label}" class="btn btn-primary btn-sm"></button>
