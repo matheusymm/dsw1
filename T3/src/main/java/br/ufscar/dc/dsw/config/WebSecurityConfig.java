@@ -18,7 +18,8 @@ import br.ufscar.dc.dsw.security.UsuarioDetailsServiceImpl;
 public class WebSecurityConfig { 
     @Autowired
     private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
-
+    
+    
     @Bean
     public UserDetailsService clienteDetailsService() {
         return new UsuarioDetailsServiceImpl();
@@ -36,8 +37,9 @@ public class WebSecurityConfig {
         authProvider.setPasswordEncoder(passwordEncoder());
 
         return authProvider;
-    }
-
+    } 
+    
+    
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -45,11 +47,11 @@ public class WebSecurityConfig {
                     .requestMatchers("/error", "/login/**", "/js/**").permitAll()
                     .requestMatchers("/css/**", "/image/**", "/webjars/**").permitAll()
                     .requestMatchers("/clientes", "/locadoras", "/locacoes").permitAll()
-                    .requestMatchers("/clientes/{\\d+}", "/locadoras/{\\d+}").permitAll()
-                    .requestMatchers("/locacoes/{\\d+}").permitAll()
-                    .requestMatchers("/locadoras/cidades/{\\w+}").permitAll()
-                    .requestMatchers("/locacoes/clientes/{\\d+}").permitAll()
-                    .requestMatchers("/locacoes/locadoras/{\\d+}").permitAll()
+                    .requestMatchers("/clientes/{d}", "/locadoras/{d}").permitAll()
+                    .requestMatchers("/locacoes/{d}").permitAll()
+                    .requestMatchers("/locadoras/cidades/{w}").permitAll()
+                    .requestMatchers("/locacoes/clientes/{d}").permitAll()
+                    .requestMatchers("/locacoes/locadoras/{d}").permitAll()
                     .anyRequest().authenticated())
             .csrf(AbstractHttpConfigurer::disable)
             .formLogin((form) -> form
@@ -61,4 +63,5 @@ public class WebSecurityConfig {
 
         return http.build();
     }
-}
+    
+    }

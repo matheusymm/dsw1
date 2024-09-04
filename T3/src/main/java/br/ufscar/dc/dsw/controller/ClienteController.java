@@ -19,7 +19,7 @@ import br.ufscar.dc.dsw.security.ClienteDetails;
 import br.ufscar.dc.dsw.service.spec.IClienteService;
 
 @Controller
-@RequestMapping("/clientes")
+@RequestMapping("/clientesAAA")
 public class ClienteController {
     @Autowired
     private IClienteService service;

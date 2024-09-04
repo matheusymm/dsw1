@@ -21,7 +21,7 @@ import br.ufscar.dc.dsw.service.spec.ILocadoraService;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/locadoras")
+@RequestMapping("/locadorasAAA")
 public class LocadoraController {
 	@Autowired
 	private ILocadoraService service;
