@@ -2,6 +2,8 @@ package br.ufscar.dc.dsw.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import br.ufscar.dc.dsw.validation.UniqueCPF;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,6 +13,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @SuppressWarnings("serial")
+@JsonIgnoreProperties(value={"locacoes"})
 @Entity 
 @Table(name="Cliente")
 public class Cliente extends AbstractEntity<Long> {

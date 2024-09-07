@@ -49,7 +49,7 @@ public class WebSecurityConfig {
                     .requestMatchers("/clientes", "/locadoras", "/locacoes").permitAll()
                     .requestMatchers("/clientes/{d}", "/locadoras/{d}").permitAll()
                     .requestMatchers("/locacoes/{d}").permitAll()
-                    .requestMatchers("/locadoras/cidades/{w}").permitAll()
+                    .requestMatchers("/locadoras/cidade/{w}").permitAll()
                     .requestMatchers("/locacoes/clientes/{d}").permitAll()
                     .requestMatchers("/locacoes/locadoras/{d}").permitAll()
                     .anyRequest().authenticated())

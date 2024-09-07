@@ -2,6 +2,8 @@ package br.ufscar.dc.dsw.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -11,6 +13,7 @@ import jakarta.validation.constraints.Size;
 import br.ufscar.dc.dsw.validation.UniqueCNPJ;
 
 @SuppressWarnings("serial")
+@JsonIgnoreProperties(value={"locacoes"})
 @Entity
 @Table(name="Locadora")
 public class Locadora extends AbstractEntity<Long> {
@@ -40,9 +43,6 @@ public class Locadora extends AbstractEntity<Long> {
     @NotBlank
     @Column(nullable=false, length=13)
     private String papel="ROLE_LOCADORA";
-
-    // @OneToMany(mappedBy="locadora")
-    // private List<Cliente> clientes;
 
     @OneToMany(mappedBy="locadora")
     private List<Locacao> locacoes;

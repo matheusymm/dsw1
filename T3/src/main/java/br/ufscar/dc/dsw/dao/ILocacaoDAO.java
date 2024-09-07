@@ -11,6 +11,7 @@ import br.ufscar.dc.dsw.domain.Locadora;
 @SuppressWarnings("unchecked")
 public interface ILocacaoDAO extends CrudRepository<Locacao, Long> {
 	Locacao findById(long id);
+	List<Locacao> findAll();
 	List<Locacao> findAllByCliente(Cliente cliente);
 	List<Locacao> findAllByLocadora(Locadora locadora);
 	Locacao findByClienteAndLocadoraAndData(Cliente cliente, Locadora locadora, String data);

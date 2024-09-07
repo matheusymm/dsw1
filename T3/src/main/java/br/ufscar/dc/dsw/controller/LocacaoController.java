@@ -45,6 +45,11 @@ public class LocacaoController {
 		LocadoraDetails locadoraDetails = (LocadoraDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return locadoraDetails.getLocadora();
 	}
+
+	// @GetMapping("")
+	// public String home() {
+	// 	return "locacao/home";
+	// }
 	
 	@GetMapping("/cadastrarCliente")
 	public String cadastrarCliente(ModelMap model, Locacao locacao) {

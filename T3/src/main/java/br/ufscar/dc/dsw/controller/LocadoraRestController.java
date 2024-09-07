@@ -34,6 +34,7 @@ public class LocadoraRestController {
 			return false;
 		}
 	}
+
 	private void parse(Locadora locadora, JSONObject json) {
 		Object id = json.get("id");
 		if (id != null) {
@@ -59,6 +60,7 @@ public class LocadoraRestController {
 		}
 		return ResponseEntity.ok(lista);
 	}
+
 	@GetMapping(path = "/locadoras/{id}")
 	public ResponseEntity<Locadora> lista(@PathVariable("id") long id){
 		Locadora locadora = service.buscarPorId(id);
@@ -67,6 +69,19 @@ public class LocadoraRestController {
 		}
 		return ResponseEntity.ok(locadora);
 	}
+
+	@GetMapping(path = "/locadoras/cidade/{cidade}")
+	public ResponseEntity<List<Locadora>> lista(@PathVariable("cidade") String cidade){
+		if(cidade == null || cidade.isEmpty()) {
+			return ResponseEntity.badRequest().build();
+		}
+		List<Locadora> lista = service.buscarPorCidade(cidade);
+		if(lista.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(lista);
+	}
+
 	@PostMapping(path ="/locadoras")
 	@ResponseBody
 	public ResponseEntity<Locadora> cria(@RequestBody JSONObject json){

@@ -112,7 +112,7 @@ public class LocadoraController {
         return listarLocadora(model);
     }
 
-    @GetMapping("/cidades") 
+    @GetMapping("/cidade") 
     public String lista(ModelMap model) {
         List<String> cidades = service.buscarCidades();
         model.addAttribute("cidades", cidades);
@@ -120,7 +120,7 @@ public class LocadoraController {
         return "lista";
     }
 
-    @GetMapping("/cidades/{nome}")
+    @GetMapping("/cidade/{nome}")
     public String listaPorCidade(@RequestParam(value="nome", required=false) String cidade, ModelMap model) {
         List<Locadora> locadoras;
 
@@ -132,6 +132,6 @@ public class LocadoraController {
 
         model.addAttribute("locadoras", locadoras);
         model.addAttribute("cidadeSelecionada", cidade);
-        return "/lista";
+        return lista(model);
     }
 }

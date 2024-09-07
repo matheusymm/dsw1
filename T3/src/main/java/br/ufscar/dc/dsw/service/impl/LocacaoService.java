@@ -32,6 +32,11 @@ public class LocacaoService implements ILocacaoService {
     }
 
     @Transactional(readOnly = true)
+    public List<Locacao> buscarTodos() {
+        return dao.findAll();
+    }
+
+    @Transactional(readOnly = true)
     public List<Locacao> buscarTodos(Cliente cliente) {
         return dao.findAllByCliente(cliente);
     }
