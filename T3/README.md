@@ -8,4 +8,4 @@ mvn compile
 mvn spring-boot:run
 ```
 
-Em um navegador, abrir o localhost::8080 e testar o sistema.
+Em um aplicativo de requisições em API Rest, como Postman, realizar os métodos GET, POST, PUT e DELETE em http://localhost:8080
